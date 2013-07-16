@@ -5,12 +5,14 @@
     (byte-compile-file buffer-file-name)))
 (add-hook 'after-save-hook 'byte-compile-current-buffer)
 
-(let ((path (shell-command-to-string ". ~/.bashrc; echo -n $PATH")))
+(let ((path (shell-command-to-string ". ~/.zshrc; echo -n $PATH")))
   (setenv "PATH" path)
   (setq exec-path
         (append
          (split-string-and-unquote path ":")
          exec-path)))
+
+(setq default-directory "~/workspace/" )
 
 ;; use git as backup not ~ files
 (setq make-backup-files nil)
@@ -47,10 +49,14 @@
 ;; use ido for minibuffer completion
 (require 'ido)
 (ido-mode t)
+(ido-everywhere 1)
 (setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
 
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
@@ -90,8 +96,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (add-to-list 'ac-modes '(coffee-mode emacs-lisp-mode js2-mode ruby-mode))
 
-(nav)
-
 (setq make-backup-files nil)
 
 (setq redisplay-dont-pause t
@@ -113,3 +117,17 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
             (setq beg (region-beginning) end (region-end))
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)))
+
+(setq twittering-icon-mode t)
+(twittering-enable-unread-status-notifier)
+;; display the remaining API calls
+(setq twittering-display-remaining t)
+
+(projectile-global-mode)
+(setq projectile-require-project-root nil)
+
+(setq gc-cons-threshold 20000000)
+
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
