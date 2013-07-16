@@ -7,7 +7,6 @@
        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
     (goto-char (point-max))
     (eval-print-last-sexp)))
-
 (el-get 'sync)
 
 (require 'package)
@@ -20,8 +19,6 @@
 (load "~/.emacs.d/scala.el")
 (load "~/.emacs.d/javascript.el")
 (load "~/.emacs.d/html.el")
-
-(gnus)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
