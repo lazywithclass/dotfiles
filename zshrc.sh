@@ -21,7 +21,6 @@ setopt prompt_subst
 autoload -U colors && colors # Enable colors in prompt
 
 # Modify the colors and symbols in these variables as desired.
-GIT_PROMPT_SYMBOL="%{$fg[blue]%}±"
 GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
 GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
 GIT_PROMPT_AHEAD="%{$fg[red]%}ANUM%{$reset_color%}"
@@ -82,7 +81,7 @@ parse_git_state() {
 # If inside a Git repository, print its branch and state
 git_prompt_string() {
     local git_where="$(parse_git_branch)"
-    [ -n "$git_where" ] && echo "$GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
+    [ -n "$git_where" ] && echo "$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
 }
 
 function customW {
@@ -158,7 +157,7 @@ export EDITOR="nano"
 export JAVA_HOME=/usr/java/jdk1.7.0_09
 export CLOJURESCRIPT_HOME=/home/lazywithclass/clojurescript/
 export SCALA_HOME=/home/lazywithclass/scala-2.10.1
-export PATH=~/bin:$JAVA_HOME:$JAVA_HOME/bin:$BIN:~/apache-maven-3.0.4/bin:/home/lazywithclass/phantomjs-1.8.1-linux-x86_64/bin:/home/lazywithclass/casperjs-1.0.0/bin:$CLOJURESCRIPT_HOME:$SCALA_HOME/bin:/home/lazywithclass/apache-maven-3.0.5/bin:/usr/local/heroku/bin:$PATH
+export PATH=~/bin:$JAVA_HOME:$JAVA_HOME/bin:$BIN:~/apache-maven-3.0.4/bin:/home/lazywithclass/phantomjs-1.8.1-linux-x86_64/bin:/home/lazywithclass/casperjs-1.0.0/bin:$CLOJURESCRIPT_HOME:$SCALA_HOME/bin:/home/lazywithclass/apache-maven-3.0.5/bin:/usr/local/heroku/bin:/home/lazywithclass/nave:$PATH
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
