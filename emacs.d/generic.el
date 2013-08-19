@@ -104,7 +104,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
   scroll-conservatively 10000
   scroll-preserve-screen-position 1)
 
-(add-to-list 'load-path "~/.emacs.d/yasnippets")
 (require 'yasnippet)
 (setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
 (yas-global-mode 1)
@@ -131,3 +130,13 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
+
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(require 'slime)
+(slime-setup)
+
+(require 'flymake-cursor)
+
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+(whitespace-mode 1)
