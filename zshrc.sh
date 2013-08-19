@@ -154,12 +154,13 @@ js-beautify(){
 BIN=~/bin
 
 export EDITOR="nano"
-export JAVA_HOME=/usr/java/jdk1.7.0_09
 export CLOJURESCRIPT_HOME=/home/lazywithclass/clojurescript/
-export SCALA_HOME=/home/lazywithclass/scala-2.10.1
-export PATH=~/bin:$JAVA_HOME:$JAVA_HOME/bin:$BIN:~/apache-maven-3.0.4/bin:/home/lazywithclass/phantomjs-1.8.1-linux-x86_64/bin:/home/lazywithclass/casperjs-1.0.0/bin:$CLOJURESCRIPT_HOME:$SCALA_HOME/bin:/home/lazywithclass/apache-maven-3.0.5/bin:/usr/local/heroku/bin:/home/lazywithclass/nave:$PATH
+export GOPATH=~/go
+export PATH=~/bin:$BIN:~/apache-maven-3.0.4/bin:/home/lazywithclass/phantomjs-1.8.1-linux-x86_64/bin:/home/lazywithclass/casperjs-1.0.0/bin:$CLOJURESCRIPT_HOME:/home/lazywithclass/apache-maven-3.0.5/bin:/usr/local/heroku/bin:/home/lazywithclass/nave:$GOPATH/bin:$PATH
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
+
+nave use 0.10
 
 echo ""
 fortune
