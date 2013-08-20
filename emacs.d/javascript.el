@@ -1,4 +1,4 @@
-(setq-default js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON"))
+(setq-default js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect"))
 (setq js2-allow-keywords-as-property-names nil)
 (setq js2-basic-offset 2)
 
@@ -25,3 +25,27 @@
            slime-complete-symbol*-fancy t
            slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
      (slime-setup '(slime-repl slime-js))))
+
+(global-set-key (kbd "C-c m") 'run-suite)
+
+(defun run-suite()
+  "Runs all the tests in the current buffer"
+  (interactive)
+  (let* (exit-value)
+    (setq exit-value (call-process-shell-command "npm" nil (get-buffer-create "*JavaScript suite output*") nil "test"))
+    (color-modeline exit-value)))
+
+(defun color-modeline(exit-value)
+  "Colors the modeline, green success red failure"
+  (interactive)
+  (let (test-result-color)
+    (if (= exit-value 0)
+        (setq test-result-color "Green")
+      (setq test-result-color "Red"))
+    (set-face-foreground 'mode-line test-result-color)
+    (run-at-time "1 sec" nil 'no-color-modeline)))
+
+(defun no-color-modeline()
+  "No color for the modeline"
+  (interactive)
+  (set-face-foreground 'mode-line nil))
