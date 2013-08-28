@@ -6,6 +6,8 @@
 (global-set-key (kbd "C-S-w") 'duplicate-line)
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region-or-line)
 
+(global-set-key (kbd "C-c m") 'run-suite)
+
 (global-set-key (kbd "M-<left>") 'windmove-left)
 (global-set-key (kbd "M-<right>") 'windmove-right)
 (global-set-key (kbd "M-<up>") 'windmove-up)

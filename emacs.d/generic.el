@@ -77,7 +77,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(add-to-list 'ac-modes '(coffee-mode emacs-lisp-mode js2-mode ruby-mode))
+(add-to-list 'ac-modes '(coffee-mode emacs-lisp-mode ruby-mode))
 
 (setq make-backup-files nil)
 

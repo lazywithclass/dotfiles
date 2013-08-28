@@ -9,13 +9,16 @@
 (add-to-list 'load-path "/home/lazywithclass/tern/emacs")
 (autoload 'tern-mode "tern.el" nil t)
 (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
 
 ;; credit http://stackoverflow.com/a/13784404/57095
 (eval-after-load 'auto-complete
   '(progn
      (add-to-list 'ac-modes 'slime-repl-mode)
      (add-to-list 'ac-modes 'js2-mode)
-     (add-to-list 'ac-modes 'js-mode)
      (add-hook 'slime-mode-hook 'set-up-slime-ac)
      (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)))
 (eval-after-load 'slime
@@ -25,8 +28,6 @@
            slime-complete-symbol*-fancy t
            slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
      (slime-setup '(slime-repl slime-js))))
-
-(global-set-key (kbd "C-c m") 'run-suite)
 
 (defun run-suite()
   "Runs all the tests in the current buffer"
