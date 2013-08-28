@@ -160,7 +160,5 @@ export PATH=~/bin:$BIN:~/apache-maven-3.0.4/bin:/home/lazywithclass/phantomjs-1.
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
-nave use 0.10
-
 echo ""
 fortune
