@@ -23,6 +23,7 @@
 (load "~/.emacs.d/javascript.el")
 (load "~/.emacs.d/html.el")
 (load "~/.emacs.d/go.el")
+(load "~/.emacs.d/spotify.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
