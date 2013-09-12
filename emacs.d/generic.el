@@ -44,12 +44,8 @@
 (ido-mode t)
 (ido-everywhere 1)
 (setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
-(setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-use-faces nil)
 
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
@@ -77,7 +73,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(add-to-list 'ac-modes '(coffee-mode emacs-lisp-mode ruby-mode))
+(add-to-list 'ac-modes '(emacs-lisp-mode ruby-mode))
 
 (setq make-backup-files nil)
 
@@ -105,14 +101,11 @@
 ;; display the remaining API calls
 (setq twittering-display-remaining t)
 
-(projectile-global-mode)
-(setq projectile-require-project-root nil)
-
 (setq gc-cons-threshold 20000000)
 
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-menu-items 25)
+(setq recentf-max-menu-items 50)
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (require 'slime)
@@ -122,4 +115,3 @@
 
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
-(whitespace-mode 1)
