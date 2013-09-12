@@ -33,7 +33,7 @@
   "Runs all the tests in the current buffer"
   (interactive)
   (let* (exit-value)
-    (setq exit-value (call-process-shell-command "npm" nil (get-buffer-create "*JavaScript suite output*") nil "test"))
+    (setq exit-value (call-process-shell-command "make" nil (get-buffer-create "*JavaScript test output*") nil "-C .." "test"))
     (color-modeline exit-value)))
 
 (defun color-modeline(exit-value)
