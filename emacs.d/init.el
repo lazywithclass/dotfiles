@@ -17,6 +17,13 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+(mapc
+ (lambda (package)
+   (or (package-installed-p package)
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
+           (package-install package))))
+ '(ac-slime auto-complete dash fiplr flymake-easy grizzl multi-web-mode popup s slime slime-js slime-repl))
+
 
 (load "~/.emacs.d/generic.el")
 (load "~/.emacs.d/keys-mappings.el")
