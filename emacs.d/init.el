@@ -28,6 +28,7 @@
 (load "~/.emacs.d/generic.el")
 (load "~/.emacs.d/keys-mappings.el")
 (load "~/.emacs.d/javascript.el")
+(load "~/.emacs.d/coffee.el")
 (load "~/.emacs.d/html.el")
 (load "~/.emacs.d/go.el")
 (load "~/.emacs.d/spotify.el")
