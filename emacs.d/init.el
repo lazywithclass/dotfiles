@@ -24,9 +24,9 @@
            (package-install package))))
  '(ac-slime auto-complete dash fiplr flymake-easy grizzl multi-web-mode popup s slime slime-js slime-repl))
 
-
 (load "~/.emacs.d/generic.el")
 (load "~/.emacs.d/keys-mappings.el")
+(load "~/.emacs.d/editing.el")
 (load "~/.emacs.d/javascript.el")
 (load "~/.emacs.d/coffee.el")
 (load "~/.emacs.d/html.el")
