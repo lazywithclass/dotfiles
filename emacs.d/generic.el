@@ -69,3 +69,5 @@
 (slime-setup)
 
 (require 'flymake-cursor)
+
+(require 'fastnav)
