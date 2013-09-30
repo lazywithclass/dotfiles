@@ -33,5 +33,3 @@
 (global-set-key "\M-M" 'fastnav-mark-to-char-backward)
 (global-set-key "\M-p" 'fastnav-sprint-forward)
 (global-set-key "\M-P" 'fastnav-sprint-backward)
-
-(global-set-key [f11] 'fullscreen)

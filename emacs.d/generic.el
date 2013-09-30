@@ -40,12 +40,6 @@
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
 
-;; full screen
-(defun fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen
-		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
-
 (desktop-save-mode 1)
 
 (require 'auto-complete-config)
