@@ -31,6 +31,8 @@
 (load "~/.emacs.d/coffee.el")
 (load "~/.emacs.d/html.el")
 (load "~/.emacs.d/go.el")
+(load "~/.emacs.d/ruby.el")
+(load "~/.emacs.d/web.el")
 (load "~/.emacs.d/spotify.el")
 
 (custom-set-variables
