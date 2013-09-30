@@ -1,4 +1,4 @@
-(setq-default js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect"))
+(setq-default js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$"))
 (setq js2-allow-keywords-as-property-names nil)
 (setq js2-basic-offset 2)
 
