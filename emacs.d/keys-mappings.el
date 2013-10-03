@@ -12,6 +12,8 @@
 (global-set-key (kbd "C-c s t") 'spotify-toggle)
 (global-set-key (kbd "C-c s n") 'spotify-next)
 
+(global-set-key (kbd "C-c RET") 'switch-to-previous-buffer)
+
 (global-set-key (kbd "M-<left>") 'windmove-left)
 (global-set-key (kbd "M-<right>") 'windmove-right)
 (global-set-key (kbd "M-<up>") 'windmove-up)
