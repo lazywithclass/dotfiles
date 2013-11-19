@@ -1,11 +1,12 @@
-(add-to-list 'load-path "/usr/lib/go/misc/emacs")
-(add-to-list 'load-path "/home/lazywithclass/go/src/github.com/nsf/gocode/emacs")
-(add-to-list 'load-path "~/go/src/github.com/dougm/goflymake")
-
+(add-to-list 'load-path "/home/lazywithclass/go-1.1.2/misc/emacs")
 (require 'go-mode-load)
-(require 'go-autocomplete)
-(require 'go-flymake)
 
-(add-hook 'go-mode-hook (lambda ()
-                          (setq tab-width 4
-                                c-basic-offset 4)))
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+(add-to-list 'load-path "/home/lazywithclass/gocode/src/github.com/dougm/goflymake")
+(require 'go-flymake)
+(require 'go-flycheck)
+
+(add-to-list 'load-path "/home/lazywithclass/gocode/src/github.com/nsf/gocode/emacs")
+(require 'go-autocomplete)
+(require 'auto-complete-config) ; shouldn't be needed

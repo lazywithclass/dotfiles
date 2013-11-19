@@ -151,14 +151,18 @@ js-beautify(){
 
 . ~/Dropbox/z/z.sh
 
-BIN=~/bin
+xmodmap -e 'remove Lock = Caps_Lock'
+xmodmap -e 'keysym Caps_Lock = Control_L'
+xmodmap -e 'add Control = Control_L'
 
 export EDITOR="nano"
-export CLOJURESCRIPT_HOME=/home/lazywithclass/clojurescript/
-export GOPATH=~/go
-export PATH=~/bin:$BIN:~/apache-maven-3.0.4/bin:/home/lazywithclass/phantomjs-1.9.2-linux-x86_64/bin:/home/lazywithclass/casperjs-1.1/bin:$CLOJURESCRIPT_HOME:/home/lazywithclass/apache-maven-3.0.5/bin:/usr/local/heroku/bin:/home/lazywithclass/nave:$GOPATH/bin:$PATH
+export GOROOT=~/go-1.1.2
+export GOPATH=~/gocode
+export ELIXIRPATH=~/elixir
+export PATH=~/bin:/home/lazywithclass/nave:/usr/local/heroku/bin:$GOROOT/bin:$GOPATH/bin:$ELIXIRPATH/bin:$PATH
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
 echo ""
 fortune
+
