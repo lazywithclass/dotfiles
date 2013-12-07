@@ -35,6 +35,8 @@
 (load "~/.emacs.d/spotify.el")
 (load "~/.emacs.d/go.el")
 
+(message "TODO: Make it so that fiplr clears the cache and rebuilds it every n minutes")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
