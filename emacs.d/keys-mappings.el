@@ -1,4 +1,4 @@
-(global-set-key (kbd "C-x f") 'fiplr-find-file)
+(global-set-key (kbd "C-f") 'fiplr-find-file)
 (global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
@@ -11,7 +11,7 @@
 (global-set-key (kbd "C-c s t") 'spotify-toggle)
 (global-set-key (kbd "C-c s n") 'spotify-next)
 (global-set-key (kbd "C-c RET") 'switch-to-previous-buffer)
-(global-set-key (kbd "C-c C-c") 'ace-jump-char-mode)
+(global-set-key (kbd "C-c j") 'ace-jump-char-mode)
 (global-set-key (kbd "C-c l") 'ace-jump-line-mode)
 
 (global-set-key (kbd "M-<left>") 'windmove-left)
