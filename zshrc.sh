@@ -151,9 +151,8 @@ js-beautify(){
 
 . ~/Dropbox/z/z.sh
 
-xmodmap -e 'remove Lock = Caps_Lock'
-xmodmap -e 'keysym Caps_Lock = Control_L'
-xmodmap -e 'add Control = Control_L'
+# away with you CAPS LOCK!
+setxkbmap -option caps:none
 
 export EDITOR="nano"
 export GOROOT=~/go-1.1.2
