@@ -14,6 +14,9 @@
 (global-set-key (kbd "C-c j") 'ace-jump-char-mode)
 (global-set-key (kbd "C-c l") 'ace-jump-line-mode)
 
+(global-set-key (kbd "C-S-<up>") 'move-text-up)
+(global-set-key (kbd "C-S-<down>") 'move-text-down)
+
 (global-set-key (kbd "M-<left>") 'windmove-left)
 (global-set-key (kbd "M-<right>") 'windmove-right)
 (global-set-key (kbd "M-<up>") 'windmove-up)
