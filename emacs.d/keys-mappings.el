@@ -1,6 +1,7 @@
 (global-set-key (kbd "C-f") 'fiplr-find-file)
 (global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(global-set-key (kbd "C-x C-k") 'ido-kill-buffer)
 
 (global-set-key (kbd "C-S-w") 'duplicate-line)
 (global-set-key (kbd "C-c c") 'comment-or-uncomment-region-or-line)
