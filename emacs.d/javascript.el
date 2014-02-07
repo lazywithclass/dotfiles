@@ -3,7 +3,7 @@
 (setq js2-basic-offset 2)
 
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.?js\\'" . js2-mode))
 (add-hook 'js2-mode-hook (lambda () (slime-js-minor-mode 1)))
 
 (add-to-list 'load-path "/home/lazywithclass/tern/emacs")
