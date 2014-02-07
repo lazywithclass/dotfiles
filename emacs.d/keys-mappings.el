@@ -12,7 +12,7 @@
 (global-set-key (kbd "C-c s t") 'spotify-toggle)
 (global-set-key (kbd "C-c s n") 'spotify-next)
 (global-set-key (kbd "C-c RET") 'switch-to-previous-buffer)
-(global-set-key (kbd "C-c j") 'ace-jump-char-mode)
+(global-set-key (kbd "C-j") 'ace-jump-char-mode)
 (global-set-key (kbd "C-c l") 'ace-jump-line-mode)
 
 (global-set-key (kbd "C-S-<up>") 'move-text-up)
