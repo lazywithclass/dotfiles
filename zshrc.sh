@@ -88,6 +88,7 @@ function customW {
     echo $PWD | sed 's|.*/\([a-zA-Z0-9][a-zA-Z0-9]*/[a-zA-Z0-9][a-zA-Z0-9]*\)|\1|'
 }
 PS1='$(customW) $(git_prompt_string)\$ '
+RPS1='$(date "+%H:%M:%S %d/%m/%Y") $(type node >/dev/null 2>&1 && echo node $(node -v))'
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
