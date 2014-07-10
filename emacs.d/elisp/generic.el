@@ -83,3 +83,12 @@
 (defun reload-init ()
   (interactive)
   (load-file "/workspace/dotfiles/emacs.d/init.el"))
+
+(show-paren-mode 1)
+
+(require 'evil)
+(evil-mode 1)
+
+;; do not work
+;;(evil-declare-key 'normal nav-mode (kbd "-") 'nav-make-new-directory)
+;;(evil-declare-key 'normal nav-mode (kbd "n") 'nav-make-new-directory)

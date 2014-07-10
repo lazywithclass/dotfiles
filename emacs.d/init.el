@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/elisp")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (add-to-list 'load-path "~/.emacs.d/yasnippets")
 (add-to-list 'load-path "~/.emacs.d/slime")
@@ -22,20 +22,19 @@
    (or (package-installed-p package)
        (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
            (package-install package))))
- '(ac-slime auto-complete dash fiplr flymake-easy grizzl multi-web-mode popup s slime slime-js slime-repl fastnav flycheck flymake))
+ '(ac-slime auto-complete dash fiplr flymake-easy grizzl multi-web-mode popup s slime slime-js slime-repl fastnav flycheck flymake clojure-mode))
 
-(load "~/.emacs.d/generic.el")
-(load "~/.emacs.d/keys-mappings.el")
-(load "~/.emacs.d/editing.el")
-(load "~/.emacs.d/javascript.el")
-(load "~/.emacs.d/coffee.el")
-(load "~/.emacs.d/html.el")
-;; (load "~/.emacs.d/ruby.el")
-(load "~/.emacs.d/web.el")
-(load "~/.emacs.d/spotify.el")
-(load "~/.emacs.d/go.el")
-
-(message "TODO: Make it so that fiplr clears the cache and rebuilds it every n minutes")
+(load "~/.emacs.d/elisp/generic.el")
+(load "~/.emacs.d/elisp/keys-mappings.el")
+(load "~/.emacs.d/elisp/editing.el")
+(load "~/.emacs.d/elisp/javascript.el")
+(load "~/.emacs.d/elisp/coffee.el")
+(load "~/.emacs.d/elisp/html.el")
+;; (load "~/.emacs.d/elisp/ruby.el")
+(load "~/.emacs.d/elisp/web.el")
+(load "~/.emacs.d/elisp/spotify.el")
+(load "~/.emacs.d/elisp/go.el")
+(load "~/.emacs.d/elisp/clojurescript.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -43,6 +42,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 2)
+ '(js2-instanceof-has-side-effects nil)
+ '(js2-strict-inconsistent-return-warning nil)
  '(nav-filtered-p nil)
  '(nav-width 25))
 (custom-set-faces

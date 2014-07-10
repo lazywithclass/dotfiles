@@ -19,6 +19,7 @@ source $ZSH/oh-my-zsh.sh
 
 setopt prompt_subst
 autoload -U colors && colors # Enable colors in prompt
+setopt HIST_IGNORE_SPACE
 
 # Modify the colors and symbols in these variables as desired.
 GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
@@ -159,10 +160,16 @@ export EDITOR="nano"
 export GOROOT=~/go-1.1.2
 export GOPATH=~/gocode
 export ELIXIRPATH=~/elixir
-export PATH=~/bin:/home/lazywithclass/nave:/usr/local/heroku/bin:$GOROOT/bin:$GOPATH/bin:$ELIXIRPATH/bin:$PATH
+export PHANTOMJS_HOME=/home/lazywithclass/phantomjs/bin
+export PATH=~/bin:/home/lazywithclass/nave:/usr/local/heroku/bin:$GOROOT/bin:$GOPATH/bin:$ELIXIRPATH/bin:$PHANTOMJS_HOME:$PATH
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
+
+setxkbmap -option caps:escape
 
 echo ""
 fortune
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

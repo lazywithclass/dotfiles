@@ -7,6 +7,7 @@
 (global-set-key (kbd "C-c c") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-c m") 'run-suite)
 (global-set-key (kbd "C-c t") 'tern-get-type)
+(global-set-key (kbd "C-c v") 'tern-highlight-refs)
 (global-set-key (kbd "C-c C-a") 'iedit-mode)
 (global-set-key (kbd "C-c s p") 'spotify-previous)
 (global-set-key (kbd "C-c s t") 'spotify-toggle)

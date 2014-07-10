@@ -54,7 +54,7 @@
 ;; credit for the initial idea goes to
 ;; https://github.com/dwwoelfel/.emacs.d/blob/master/site-lisp/setup-slime-js.el
 (defun slime-js-run-swank ()
-  "Runs the swank side of the equation."
+  "Runs the swank side of the equation. Needs swank-js to be there"
   (interactive)
   (apply #'make-comint "swank-js" "swank-js" nil '("4008")))
 
@@ -65,7 +65,7 @@
   (sleep-for 1)
   (setq slime-protocol-version 'ignore)
   (slime-connect "localhost" 4008))
-
+ 
 (defun slime-js-jack-in-browser (target-url)
   "Start a swank-js server, connect to it, open a repl, open a browser, connect to that."
   (interactive "sTarget url: ")
@@ -130,3 +130,6 @@
 
 (defun slime-js--echo-result (result &rest _)
   (message result))
+
+;; not yet fully functional, understand why https://github.com/magnars/js2-refactor.el
+(require 'js2-refactor)
