@@ -88,6 +88,9 @@
 
 (require 'evil)
 (evil-mode 1)
+(add-to-list 'evil-emacs-state-modes 'nav-mode)
+
+(savehist-mode 1)
 
 ;; do not work
 ;;(evil-declare-key 'normal nav-mode (kbd "-") 'nav-make-new-directory)
