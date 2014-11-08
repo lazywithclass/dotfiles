@@ -1,5 +1,7 @@
 (setq inhibit-splash-screen t)
 
+(setenv "PATH" "$HOME/usr/bin:$PATH" t)
+
 (setq default-directory "~/workspace/" )
 
 (color-theme-solarized-dark)
@@ -59,8 +61,9 @@
 (setq recentf-max-menu-items 50)
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
-(require 'slime)
-(slime-setup)
+;; this gives an error, fix or remove
+;;(require 'slime)
+;;(slime-setup)
 
 (require 'flymake-cursor)
 
@@ -92,6 +95,6 @@
 
 (savehist-mode 1)
 
-;; do not work
-;;(evil-declare-key 'normal nav-mode (kbd "-") 'nav-make-new-directory)
-;;(evil-declare-key 'normal nav-mode (kbd "n") 'nav-make-new-directory)
+(defun arrow () 
+  (interactive)
+  (insert "→")) 

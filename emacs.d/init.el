@@ -33,8 +33,11 @@
 ;; (load "~/.emacs.d/elisp/ruby.el")
 (load "~/.emacs.d/elisp/web.el")
 (load "~/.emacs.d/elisp/spotify.el")
-(load "~/.emacs.d/elisp/go.el")
+;; this gives an error, fix or remove
+;(load "~/.emacs.d/elisp/go.el")
 (load "~/.emacs.d/elisp/clojurescript.el")
+(load "~/.emacs.d/elisp/haskell.el")
+(load "~/.emacs.d/elisp/buffers.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

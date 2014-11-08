@@ -24,3 +24,6 @@
 (global-set-key (kbd "M-<up>") 'windmove-up)
 (global-set-key (kbd "M-<down>") 'windmove-down)
 (global-set-key (kbd "M-m") 'back-to-indentation)
+
+;; I'm not entirely sure why I had to specify this
+(global-set-key [dead-grave] "`")

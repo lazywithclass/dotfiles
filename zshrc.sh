@@ -161,7 +161,7 @@ export GOROOT=~/go-1.1.2
 export GOPATH=~/gocode
 export ELIXIRPATH=~/elixir
 export PHANTOMJS_HOME=/home/lazywithclass/phantomjs/bin
-export PATH=~/bin:/home/lazywithclass/nave:/usr/local/heroku/bin:$GOROOT/bin:$GOPATH/bin:$ELIXIRPATH/bin:$PHANTOMJS_HOME:$PATH
+export PATH=~/bin:/home/lazywithclass/nave:/usr/local/heroku/bin:$GOROOT/bin:$GOPATH/bin:$ELIXIRPATH/bin:$PHANTOMJS_HOME:/home/lazywithclass/.cabal/bin/:$PATH
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
