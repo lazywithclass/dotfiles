@@ -148,28 +148,18 @@ r(){
 }
 
 js-beautify(){
-    /home/lazywithclass/js-beautify/python/js-beautify -i
+    $HOME/js-beautify/python/js-beautify -i
 }
-
-. ~/Dropbox/z/z.sh
 
 # away with you CAPS LOCK!
 setxkbmap -option caps:none
 
 export EDITOR="nano"
-export GOROOT=~/go-1.1.2
-export GOPATH=~/gocode
-export ELIXIRPATH=~/elixir
-export PHANTOMJS_HOME=/home/lazywithclass/phantomjs/bin
-export PATH=~/bin:/home/lazywithclass/nave:/usr/local/heroku/bin:$GOROOT/bin:$GOPATH/bin:$ELIXIRPATH/bin:$PHANTOMJS_HOME:/home/lazywithclass/.cabal/bin/:$PATH
+export PATH=~/bin:$PATH
 
-[ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
+[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
 
 setxkbmap -option caps:escape
 
 echo ""
 fortune
-
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
