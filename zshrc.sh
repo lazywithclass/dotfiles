@@ -157,9 +157,10 @@ setxkbmap -option caps:none
 export EDITOR="nano"
 export PATH=~/bin:$PATH
 
-[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
+[ -s "/home/vagrant/.scm_breeze/scm_breeze.sh" ] && source "/home/vagrant/.scm_breeze/scm_breeze.sh"
 
 setxkbmap -option caps:escape
 
+tmux
 echo ""
 fortune
