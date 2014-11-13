@@ -1,5 +1,4 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (add-to-list 'load-path "~/.emacs.d/yasnippets")
 (add-to-list 'load-path "~/.emacs.d/emacs-nav")
 
