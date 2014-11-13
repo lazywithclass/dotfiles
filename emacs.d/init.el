@@ -1,7 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (add-to-list 'load-path "~/.emacs.d/yasnippets")
-(add-to-list 'load-path "~/.emacs.d/slime")
+(add-to-list 'load-path "~/.emacs.d/emacs-nav")
 
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
@@ -11,32 +11,24 @@
     (eval-print-last-sexp)))
 (el-get 'sync)
 
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-(mapc
- (lambda (package)
-   (or (package-installed-p package)
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
-           (package-install package))))
- '(ac-slime auto-complete dash fiplr flymake-easy grizzl multi-web-mode popup s slime slime-js slime-repl fastnav flycheck flymake))
+
+(setq my-el-get-packages
+      (append  
+       '(css-mode js2-mode auto-complete fiplr flymake-easy grizzl multi-web-mode popup s fastnav color-theme-solarized evil yasnippet js2-refactor)
+       (mapcar 'el-get-source-name el-get-sources)))  
+  
+(el-get 'sync my-el-get-packages)  
 
 (load "~/.emacs.d/elisp/generic.el")
 (load "~/.emacs.d/elisp/keys-mappings.el")
 (load "~/.emacs.d/elisp/editing.el")
 (load "~/.emacs.d/elisp/javascript.el")
-(load "~/.emacs.d/elisp/coffee.el")
 (load "~/.emacs.d/elisp/html.el")
-;; (load "~/.emacs.d/elisp/ruby.el")
 (load "~/.emacs.d/elisp/web.el")
 (load "~/.emacs.d/elisp/spotify.el")
-;; this gives an error, fix or remove
-;(load "~/.emacs.d/elisp/go.el")
-(load "~/.emacs.d/elisp/clojurescript.el")
-(load "~/.emacs.d/elisp/haskell.el")
 (load "~/.emacs.d/elisp/buffers.el")
 
 (custom-set-variables

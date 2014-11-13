@@ -49,21 +49,11 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (add-to-list 'ac-modes '(emacs-lisp-mode ruby-mode))
 
-(setq twittering-icon-mode t)
-(twittering-enable-unread-status-notifier)
-;; display the remaining API calls
-(setq twittering-display-remaining t)
-
 (setq gc-cons-threshold 20000000)
 
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 50)
-
-(setq inferior-lisp-program "/usr/bin/sbcl")
-;; this gives an error, fix or remove
-;;(require 'slime)
-;;(slime-setup)
 
 (require 'flymake-cursor)
 
@@ -85,7 +75,7 @@
 
 (defun reload-init ()
   (interactive)
-  (load-file "/workspace/dotfiles/emacs.d/init.el"))
+  (load-file "~/workspace/dotfiles/emacs.d/init.el"))
 
 (show-paren-mode 1)
 
@@ -98,3 +88,6 @@
 (defun arrow () 
   (interactive)
   (insert "→")) 
+
+(add-to-list 'load-path "~/workspace/emacs-nav")
+(require 'nav)
