@@ -161,6 +161,5 @@ export PATH=~/bin:$PATH
 
 setxkbmap -option caps:escape
 
-tmux
 echo ""
 fortune
