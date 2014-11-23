@@ -91,3 +91,6 @@
 
 (add-to-list 'load-path "~/workspace/emacs-nav")
 (require 'nav)
+
+(require 'move-text)
+(move-text-default-bindings)
