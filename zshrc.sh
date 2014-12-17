@@ -151,15 +151,13 @@ js-beautify(){
     $HOME/js-beautify/python/js-beautify -i
 }
 
-# away with you CAPS LOCK!
-setxkbmap -option caps:none
+setxkbmap -option ctrl:nocaps
+bindkey -v
 
-export EDITOR="nano"
+export EDITOR="vim"
 export PATH=~/bin:$PATH
 
 [ -s "/home/vagrant/.scm_breeze/scm_breeze.sh" ] && source "/home/vagrant/.scm_breeze/scm_breeze.sh"
-
-setxkbmap -option caps:escape
 
 echo ""
 fortune
