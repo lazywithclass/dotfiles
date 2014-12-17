@@ -151,7 +151,10 @@ js-beautify(){
     $HOME/js-beautify/python/js-beautify -i
 }
 
+# caps as ctrl
 setxkbmap -option ctrl:nocaps
+# caps shouldnt caps
+setxkbmap -option caps:none
 bindkey -v
 
 export EDITOR="vim"
