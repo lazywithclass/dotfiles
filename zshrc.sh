@@ -108,7 +108,6 @@ if [ "$TERM" != "dumb" ]; then
     # last character of the alias value is a space or tab character, then the next
     # command word following the alias is also checked for alias expansion."
     alias sudo='sudo '
-    alias t='tig status'
 fi
 
 #goes up many dirs as the number passed as argument, if none goes up by 1 by default
