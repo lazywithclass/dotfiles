@@ -157,7 +157,7 @@ setxkbmap -option caps:none
 bindkey -v
 
 export EDITOR="vim"
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.cabal/bin:$PATH
 
 [ -s "/home/vagrant/.scm_breeze/scm_breeze.sh" ] && source "/home/vagrant/.scm_breeze/scm_breeze.sh"
 
