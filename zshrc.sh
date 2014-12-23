@@ -13,7 +13,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=()
+plugins=(vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -154,7 +154,6 @@ js-beautify(){
 setxkbmap -option ctrl:nocaps
 # caps shouldnt caps
 setxkbmap -option caps:none
-bindkey -v
 
 export EDITOR="vim"
 export PATH=~/bin:~/.cabal/bin:$PATH
