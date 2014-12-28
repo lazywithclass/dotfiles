@@ -7,12 +7,6 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=()
 
 source $ZSH/oh-my-zsh.sh
@@ -44,37 +38,37 @@ parse_git_state() {
     
     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_AHEAD" -gt 0 ]; then
-	GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
+	    GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
     fi
     
     local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_BEHIND" -gt 0 ]; then
-	GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
+	    GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
     fi
     
     local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
     if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-	GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
+	    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
     fi
     
     if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-	GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
+	    GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
     fi
     
     if ! git diff --quiet 2> /dev/null; then
-	GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
+	    GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
     fi
     
     if ! git diff --cached --quiet 2> /dev/null; then
-	GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
+	    GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
     fi
 
     if [[ $(git stash list | wc -l) -gt 0 ]]; then
-	GIT_STATE=$GIT_STATE'$'
+	    GIT_STATE=$GIT_STATE'$'
     fi
     
     if [[ -n $GIT_STATE ]]; then
-	echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
+	    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
     fi
     
 }
@@ -102,7 +96,6 @@ if [ "$TERM" != "dumb" ]; then
     alias e='emacsclient -t'
     alias xc='xclip'
     alias copy='xclip -sel clip'
-    alias gits='git status'
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
     # last character of the alias value is a space or tab character, then the next
@@ -116,11 +109,11 @@ up(){
     limit=$1
     for ((i=1 ; i <= limit ; i++))
     do
-	d=$d/..
+	    d=$d/..
     done
     d=$(echo $d | sed 's/^\///')
     if [ -z "$d" ]; then
-	d=..
+	    d=..
     fi
     cd $d
 }
@@ -129,7 +122,7 @@ h(){
     if [ -z "$1" ] 
     then history; 
     else 
-	history | grep "$@"; 
+	    history | grep "$@"
     fi
 }
 
@@ -139,7 +132,7 @@ xs(){
 }
 
 f(){
-    find . -name $1;
+    find . -name $1
 }
 
 r(){
