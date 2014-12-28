@@ -20,7 +20,7 @@
       (append  
        '(css-mode js2-mode auto-complete fiplr flymake-easy grizzl multi-web-mode
                   popup s fastnav color-theme-solarized evil yasnippet js2-refactor
-                  coffee-mode markdown-mode markdown-preview-mode)
+                  coffee-mode markdown-mode markdown-preview-mode purescript-mode)
        (mapcar 'el-get-source-name el-get-sources)))  
   
 (el-get 'sync my-el-get-packages)  
@@ -43,7 +43,8 @@
  '(js2-instanceof-has-side-effects nil)
  '(js2-strict-inconsistent-return-warning nil)
  '(nav-filtered-p nil)
- '(nav-width 25))
+ '(nav-width 25)
+ '(purescript-mode-hook (quote (turn-on-purescript-indentation))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
