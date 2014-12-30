@@ -94,3 +94,10 @@
 
 (require 'move-text)
 (move-text-default-bindings)
+
+(defun sync-nav-with-current-buffer ()
+  (interactive)
+  (setq current-buffer-folder (el-get-replace-string (buffer-name) "" (buffer-file-name)))
+  (windmove-left)
+  (nav-jump-to-dir current-buffer-folder)
+  (windmove-right))
