@@ -15,6 +15,7 @@
 (global-set-key (kbd "C-c RET") 'switch-to-previous-buffer)
 (global-set-key (kbd "C-j") 'ace-jump-char-mode)
 (global-set-key (kbd "C-c l") 'ace-jump-line-mode)
+(global-set-key (kbd "C-c DEL") 'sync-nav-with-current-buffer)
 
 (global-set-key (kbd "C-S-<up>") 'move-text-up)
 (global-set-key (kbd "C-S-<down>") 'move-text-down)
