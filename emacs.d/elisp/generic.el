@@ -47,7 +47,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(add-to-list 'ac-modes '(emacs-lisp-mode))
+(add-to-list 'ac-modes '(emacs-lisp-mode purescript-mode))
 
 (setq gc-cons-threshold 20000000)
 
