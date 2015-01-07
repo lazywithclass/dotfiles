@@ -20,7 +20,7 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'zenburn
+ dotspacemacs-default-theme 'solarized-dark
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Major mode leader key is a shortcut key which is the equivalent of
