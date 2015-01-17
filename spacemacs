@@ -94,6 +94,7 @@ This function is called at the very end of Spacemacs initialization."
  '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(paradox-github-token t)
+ '(global-linum-mode t)
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
