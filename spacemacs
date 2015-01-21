@@ -70,7 +70,6 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
-  (setq js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai"))
 )
 
 ;; Custom variables
@@ -95,7 +94,10 @@ This function is called at the very end of Spacemacs initialization."
  '(js2-basic-offset 2)
  '(paradox-github-token t)
  '(global-linum-mode t)
- '(ring-bell-function (quote ignore) t))
+ '(ring-bell-function (quote ignore) t)
+ '(js2-global-externs
+   (quote ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai")))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
