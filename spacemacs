@@ -56,8 +56,6 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
- 
- js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai")
 )
 
 ;; Initialization Hooks
@@ -72,6 +70,7 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
+  (setq js2-global-externs '("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai"))
 )
 
 ;; Custom variables
