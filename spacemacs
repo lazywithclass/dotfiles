@@ -20,7 +20,7 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'solarized-dark
+ dotspacemacs-default-theme 'leuven
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Major mode leader key is a shortcut key which is the equivalent of
@@ -70,6 +70,7 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
+  (setq dotspacemacs-themes '(solarized-dark))
 )
 
 ;; Custom variables
