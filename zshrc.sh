@@ -152,7 +152,7 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 export EDITOR="vim"
-export PATH=~/bin:~/.cabal/bin:$PATH
+export PATH=~/bin:~/.cabal/bin:~/.cask/bin:$PATH
 
 [ -s "/home/vagrant/.scm_breeze/scm_breeze.sh" ] && source "/home/vagrant/.scm_breeze/scm_breeze.sh"
 
