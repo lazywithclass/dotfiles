@@ -19,8 +19,6 @@
 ;; --------
 
 (setq-default
- ;; Default theme applied at startup
- dotspacemacs-default-theme 'leuven
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Major mode leader key is a shortcut key which is the equivalent of
@@ -56,7 +54,6 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
- dotspacemacs-default-font '("Monaco" :size 12 :weight normal :width normal :powerline-scale 1.1))
 )
 
 ;; Initialization Hooks
@@ -72,7 +69,12 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
-  (setq dotspacemacs-themes '(solarized-dark))
+  (load-theme 'solarized-dark)
+  (setq-default dotspacemacs-default-font '("Monaco"
+                                          :size 13
+                                          :weight normal
+                                          :width normal
+                                          :powerline-scale 1.1))
 )
 
 ;; Custom variables
@@ -93,14 +95,18 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(global-linum-mode t)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
- '(paradox-github-token t)
- '(global-linum-mode t)
- '(ring-bell-function (quote ignore) t)
  '(js2-global-externs
-   (quote ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai")))
-)
+   (quote
+    ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai")))
+ '(magit-use-overlays nil)
+ '(paradox-github-token t)
+ '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
