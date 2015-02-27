@@ -56,6 +56,7 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
+ dotspacemacs-default-font '("Monaco" :size 12 :weight normal :width normal :powerline-scale 1.1))
 )
 
 ;; Initialization Hooks
