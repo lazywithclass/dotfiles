@@ -63,6 +63,7 @@
   "User initialization for Spacemacs. This function is called at the very
  startup."
  (setq-default git-enable-github-support t)
+ (add-hook 'before-save-hook 'delete-trailing-whitespace)
 )
 
 (defun dotspacemacs/config ()
