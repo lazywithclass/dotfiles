@@ -104,7 +104,7 @@ This function is called at the very end of Spacemacs initialization."
  '(js2-basic-offset 2)
  '(js2-global-externs
    (quote
-    ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "afterEach" "_" "angular" "inject" "app" "chai")))
+    ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "before" "afterEach" "after" "_" "angular" "inject" "app" "chai")))
  '(magit-use-overlays nil)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t))
