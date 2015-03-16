@@ -54,6 +54,11 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
+ dotspacemacs-default-font '("Monaco"
+                             :size 16
+                             :weight normal
+                             :width normal
+                             :powerline-scale 1.1)
 )
 
 ;; Initialization Hooks
@@ -71,11 +76,6 @@
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
   (load-theme 'solarized-dark)
-  (setq-default dotspacemacs-default-font '("Monaco"
-                                          :size 13
-                                          :weight normal
-                                          :width normal
-                                          :powerline-scale 1.1))
 )
 
 ;; Custom variables
