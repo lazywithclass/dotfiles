@@ -6,12 +6,8 @@
 ;; --------------------
 
 (setq-default
- ;; List of additional paths where to look for configuration layers.
- ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
- dotspacemacs-configuration-layer-path '()
- ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(javascript clojure html git lua)
- ;; A list of packages and/or extensions that will not be install and loaded.
+ dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
+ dotspacemacs-configuration-layers '(javascript clojure html git lua buffs)
  dotspacemacs-excluded-packages '()
 )
 
@@ -19,47 +15,23 @@
 ;; --------
 
 (setq-default
- ;; The leader key
  dotspacemacs-leader-key "SPC"
- ;; Major mode leader key is a shortcut key which is the equivalent of
- ;; pressing `<leader> m`
  dotspacemacs-major-mode-leader-key ","
- ;; The command key used for Evil commands (ex-commands) and
- ;; Emacs commands (M-x).
- ;; By default the command key is `:' so ex-commands are executed like in Vim
- ;; with `:' and Emacs commands are executed with `<leader> :'.
  dotspacemacs-command-key ":"
- ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
- ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
- ;; If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).
  dotspacemacs-fullscreen-at-startup nil
- ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
- ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
  dotspacemacs-maximized-at-startup nil
- ;; If non nil unicode symbols are displayed in the mode line (e.g. for lighters)
  dotspacemacs-mode-line-unicode-symbols t
- ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
- ;; overrides the default behavior of Emacs which recenters the point when
- ;; it reaches the top or bottom of the screen
  dotspacemacs-smooth-scrolling t
- ;; If non nil pressing 'jk' in insert state, ido or helm will activate the
- ;; evil leader.
  dotspacemacs-feature-toggle-leader-on-jk nil
- ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
  dotspacemacs-smartparens-strict-mode nil
- ;; If non nil advises quit functions to keep server open when quitting.
  dotspacemacs-persistent-server nil
- ;; The default package repository used if no explicit repository has been
- ;; specified with an installed package.
- ;; Not used for now.
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-font '("Monaco"
                              :size 16
                              :weight normal
                              :width normal
-                             :powerline-scale 1.1)
-)
+                             :powerline-scale 1.1))
 
 ;; Initialization Hooks
 ;; --------------------
@@ -106,8 +78,11 @@ This function is called at the very end of Spacemacs initialization."
    (quote
     ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "before" "afterEach" "after" "_" "angular" "inject" "app" "chai")))
  '(magit-use-overlays nil)
+ '(package-selected-packages
+   (quote
+    (window-numbering web-mode web-beautify volatile-highlights vi-tilde-fringe tern tagedit spray smooth-scrolling smeargle slim-mode scss-mode sass-mode rainbow-delimiters powerline popwin pcre2el paradox page-break-lines open-junk-file neotree move-text magit-gitflow magit lua-mode linum-relative leuven-theme less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-descbinds helm-css-scss helm-ag helm haml-mode google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-lisp-state evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu emmet-mode define-word coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu cider buffer-move auto-highlight-symbol auto-dictionary align-cljlet aggressive-indent adaptive-wrap ace-window ace-link evil-leader evil which-key quelpa package-build use-package bind-key s dash spacemacs-theme)))
  '(paradox-github-token t)
- '(ring-bell-function (quote ignore) t))
+ '(ring-bell-function (quote ignore)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
