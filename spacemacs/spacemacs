@@ -9,7 +9,8 @@
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
  dotspacemacs-configuration-layers '(auto-completion yasnippet javascript clojure html git lua coffee-mode
                                      ;; private layers
-                                     buffs)
+                                     buffs
+                                     move-text)
  dotspacemacs-excluded-packages '())
 
 ;; Settings
