@@ -154,7 +154,7 @@ bindkey '^R' history-incremental-search-backward
 export EDITOR="vim"
 export PATH=~/bin:~/.cabal/bin:~/.cask/bin:$PATH
 
-[ -s "/home/vagrant/.scm_breeze/scm_breeze.sh" ] && source "/home/vagrant/.scm_breeze/scm_breeze.sh"
+[ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
 echo ""
 fortune
