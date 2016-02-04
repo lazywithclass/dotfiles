@@ -149,6 +149,8 @@ setxkbmap -option ctrl:nocaps
 setxkbmap -option caps:none
 
 bindkey '^R' history-incremental-search-backward
+bindkey 'OC' forward-word
+bindkey 'OD' backward-word
 
 export EDITOR="vim"
 export PATH=~/bin:~/.cabal/bin:~/.cask/bin:$PATH
