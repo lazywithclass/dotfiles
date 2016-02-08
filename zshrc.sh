@@ -32,33 +32,33 @@ parse_git_branch() {
 
 # Show different symbols as appropriate for various Git repository states
 parse_git_state() {
-    
+
     # Compose this value via multiple conditional appends.
     local GIT_STATE=""
-    
+
     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_AHEAD" -gt 0 ]; then
 	    GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
     fi
-    
+
     local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_BEHIND" -gt 0 ]; then
 	    GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
     fi
-    
+
     local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
     if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
 	    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
     fi
-    
+
     if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
 	    GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
     fi
-    
+
     if ! git diff --quiet 2> /dev/null; then
 	    GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
     fi
-    
+
     if ! git diff --cached --quiet 2> /dev/null; then
 	    GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
     fi
@@ -66,11 +66,11 @@ parse_git_state() {
     if [[ $(git stash list | wc -l) -gt 0 ]]; then
 	    GIT_STATE=$GIT_STATE'$'
     fi
-    
+
     if [[ -n $GIT_STATE ]]; then
 	    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
     fi
-    
+
 }
 
 # If inside a Git repository, print its branch and state
@@ -87,8 +87,7 @@ RPS1='$(date "+%H:%M:%S %d/%m/%Y") $(vi_mode_prompt_info) $(type node >/dev/null
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
+    alias ls='ls -G'
     alias ll='ls -l'
     alias la='ls -la'
     alias grep='grep --color=always'
@@ -118,16 +117,16 @@ up(){
     cd $d
 }
 
-h(){ 
-    if [ -z "$1" ] 
-    then history; 
-    else 
+h(){
+    if [ -z "$1" ]
+    then history;
+    else
 	    history | grep "$@"
     fi
 }
 
 xs(){
-    cd $1 
+    cd $1
     ls
 }
 
@@ -143,11 +142,6 @@ js-beautify(){
     $HOME/js-beautify/python/js-beautify -i
 }
 
-# caps as ctrl
-setxkbmap -option ctrl:nocaps
-# caps shouldnt caps
-setxkbmap -option caps:none
-
 bindkey '^R' history-incremental-search-backward
 bindkey 'OC' forward-word
 bindkey 'OD' backward-word
@@ -155,7 +149,7 @@ bindkey 'OD' backward-word
 export EDITOR="vim"
 export PATH=~/bin:~/.cabal/bin:~/.cask/bin:$PATH
 
-[ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
+[ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
 
 echo ""
 fortune
