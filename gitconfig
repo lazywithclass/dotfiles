@@ -3,3 +3,5 @@
 	name = lazywithclass
 [color]
 	ui = auto
+[url "https://"]
+	insteadOf = git://
