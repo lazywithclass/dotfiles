@@ -7,7 +7,7 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-plugins=()
+plugins=(copydir copyfile z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -148,6 +148,8 @@ bindkey 'OD' backward-word
 
 export EDITOR="vim"
 export PATH=~/bin:~/.cabal/bin:~/.cask/bin:$PATH
+# prevent tmux from renaming windows
+export DISABLE_AUTO_TITLE=true
 
 [ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
 
