@@ -7,10 +7,10 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
- dotspacemacs-configuration-layers '(auto-completion yasnippet javascript clojure html git lua coffee-mode
-                                     ;; private layers
-                                     buffs
-                                     move-text)
+ dotspacemacs-configuration-layers '(auto-completion yasnippet javascript clojure html git lua coffee-mode elm
+                                                     ;; private layers
+                                                     buffs
+                                                     move-text)
  dotspacemacs-excluded-packages '())
 
 ;; Settings
@@ -29,22 +29,22 @@
  dotspacemacs-smartparens-strict-mode nil
  dotspacemacs-persistent-server nil
  dotspacemacs-default-package-repository nil
- dotspacemacs-default-font '("Monaco" :size 16 :weight normal :width normal :powerline-scale 1.1))
+ dotspacemacs-default-font '("Monaco" :size 14 :weight normal :width normal :powerline-scale 1.1))
 ;; Initialization Hooks
 ;; --------------------
 
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
- (setq-default git-enable-github-support t)
- (add-hook 'before-save-hook 'delete-trailing-whitespace)
-)
+  (setq-default git-enable-github-support t)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  )
 
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
-)
+  )
 
 ;; Custom variables
 ;; ----------------
