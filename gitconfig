@@ -5,3 +5,5 @@
 	ui = auto
 [url "https://"]
 	insteadOf = git://
+[core]
+	excludesfile = ~/.gitignore
