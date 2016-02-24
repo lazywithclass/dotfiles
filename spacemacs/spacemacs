@@ -7,7 +7,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
- dotspacemacs-configuration-layers '(auto-completion yasnippet javascript clojure html git lua coffee-mode elm
+ dotspacemacs-configuration-layers '(auto-completion yasnippet javascript clojure html git lua coffee-mode elm markdown
                                                      ;; private layers
                                                      buffs
                                                      move-text)
@@ -36,7 +36,9 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  (setq-default git-enable-github-support t)
+  (setq-default
+   mac-right-option-modifier nil
+   git-enable-github-support t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   )
 
@@ -44,6 +46,16 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'nil)
+  (define-key window-numbering-keymap "\M-0" nil)
+  (define-key window-numbering-keymap "\M-1" nil)
+  (define-key window-numbering-keymap "\M-2" nil)
+  (define-key window-numbering-keymap "\M-3" nil)
+  (define-key window-numbering-keymap "\M-4" nil)
+  (define-key window-numbering-keymap "\M-5" nil)
+  (define-key window-numbering-keymap "\M-6" nil)
+  (define-key window-numbering-keymap "\M-7" nil)
+  (define-key window-numbering-keymap "\M-8" nil)
+  (define-key window-numbering-keymap "\M-9" nil)
   )
 
 ;; Custom variables
