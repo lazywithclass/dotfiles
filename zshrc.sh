@@ -91,7 +91,7 @@ if [ "$TERM" != "dumb" ]; then
     alias ll='ls -l'
     alias la='ls -la'
     alias grep='grep --color=always'
-    alias rgrep='rgrep --color=always'
+    alias rgrep='grep -r --color=always'
     alias e='emacsclient -t'
     alias xc='xclip'
     alias copy='xclip -sel clip'
