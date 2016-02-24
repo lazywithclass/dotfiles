@@ -7,3 +7,5 @@
 	insteadOf = git://
 [core]
 	excludesfile = ~/.gitignore
+[credential]
+	helper = osxkeychain
