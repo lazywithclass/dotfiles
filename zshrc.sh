@@ -83,7 +83,7 @@ function customW {
     echo $PWD | sed 's|.*/\([a-zA-Z0-9][a-zA-Z0-9]*/[a-zA-Z0-9][a-zA-Z0-9]*\)|\1|'
 }
 PS1='$(customW) $(git_prompt_string)\$ '
-RPS1='$(date "+%H:%M:%S %d/%m/%Y") $(vi_mode_prompt_info) $(type node >/dev/null 2>&1 && echo node $(node -v))'
+RPS1='$(date "+%H:%M:%S %d/%m/%Y") $(type node >/dev/null 2>&1 && echo node $(node -v)) $(type ruby >/dev/null 2>&1 && echo $(ruby -v) | cut -d" " -f1-2)'
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
@@ -146,10 +146,11 @@ bindkey '^R' history-incremental-search-backward
 bindkey 'OC' forward-word
 bindkey 'OD' backward-word
 
-export EDITOR="vim"
-export PATH=~/bin:~/.cabal/bin:~/.cask/bin:$PATH
 # prevent tmux from renaming windows
 export DISABLE_AUTO_TITLE=true
+export EDITOR="vim"
+export PATH=~/bin:~/.cabal/bin:~/.cask/bin:~/.rbenv/bin:/Users/lazywithclass/.rbenv/shims:$PATH
+eval "$(rbenv init -)"
 
 [ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
 
