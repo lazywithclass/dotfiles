@@ -7,11 +7,21 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
- dotspacemacs-configuration-layers '(auto-completion yasnippet javascript clojure html git lua coffee-mode elm markdown
-                                                     ;; private layers
-                                                     buffs
-                                                     move-text)
- dotspacemacs-excluded-packages '())
+ dotspacemacs-configuration-layers '(auto-completion
+                                     yasnippet
+                                     javascript
+                                     clojure html
+                                     git
+                                     lua
+                                     coffee-mode
+                                     elm
+                                     markdown
+                                     ruby
+                                     terraform
+                                     ;; private layers
+                                     buffs
+                                     move-text)
+ dotspacemacs-excluded-packages '(smartparens))
 
 ;; Settings
 ;; --------
