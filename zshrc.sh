@@ -155,5 +155,6 @@ eval "$(rbenv init -)"
 [ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
 
 /Users/lazywithclass/workspace/ansiweather/ansiweather -u metric -s true -F -d true
+echo ""
 fortune
 echo ""
