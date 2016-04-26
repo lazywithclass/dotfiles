@@ -40,7 +40,7 @@
  dotspacemacs-persistent-server nil
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-font '("Monaco" :size 14 :weight normal :width normal :powerline-scale 1.1))
-(global-set-key (kbd "TAB") 'hippie-expand)
+(global-set-key (kbd "C-c c") 'hippie-expand)
 ;; Initialization Hooks
 ;; --------------------
 
