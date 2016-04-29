@@ -159,3 +159,13 @@ eval "$(rbenv init -)"
 echo ""
 fortune
 echo ""
+COLUMNS=$(tput cols)
+echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 11))
+echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 11))
+echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $COLUMNS
+echo -e "|  _  // _ \/ _\` |/ _\` | | | | |  ___/| |/ _\` | | | |/ _ \ '__| | |  | | '_ \ / _ \\" | fmt -c -w $COLUMNS
+echo -e "| | \ \  __/ (_| | (_| | |_| | | |    | | (_| | |_| |  __/ |    | |__| | | | |  __/" | fmt -c -w $COLUMNS
+echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/|_| |_|\___|" | fmt -c -w $COLUMNS
+echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 5))
+echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 6))
+echo ""
