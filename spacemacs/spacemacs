@@ -18,6 +18,7 @@
                                      markdown
                                      ruby
                                      terraform
+                                     typescript
                                      ;; private layers
                                      buffs
                                      move-text)
