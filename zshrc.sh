@@ -96,6 +96,7 @@ if [ "$TERM" != "dumb" ]; then
     alias e='emacsclient -t'
     alias xc='xclip'
     alias copy='xclip -sel clip'
+    alias u='up'
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
     # last character of the alias value is a space or tab character, then the next
