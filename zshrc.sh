@@ -148,6 +148,22 @@ bindkey '^R' history-incremental-search-backward
 bindkey 'OC' forward-word
 bindkey 'OD' backward-word
 
+tmux-select-pane-0() { tmux select-pane -t '0' }
+zle -N tmux-select-pane-0
+bindkey " 0" tmux-select-pane-0
+
+tmux-select-pane-1() { tmux select-pane -t '1' }
+zle -N tmux-select-pane-1
+bindkey " 1" tmux-select-pane-1
+
+tmux-select-pane-2() { tmux select-pane -t '2' }
+zle -N tmux-select-pane-2
+bindkey " 2" tmux-select-pane-2
+
+tmux-select-pane-3() { tmux select-pane -t '3' }
+zle -N tmux-select-pane-3
+bindkey " 3" tmux-select-pane-3
+
 # prevent tmux from renaming windows
 export DISABLE_AUTO_TITLE=true
 export EDITOR="vim"
