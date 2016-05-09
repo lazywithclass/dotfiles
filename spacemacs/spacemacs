@@ -19,6 +19,7 @@
                                      ruby
                                      terraform
                                      typescript
+                                     elixir
                                      ;; private layers
                                      buffs
                                      move-text)
