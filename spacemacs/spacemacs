@@ -95,6 +95,7 @@ This function is called at the very end of Spacemacs initialization."
  '(global-linum-mode t)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
+ '(js2-strict-missing-semi-warning nil)
  '(js2-global-externs
    (quote
     ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "before" "afterEach" "after" "_" "angular" "inject" "app" "chai")))
