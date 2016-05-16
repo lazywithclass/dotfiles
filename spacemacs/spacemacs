@@ -10,7 +10,9 @@
  dotspacemacs-configuration-layers '(auto-completion
                                      yasnippet
                                      javascript
-                                     clojure html
+                                     clojure
+                                     web-mode
+                                     html
                                      git
                                      lua
                                      coffee-mode
