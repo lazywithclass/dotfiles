@@ -7,21 +7,25 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
- dotspacemacs-configuration-layers '(auto-completion
-                                     yasnippet
-                                     javascript
+ dotspacemacs-configuration-layers '(auto-completion :variables
+                                                     auto-completion-enable-help-tooltip t
+                                                     auto-completion-enable-sort-by-usage t
                                      clojure
-                                     web-mode
-                                     html
-                                     git
-                                     lua
                                      coffee-mode
+                                     company-mode
+                                     elixir
                                      elm
+                                     git
+                                     html
+                                     javascript
+                                     lua
                                      markdown
                                      ruby
+                                     syntax-checking
                                      terraform
                                      typescript
-                                     elixir
+                                     web-mode
+                                     yasnippet
                                      ;; private layers
                                      buffs
                                      move-text)
@@ -45,6 +49,7 @@
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-font '("Monaco" :size 14 :weight normal :width normal :powerline-scale 1.1))
 (global-set-key (kbd "C-c c") 'hippie-expand)
+(evil-leader/set-key "SPC" 'avy-goto-char-timer)
 ;; Initialization Hooks
 ;; --------------------
 
@@ -71,6 +76,7 @@ This function is called at the very end of Spacemacs initialization."
   (define-key window-numbering-keymap "\M-7" nil)
   (define-key window-numbering-keymap "\M-8" nil)
   (define-key window-numbering-keymap "\M-9" nil)
+  (global-company-mode)
   )
 
 ;; Custom variables
