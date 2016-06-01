@@ -10,6 +10,7 @@
  dotspacemacs-configuration-layers '(auto-completion :variables
                                                      auto-completion-enable-help-tooltip t
                                                      auto-completion-enable-sort-by-usage t
+                                     cider
                                      clojure
                                      coffee-mode
                                      company-mode
@@ -49,7 +50,7 @@
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-font '("Monaco" :size 14 :weight normal :width normal :powerline-scale 1.1))
 (global-set-key (kbd "C-c c") 'hippie-expand)
-(evil-leader/set-key "SPC" 'avy-goto-char-timer)
+(global-set-key (kbd "C-c d") 'avy-goto-char-timer)
 ;; Initialization Hooks
 ;; --------------------
 
@@ -102,6 +103,8 @@ This function is called at the very end of Spacemacs initialization."
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(global-linum-mode t)
  '(js-indent-level 2)
+ '(typescript-indent-level 2)
+ '(typescript-expr-indent-offset 2)
  '(js2-basic-offset 2)
  '(js2-strict-missing-semi-warning nil)
  '(js2-global-externs
