@@ -145,6 +145,10 @@ r(){
     rgrep "$1" *
 }
 
+rv() {
+    rgrep "$1" * | grep -vE $(echo "${@:2}" | tr ' ' '|')
+}
+
 js-beautify(){
     $HOME/js-beautify/python/js-beautify -i
 }
@@ -177,17 +181,16 @@ eval "$(rbenv init -)"
 
 [ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
 
-/Users/lazywithclass/workspace/ansiweather/ansiweather -u metric -s true -F -d true
 echo ""
 fortune
 echo ""
 COLUMNS=$(tput cols)
-echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 11))
-echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 11))
-echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $COLUMNS
+echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 13))
+echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 13))
+echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $(($COLUMNS - 2))
 echo -e "|  _  // _ \/ _\` |/ _\` | | | | |  ___/| |/ _\` | | | |/ _ \ '__| | |  | | '_ \ / _ \\" | fmt -c -w $COLUMNS
 echo -e "| | \ \  __/ (_| | (_| | |_| | | |    | | (_| | |_| |  __/ |    | |__| | | | |  __/" | fmt -c -w $COLUMNS
 echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/|_| |_|\___|" | fmt -c -w $COLUMNS
-echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 5))
-echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 6))
+echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 6))
+echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
 echo ""
