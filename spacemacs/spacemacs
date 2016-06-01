@@ -4,12 +4,9 @@
 
 ;; Configuration Layers
 ;; --------------------
-
 (setq-default
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
- dotspacemacs-configuration-layers '(auto-completion :variables
-                                                     auto-completion-enable-help-tooltip t
-                                                     auto-completion-enable-sort-by-usage t
+ dotspacemacs-configuration-layers '(auto-completion
                                      cider
                                      clojure
                                      coffee-mode
@@ -29,6 +26,7 @@
                                      yasnippet
                                      ;; private layers
                                      buffs
+                                     my-auto-completion
                                      move-text)
  dotspacemacs-excluded-packages '(smartparens))
 
@@ -49,6 +47,7 @@
  dotspacemacs-persistent-server nil
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-font '("Monaco" :size 14 :weight normal :width normal :powerline-scale 1.1))
+
 (global-set-key (kbd "C-c c") 'hippie-expand)
 (global-set-key (kbd "C-c d") 'avy-goto-char-timer)
 ;; Initialization Hooks
