@@ -153,6 +153,10 @@ js-beautify(){
     $HOME/js-beautify/python/js-beautify -i
 }
 
+todo(){
+    sort <~/workspace/projects-status | sort -t '+' -k1,1 | column -s '|' -t
+}
+
 bindkey '^R' history-incremental-search-backward
 bindkey 'OC' forward-word
 bindkey 'OD' backward-word
@@ -193,4 +197,6 @@ echo -e "| | \ \  __/ (_| | (_| | |_| | | |    | | (_| | |_| |  __/ |    | |__| 
 echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/|_| |_|\___|" | fmt -c -w $COLUMNS
 echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 6))
 echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
+echo ""
+todo
 echo ""
