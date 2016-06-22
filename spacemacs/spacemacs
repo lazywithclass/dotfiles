@@ -50,6 +50,7 @@
 
 (global-set-key (kbd "C-c c") 'hippie-expand)
 (global-set-key (kbd "C-c d") 'avy-goto-char-timer)
+(global-set-key (kbd "C-c e") 'yas/expand)
 ;; Initialization Hooks
 ;; --------------------
 
