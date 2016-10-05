@@ -15,6 +15,7 @@ source $ZSH/oh-my-zsh.sh
 setopt prompt_subst
 autoload -U colors && colors # Enable colors in prompt
 setopt HIST_IGNORE_SPACE
+setopt histignoredups
 
 # Modify the colors and symbols in these variables as desired.
 GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
@@ -81,7 +82,7 @@ git_prompt_string() {
 }
 
 function customW {
-    echo $PWD | sed 's|.*/\([a-zA-Z0-9][a-zA-Z0-9]*/[a-zA-Z0-9][a-zA-Z0-9]*\)|\1|'
+    echo $PWD | sed 's|.*/\([a-zA-Z0-9]*/[a-zA-Z0-9]*\)|\1|'
 }
 
 function tmuxPaneNumber {
@@ -102,6 +103,7 @@ if [ "$TERM" != "dumb" ]; then
     alias xc='xclip'
     alias copy='xclip -sel clip'
     alias u='up'
+    alias docker-clean='docker rmi -f $(docker images | grep "^<none>" | tr -s " " | cut -d" " -f3)'
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
     # last character of the alias value is a space or tab character, then the next
@@ -186,7 +188,7 @@ eval "$(rbenv init -)"
 [ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
 
 echo ""
-fortune
+~/workspace/quote/bin/quote.sh
 echo ""
 
 todo
