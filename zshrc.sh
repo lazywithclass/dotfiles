@@ -7,8 +7,8 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-# zsh-syntax-highlighting should be the last plugin in the last
-plugins=(copydir copyfile z zsh-autosuggestions)
+# Note that zsh-syntax-highlighting should be the last plugin
+plugins=(copydir copyfile z zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
