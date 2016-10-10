@@ -5,7 +5,6 @@
 ;; Configuration Layers
 ;; --------------------
 (setq-default
- dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
  dotspacemacs-configuration-layers '(
                                      (auto-completion :variables
                                                      auto-completion-enable-help-tooltip t
@@ -37,8 +36,8 @@
  dotspacemacs-major-mode-leader-key ","
  dotspacemacs-command-key ":"
  dotspacemacs-guide-key-delay 0.4
- dotspacemacs-fullscreen-at-startup nil
- dotspacemacs-maximized-at-startup nil
+ dotspacemacs-fullscreen-at-startup t
+ dotspacemacs-maximized-at-startup t
  dotspacemacs-mode-line-unicode-symbols t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
