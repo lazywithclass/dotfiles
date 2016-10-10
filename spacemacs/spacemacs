@@ -6,11 +6,15 @@
 ;; --------------------
 (setq-default
  dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/layers")
- dotspacemacs-configuration-layers '(auto-completion
-                                     cider
+ dotspacemacs-configuration-layers '(
+                                     (auto-completion :variables
+                                                     auto-completion-enable-help-tooltip t
+                                                     auto-completion-enable-snippets-in-popup t
+                                                     auto-completion-enable-sort-by-usage t
+                                                     auto-completion-private-snippets-directory "~/workspace/dotfiles/spacemacs/yasnippets"
+                                                     auto-completion-return-key-behavior 'complete
+                                                     auto-completion-tab-key-behavior 'cycle
                                      clojure
-                                     coffee-mode
-                                     company-mode
                                      elixir
                                      elm
                                      git
@@ -21,13 +25,8 @@
                                      ruby
                                      syntax-checking
                                      terraform
-                                     typescript
-                                     web-mode
-                                     yasnippet
-                                     ;; private layers
-                                     buffs
-                                     my-auto-completion
-                                     move-text)
+                                     typescript))
+
  dotspacemacs-excluded-packages '(smartparens))
 
 ;; Settings
@@ -92,7 +91,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-requires 4)
+ '(ac-ispell-requires 4 t)
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
  '(ahs-idle-interval 0.25)
@@ -103,19 +102,19 @@ This function is called at the very end of Spacemacs initialization."
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(global-linum-mode t)
  '(js-indent-level 2)
- '(typescript-indent-level 2)
- '(typescript-expr-indent-offset 2)
  '(js2-basic-offset 2)
- '(js2-strict-missing-semi-warning nil)
  '(js2-global-externs
    (quote
     ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "before" "afterEach" "after" "_" "angular" "inject" "app" "chai")))
+ '(js2-strict-missing-semi-warning nil)
  '(magit-use-overlays nil)
  '(package-selected-packages
    (quote
-    (helm-c-yasnippet company-web company-tern company-statistics company-quickhelp company auto-yasnippet ac-ispell window-numbering web-mode web-beautify volatile-highlights vi-tilde-fringe tern tagedit spray smooth-scrolling smeargle slim-mode scss-mode sass-mode rainbow-delimiters powerline popwin pcre2el paradox page-break-lines open-junk-file neotree move-text magit-gitflow magit lua-mode linum-relative leuven-theme less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-descbinds helm-css-scss helm-ag helm haml-mode google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-lisp-state evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu emmet-mode define-word coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu cider buffer-move auto-highlight-symbol auto-dictionary align-cljlet aggressive-indent adaptive-wrap ace-window ace-link evil-leader evil which-key quelpa package-build use-package bind-key s dash spacemacs-theme)))
+    (livid-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors helm-company web-completion-data dash-functional clojure-snippets auto-complete helm-c-yasnippet company-web company-tern company-statistics company-quickhelp company auto-yasnippet ac-ispell window-numbering web-mode web-beautify volatile-highlights vi-tilde-fringe tern tagedit spray smooth-scrolling smeargle slim-mode scss-mode sass-mode rainbow-delimiters powerline popwin pcre2el paradox page-break-lines open-junk-file neotree move-text magit-gitflow magit lua-mode linum-relative leuven-theme less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-descbinds helm-css-scss helm-ag helm haml-mode google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-lisp-state evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu emmet-mode define-word coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu cider buffer-move auto-highlight-symbol auto-dictionary align-cljlet aggressive-indent adaptive-wrap ace-window ace-link evil-leader evil which-key quelpa package-build use-package bind-key s dash spacemacs-theme)))
  '(paradox-github-token t)
- '(ring-bell-function (quote ignore)))
+ '(ring-bell-function (quote ignore))
+ '(typescript-expr-indent-offset 2)
+ '(typescript-indent-level 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
