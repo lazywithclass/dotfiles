@@ -160,8 +160,6 @@ todo(){
 }
 
 bindkey '^R' history-incremental-search-backward
-bindkey 'OC' forward-word
-bindkey 'OD' backward-word
 
 tmux-select-pane-0() { tmux select-pane -t '0' }
 zle -N tmux-select-pane-0
