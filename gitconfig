@@ -9,3 +9,5 @@
 	excludesfile = ~/.gitignore
 [credential]
 	helper = osxkeychain
+[alias]
+	slog = log -35 --pretty=format:'%C(auto)%h - %an, %ar : %C(green)%s'
