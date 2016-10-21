@@ -151,10 +151,6 @@ rv() {
     rgrep "$1" * | grep -vE $(echo "${@:2}" | tr ' ' '|')
 }
 
-js-beautify(){
-    $HOME/js-beautify/python/js-beautify -i
-}
-
 todo(){
     sort <~/workspace/projects-status | sort -t '+' -k1,1 | column -s '|' -t
 }
