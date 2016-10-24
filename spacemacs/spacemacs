@@ -5,26 +5,34 @@
 ;; Configuration Layers
 ;; --------------------
 (setq-default
- dotspacemacs-configuration-layers '(
-                                     (auto-completion :variables
-                                                     auto-completion-enable-help-tooltip t
-                                                     auto-completion-enable-snippets-in-popup t
-                                                     auto-completion-enable-sort-by-usage t
-                                                     auto-completion-private-snippets-directory "~/workspace/dotfiles/spacemacs/yasnippets"
-                                                     auto-completion-return-key-behavior 'complete
-                                                     auto-completion-tab-key-behavior 'cycle
-                                     clojure
-                                     elixir
-                                     elm
-                                     git
-                                     html
-                                     javascript
-                                     lua
-                                     markdown
-                                     ruby
-                                     syntax-checking
-                                     terraform
-                                     typescript))
+ dotspacemacs-configuration-layers
+ '(
+   (auto-completion :variables
+                    auto-completion-enable-help-tooltip t
+                    auto-completion-enable-snippets-in-popup t
+                    auto-completion-enable-sort-by-usage t
+                    auto-completion-private-snippets-directory "~/workspace/dotfiles/spacemacs/yasnippets"
+                    auto-completion-return-key-behavior 'complete
+                    auto-completion-tab-key-behavior 'cycle)
+   clojure
+   elixir
+   elm
+   git
+   html
+   (javascript :variables
+               js2-basic-offset 2
+               js-indent-level 2)
+   lua
+   markdown
+   nlinum
+   react
+   ruby
+   scala
+   spacemacs-editing-visual
+   spotify
+   syntax-checking
+   terraform
+   typescript)
 
  dotspacemacs-excluded-packages '(smartparens))
 
@@ -44,27 +52,32 @@
  dotspacemacs-smartparens-strict-mode nil
  dotspacemacs-persistent-server nil
  dotspacemacs-default-package-repository nil
+
+ mac-right-option-modifier nil
+ git-enable-github-support t
+
+ ;; should these be moved as :variables in html mode above?
+ css-indent-offset 2
+ web-mode-markup-indent-offset 2
+ web-mode-css-indent-offset 2
+ web-mode-code-indent-offset 2
+ web-mode-attr-indent-offset 2
+
  dotspacemacs-default-font '("Monaco" :size 14 :weight normal :width normal :powerline-scale 1.1))
 
 (global-set-key (kbd "C-c c") 'hippie-expand)
-(global-set-key (kbd "C-c d") 'avy-goto-char-timer)
-(global-set-key (kbd "C-c e") 'yas/expand)
+
 ;; Initialization Hooks
 ;; --------------------
 
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  (setq-default
-   mac-right-option-modifier nil
-   git-enable-github-support t)
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  )
+  (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'nil)
   (define-key window-numbering-keymap "\M-0" nil)
   (define-key window-numbering-keymap "\M-1" nil)
   (define-key window-numbering-keymap "\M-2" nil)
@@ -75,8 +88,8 @@ This function is called at the very end of Spacemacs initialization."
   (define-key window-numbering-keymap "\M-7" nil)
   (define-key window-numbering-keymap "\M-8" nil)
   (define-key window-numbering-keymap "\M-9" nil)
-  (global-company-mode)
-  )
+
+  (setq evil-want-fine-undo nil))
 
 ;; Custom variables
 ;; ----------------
@@ -84,36 +97,14 @@ This function is called at the very end of Spacemacs initialization."
 ;; Do not write anything in this section. This is where Emacs will
 ;; auto-generate custom variable definitions.
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-requires 4 t)
- '(ahs-case-fold-search nil)
- '(ahs-default-range (quote ahs-range-whole-buffer))
- '(ahs-idle-interval 0.25)
- '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil)
- '(custom-safe-themes
-   (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(global-linum-mode t)
- '(js-indent-level 2)
- '(js2-basic-offset 2)
- '(js2-global-externs
-   (quote
-    ("process" "module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "__dirname" "console" "JSON" "describe" "it" "expect" "$" "Backbone" "Handlebars" "should" "sinon" "beforeEach" "before" "afterEach" "after" "_" "angular" "inject" "app" "chai")))
- '(js2-strict-missing-semi-warning nil)
- '(magit-use-overlays nil)
  '(package-selected-packages
    (quote
-    (livid-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors helm-company web-completion-data dash-functional clojure-snippets auto-complete helm-c-yasnippet company-web company-tern company-statistics company-quickhelp company auto-yasnippet ac-ispell window-numbering web-mode web-beautify volatile-highlights vi-tilde-fringe tern tagedit spray smooth-scrolling smeargle slim-mode scss-mode sass-mode rainbow-delimiters powerline popwin pcre2el paradox page-break-lines open-junk-file neotree move-text magit-gitflow magit lua-mode linum-relative leuven-theme less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode info+ indent-guide ido-vertical-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-descbinds helm-css-scss helm-ag helm haml-mode google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-lisp-state evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu emmet-mode define-word coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu cider buffer-move auto-highlight-symbol auto-dictionary align-cljlet aggressive-indent adaptive-wrap ace-window ace-link evil-leader evil which-key quelpa package-build use-package bind-key s dash spacemacs-theme)))
- '(paradox-github-token t)
- '(ring-bell-function (quote ignore))
- '(typescript-expr-indent-offset 2)
- '(typescript-indent-level 2))
+    (nlinum-relative nlinum ob-elixir minitest hide-comnt noflet ensime sbt-mode scala-mode typescript-mode hcl-mode org markdown-mode skewer-mode simple-httpd json-snatcher json-reformat js2-mode haml-mode gitignore-mode flycheck magit magit-popup git-commit with-editor web-completion-data dash-functional tern inflections edn multiple-cursors paredit peg cider queue clojure-mode inf-ruby elixir-mode company-quickhelp spotify helm-spotify multi macrostep elisp-slime-nav auto-compile packed ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide terraform-mode tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters quelpa pug-mode popwin persp-mode paradox orgit org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow lua-mode lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu emmet-mode elm-mode dumb-jump define-word company-web company-tern company-statistics column-enforce-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler auto-yasnippet auto-highlight-symbol alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
