@@ -176,7 +176,7 @@ bindkey " 3" tmux-select-pane-3
 # prevent tmux from renaming windows
 export DISABLE_AUTO_TITLE=true
 export EDITOR="vim"
-export PATH=~/bin:~/.cabal/bin:~/.cask/bin:~/.rbenv/bin:/Users/lazywithclass/.rbenv/shims:$PATH
+export PATH=~/bin:~/.cabal/bin:~/.cask/bin:~/.rbenv/bin:/Users/lazywithclass/.rbenv/shims:/usr/local/lib/node_modules:$PATH
 eval "$(rbenv init -)"
 
 [ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
