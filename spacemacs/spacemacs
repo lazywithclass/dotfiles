@@ -52,6 +52,7 @@
  dotspacemacs-smartparens-strict-mode nil
  dotspacemacs-persistent-server nil
  dotspacemacs-default-package-repository nil
+ dotspacemacs-line-numbers t
 
  mac-right-option-modifier nil
  git-enable-github-support t
