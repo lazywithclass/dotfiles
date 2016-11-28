@@ -4,8 +4,10 @@
   (s-replace project-path "" file-path))
 
 (defun project-name()
+  (defconst file-path (buffer-file-name (window-buffer (minibuffer-selected-window))))
   (defconst project-path (projectile-locate-dominating-file file-path ".git"))
-  (car (last (s-split-words project-path))))
+  (defconst folders (s-split "/" project-path))
+  (car (last (butlast folders))))
 
 (set-face-attribute 'header-line nil
                     :inherit nil
