@@ -4,8 +4,6 @@
 
 ;; Configuration Layers
 ;; --------------------
-(setq-default
- dotspacemacs-configuration-layer-path '("~/workspace/dotfiles/spacemacs/private-layers"))
 
 (setq-default
  dotspacemacs-configuration-layers
