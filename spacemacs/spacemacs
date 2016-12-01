@@ -42,8 +42,6 @@
    syntax-checking
    terraform
    typescript
-   ;; private layers
-   head-line
    )
 
  dotspacemacs-excluded-packages '(smartparens))
