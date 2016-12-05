@@ -94,7 +94,7 @@ RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(type node >/dev/null 2>&1
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    alias ls='ls -G'
+    alias ls='ls --color'
     alias ll='ls -l'
     alias la='ls -la'
     alias grep='grep --color=always'
@@ -155,6 +155,8 @@ todo(){
     sort <~/workspace/projects-status | sort -t '+' -k1,1 | column -s '|' -t
 }
 
+setxkbmap -option caps:ctrl_modifier
+
 bindkey '^R' history-incremental-search-backward
 
 tmux-select-pane-0() { tmux select-pane -t '0' }
@@ -176,10 +178,9 @@ bindkey " 3" tmux-select-pane-3
 # prevent tmux from renaming windows
 export DISABLE_AUTO_TITLE=true
 export EDITOR="vim"
-export PATH=~/bin:~/.cabal/bin:~/.cask/bin:~/.rbenv/bin:/Users/lazywithclass/.rbenv/shims:/usr/local/lib/node_modules:$PATH
-eval "$(rbenv init -)"
+export PATH=~/bin:/usr/local/lib/node_modules:$PATH
 
-[ -s "/Users/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/Users/lazywithclass/.scm_breeze/scm_breeze.sh"
+[ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
 echo ""
 ~/workspace/quote/bin/quote.sh
