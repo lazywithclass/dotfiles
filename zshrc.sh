@@ -178,12 +178,15 @@ bindkey " 3" tmux-select-pane-3
 # prevent tmux from renaming windows
 export DISABLE_AUTO_TITLE=true
 export EDITOR="vim"
-export PATH=~/bin:/usr/local/lib/node_modules:$PATH
+export GOPATH="/home/lazywithclass/workspace/"
+export GOBIN="$GOPATH/go-bin"
+
+eval $(thefuck --alias)
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
 
-echo ""
-~/workspace/quote/bin/quote.sh
+# echo ""
+# ~/workspace/quote/bin/quote.sh
 echo ""
 
 todo
