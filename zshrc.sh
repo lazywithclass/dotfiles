@@ -178,8 +178,6 @@ bindkey " 3" tmux-select-pane-3
 # prevent tmux from renaming windows
 export DISABLE_AUTO_TITLE=true
 export EDITOR="vim"
-export GOPATH="/home/lazywithclass/workspace/"
-export GOBIN="$GOPATH/go-bin"
 
 eval $(thefuck --alias)
 
