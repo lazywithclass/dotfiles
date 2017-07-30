@@ -217,7 +217,7 @@ values."
    dotspacemacs-display-default-layout nil
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
@@ -348,12 +348,19 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; company-mode explit config seems to be needed for vue-mode
+  (require 'company)
+  (global-company-mode)
+  (setq company-minimum-prefix-length 1)
+  (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+
   (use-package vue-mode)
   (setq flycheck-global-modes (not js2-mode))
   (add-hook 'js2-mode-hook #'(lambda ()
                                (spacemacs/set-leader-keys-for-major-mode 'js2-mode
                                  "'" 'nodejs-repl
-                                 "es" 'nodejs-repl-send-last-sexp
+                                 "es" 'nodejs-repl-send-last-expression
                                  "eb" 'nodejs-repl-send-buffer
                                  "er" 'nodejs-repl-send-region))))
 
