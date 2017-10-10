@@ -1,14 +1,8 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-
 # Note that zsh-syntax-highlighting should be the last plugin
-plugins=(copydir copyfile z zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(copydir copyfile zsh-256color z zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -78,7 +72,7 @@ parse_git_state() {
 # If inside a Git repository, print its branch and state
 git_prompt_string() {
     local git_where="$(parse_git_branch)"
-    [ -n "$git_where" ] && echo "$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
+    [ -n "$git_where" ] && echo "on $(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
 }
 
 function customW {
@@ -89,12 +83,13 @@ function tmuxPaneNumber {
   echo $(tmux display-message -p '#P')
 }
 
-PS1='$(customW) $(git_prompt_string)\$ '
+PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
+\$ '
 RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(type node >/dev/null 2>&1 && echo node $(node -v)) $(type ruby >/dev/null 2>&1 && echo $(ruby -v) | cut -d" " -f1-2)'
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    alias ls='ls --color'
+    alias ls='ls -G'
     alias ll='ls -l'
     alias la='ls -la'
     alias grep='grep --color=always'
@@ -109,6 +104,8 @@ if [ "$TERM" != "dumb" ]; then
     # last character of the alias value is a space or tab character, then the next
     # command word following the alias is also checked for alias expansion."
     alias sudo='sudo '
+    # https://superuser.com/a/1127215/346
+    alias scp='noglob scp'
 fi
 
 #goes up many dirs as the number passed as argument, if none goes up by 1 by default
@@ -151,11 +148,9 @@ rv() {
     rgrep "$1" * | grep -vE $(echo "${@:2}" | tr ' ' '|')
 }
 
-todo(){
-    sort <~/workspace/projects-status | sort -t '+' -k1,1 | column -s '|' -t
-}
-
-setxkbmap -option caps:ctrl_modifier
+if [ -x "$(command -v setxkbmap)" ]; then
+  setxkbmap -option caps:ctrl_modifier
+fi
 
 bindkey '^R' history-incremental-search-backward
 
@@ -179,24 +174,26 @@ bindkey " 3" tmux-select-pane-3
 export DISABLE_AUTO_TITLE=true
 export EDITOR="vim"
 
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=white"
+
 eval $(thefuck --alias)
 
-[ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
-# echo ""
-# ~/workspace/quote/bin/quote.sh
+[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
+
 echo ""
-
-todo
+~/workspace/quote/bin/quote.sh
 echo ""
 
 COLUMNS=$(tput cols)
-echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 12))
-echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 13))
-echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $(($COLUMNS - 2))
+echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 11))
+echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 11))
+echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $COLUMNS
 echo -e "|  _  // _ \/ _\` |/ _\` | | | | |  ___/| |/ _\` | | | |/ _ \ '__| | |  | | '_ \ / _ \\" | fmt -c -w $COLUMNS
 echo -e "| | \ \  __/ (_| | (_| | |_| | | |    | | (_| | |_| |  __/ |    | |__| | | | |  __/" | fmt -c -w $COLUMNS
 echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/|_| |_|\___|" | fmt -c -w $COLUMNS
 echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 6))
 echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
 echo ""
+
