@@ -60,6 +60,7 @@ values."
            web-mode-attr-indent-offset 2)
      idris
      (javascript :variables
+                 tern-command '("node" "~/workspace/tern/bin/tern")
                  js2-basic-offset 2
                  js-indent-level 2
                  js2-strict-missing-semi-warning nil
