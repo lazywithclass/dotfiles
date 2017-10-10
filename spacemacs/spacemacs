@@ -70,7 +70,8 @@ values."
      nlinum
      racket
      react
-     ruby
+     (ruby :variables
+           ruby-enable-enh-ruby-mode t)
      (scala :variables
             scala-use-java-doc-style t
             scala-auto-start-ensime t)
@@ -373,7 +374,7 @@ you should place your code here."
                                  "er" 'nodejs-repl-send-region)))
 
   ;; TODO move this into a layer, add cling.el to the PATH, use require
-  (load "/home/lazywithclass/workspace/inferior-cling/cling.el")
+  (load "~/workspace/inferior-cling/cling.el")
   ;; (add-hook 'c++-mode-hook inferior-cling-mode-hook)
 
   ;; https://github.com/syl20bnr/spacemacs/issues/9549
@@ -392,7 +393,7 @@ you should place your code here."
  '(idris-stay-in-current-window-on-compiler-error t)
  '(package-selected-packages
    (quote
-    ())))
+    (enh-ruby-mode ob-elixir evil-unimpaired yaml-mode xterm-color xah-math-input xah-css-mode ws-butler winum which-key web-mode web-beautify vue-mode edit-indirect ssass-mode vue-html-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide typescript-mode terraform-mode hcl-mode tagedit stickyfunc-enhance srefactor spotify spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters racket-mode faceup pug-mode popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file org-plus-contrib noflet nodejs-repl nlinum-relative nlinum neotree multi-term move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow macrostep lua-mode lorem-ipsum livid-mode skewer-mode simple-httpd link-hint less-css-mode json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc intero info+ indent-guide idris-mode prop-menu hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-spotify multi helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elm-mode elisp-slime-nav dumb-jump f disaster diminish diff-hl define-word dash-at-point csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-quickhelp pos-tip company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-c-headers column-enforce-mode coffee-mode cmm-mode cmake-mode clojure-snippets clj-refactor hydra inflections edn multiple-cursors paredit peg clean-aindent-mode clang-format cider-eval-sexp-fu eval-sexp-fu highlight cider seq spinner queue clojure-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed alchemist s company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
