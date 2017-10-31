@@ -85,7 +85,11 @@ function tmuxPaneNumber {
 
 PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
 \$ '
-RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(type node >/dev/null 2>&1 && echo node $(node -v)) $(type ruby >/dev/null 2>&1 && echo $(ruby -v) | cut -d" " -f1-2)'
+
+function javaVersion { type java >/dev/null 2>&1 && echo %{$fg[yellow]%}java%{$reset_color%}@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"') }
+function nodeVersion { type node >/dev/null 2>&1 && echo %{$fg[yellow]%}node%{$reset_color%}@$(node -v) }
+function rubyVersion { type ruby >/dev/null 2>&1 && echo %{$fg[yellow]%}ruby%{$reset_color%}@$(ruby -v | cut -d' ' -f2 ) }
+RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(nodeVersion) $(rubyVersion) $(javaVersion)'
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
