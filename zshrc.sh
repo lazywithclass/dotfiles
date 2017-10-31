@@ -99,6 +99,9 @@ if [ "$TERM" != "dumb" ]; then
     alias copy='xclip -sel clip'
     alias u='up'
     alias docker-clean='docker rmi -f $(docker images | grep "^<none>" | tr -s " " | cut -d" " -f3)'
+    alias vmip='vmrun getGuestIPAddress "$(vmrun list | tail -1)"'
+    alias ctags="`brew --prefix`/bin/ctags"
+
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
     # last character of the alias value is a space or tab character, then the next
@@ -170,16 +173,10 @@ tmux-select-pane-3() { tmux select-pane -t '3' }
 zle -N tmux-select-pane-3
 bindkey " 3" tmux-select-pane-3
 
-# prevent tmux from renaming windows
-export DISABLE_AUTO_TITLE=true
-export EDITOR="vim"
 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=white"
+eval "$(rbenv init -)"
 
 eval $(thefuck --alias)
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
 
 echo ""
@@ -196,4 +193,3 @@ echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/
 echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 6))
 echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
 echo ""
-
