@@ -3,18 +3,22 @@
     "browser",
     "jquery",
     "underscore",
-    "ecma5"
+    "ecma5",
+    "ecma6",
+    "ecma7"
   ],
   "loadEagerly": [
-    "importantfile.js"
   ],
   "plugins": {
+    "es_modules": {},
+    "angular": {},
     "node": {
-      "dontLoad": "false"
+      "dontLoad": []
     },
     "requirejs": {
       "baseURL": "./",
       "paths": {}
     }
-  }
+  },
+  "ecmaVersion": 6
 }
