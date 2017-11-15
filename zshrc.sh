@@ -34,37 +34,37 @@ parse_git_state() {
 
     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_AHEAD" -gt 0 ]; then
-	    GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
+      GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
     fi
 
     local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_BEHIND" -gt 0 ]; then
-	    GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
+      GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
     fi
 
     local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
     if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-	    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
+      GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
     fi
 
     if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-	    GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
+      GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
     fi
 
     if ! git diff --quiet 2> /dev/null; then
-	    GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
+      GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
     fi
 
     if ! git diff --cached --quiet 2> /dev/null; then
-	    GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
+      GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
     fi
 
     if [[ $(git stash list | wc -l) -gt 0 ]]; then
-	    GIT_STATE=$GIT_STATE'$'
+      GIT_STATE=$GIT_STATE'$'
     fi
 
     if [[ -n $GIT_STATE ]]; then
-	    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
+      echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
     fi
 
 }
@@ -76,7 +76,16 @@ git_prompt_string() {
 }
 
 function customW {
-    echo $PWD | sed 's|.*/\([a-zA-Z0-9]*/[a-zA-Z0-9]*\)|\1|'
+  pwd | awk -F\/ '{print $(NF-1),$(NF)}' | tr ' ' '/'
+}
+
+function foldersFromGit {
+  steps=0
+  while [[ ! $(ls -a .git &>/dev/null) && $CWD != '/' ]]; do 
+    steps=$((steps+1))
+    cd ..
+  done
+  echo $steps
 }
 
 function tmuxPaneNumber {
@@ -86,9 +95,9 @@ function tmuxPaneNumber {
 PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
 \$ '
 
-function javaVersion { type java >/dev/null 2>&1 && echo %{$fg[yellow]%}java%{$reset_color%}@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"') }
-function nodeVersion { type node >/dev/null 2>&1 && echo %{$fg[yellow]%}node%{$reset_color%}@$(node -v) }
-function rubyVersion { type ruby >/dev/null 2>&1 && echo %{$fg[yellow]%}ruby%{$reset_color%}@$(ruby -v | cut -d' ' -f2 ) }
+function javaVersion { type java >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}java@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"')%{$reset_color%} }
+function nodeVersion { type node >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}node@$(node -v)%{$reset_color%} }
+function rubyVersion { type ruby >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}ruby@$(ruby -v | cut -d' ' -f2 )%{$reset_color%} }
 RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(nodeVersion) $(rubyVersion) $(javaVersion)'
 
 # enable color support of ls and also add handy aliases
@@ -99,8 +108,6 @@ if [ "$TERM" != "dumb" ]; then
     alias grep='grep --color=always'
     alias rgrep='grep -r --color=always'
     alias e='emacsclient -t'
-    alias xc='xclip'
-    alias copy='xclip -sel clip'
     alias u='up'
     alias docker-clean='docker rmi -f $(docker images | grep "^<none>" | tr -s " " | cut -d" " -f3)'
     alias vmip='vmrun getGuestIPAddress "$(vmrun list | tail -1)"'
@@ -121,11 +128,11 @@ up(){
     limit=$1
     for ((i=1 ; i <= limit ; i++))
     do
-	    d=$d/..
+      d=$d/..
     done
     d=$(echo $d | sed 's/^\///')
     if [ -z "$d" ]; then
-	    d=..
+      d=..
     fi
     cd $d
 }
@@ -134,7 +141,7 @@ h(){
     if [ -z "$1" ]
     then history;
     else
-	    history | grep "$@"
+      history | grep "$@"
     fi
 }
 
@@ -177,20 +184,18 @@ tmux-select-pane-3() { tmux select-pane -t '3' }
 zle -N tmux-select-pane-3
 bindkey " 3" tmux-select-pane-3
 
-
-eval "$(rbenv init -)"
-
 eval $(thefuck --alias)
+
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
 
 echo ""
-~/workspace/quote/bin/quote.sh
+fortune
 echo ""
 
 COLUMNS=$(tput cols)
-echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 11))
-echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 11))
-echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $COLUMNS
+echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 12))
+echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 12))
+echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $(($COLUMNS -1))
 echo -e "|  _  // _ \/ _\` |/ _\` | | | | |  ___/| |/ _\` | | | |/ _ \ '__| | |  | | '_ \ / _ \\" | fmt -c -w $COLUMNS
 echo -e "| | \ \  __/ (_| | (_| | |_| | | |    | | (_| | |_| |  __/ |    | |__| | | | |  __/" | fmt -c -w $COLUMNS
 echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/|_| |_|\___|" | fmt -c -w $COLUMNS
