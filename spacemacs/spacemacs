@@ -414,6 +414,9 @@ you should place your code here."
                                  "eb" 'nodejs-repl-send-buffer
                                  "er" 'nodejs-repl-send-region)))
 
+  ;; use the longest filename as max length
+  (setq helm-buffer-max-length nil)
+
   ;; TODO move this into a layer, add cling.el to the PATH, use require
   (load "~/workspace/inferior-cling/cling.el")
   (require 'cling)
