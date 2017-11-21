@@ -53,7 +53,9 @@ This function should only modify configuration layer settings."
      go
      gtags
      haskell
-     helm
+     (helm :variables
+           ;; use the longest filename as max length
+           helm-buffer-max-length nil)
      (html :variables
            css-indent-offset 2
            web-mode-markup-indent-offset 2
@@ -414,9 +416,6 @@ you should place your code here."
                                  "eb" 'nodejs-repl-send-buffer
                                  "er" 'nodejs-repl-send-region)))
 
-  ;; use the longest filename as max length
-  (setq helm-buffer-max-length nil)
-
   ;; TODO move this into a layer, add cling.el to the PATH, use require
   (load "~/workspace/inferior-cling/cling.el")
   (require 'cling)
@@ -438,18 +437,18 @@ you should place your code here."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (helm-cscope xcscope yaml-mode xterm-color xah-math-input xah-css-mode ws-butler winum which-key web-mode web-beautify vue-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide terraform-mode tagedit symon string-inflection stickyfunc-enhance srefactor sql-indent spotify spaceline smeargle slim-mode shell-pop scss-mode sayid sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe reveal-in-osx-finder restart-emacs realgud rbenv rake rainbow-delimiters racket-mode pug-mode popwin persp-mode pbcopy password-generator paradox osx-trash osx-dictionary org-bullets open-junk-file ob-elixir noflet nodejs-repl nlinum-relative neotree multi-term move-text minitest meghanada markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode link-hint less-css-mode launchctl json-mode js2-refactor js-doc intero info+ indent-guide impatient-mode idris-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-spotify helm-purpose helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets gradle-mode google-translate golden-ratio godoctor go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump disaster diff-hl dash-at-point dante csv-mode company-web company-tern company-statistics company-quickhelp company-lua company-go company-ghci company-ghc company-emacs-eclim company-cabal company-c-headers column-enforce-mode coffee-mode cmm-mode cmake-mode cmake-ide clojure-snippets clj-refactor clean-aindent-mode clang-format cider-eval-sexp-fu chruby bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(package-selected-packages
+     (quote
+      (helm-cscope xcscope yaml-mode xterm-color xah-math-input xah-css-mode ws-butler winum which-key web-mode web-beautify vue-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide terraform-mode tagedit symon string-inflection stickyfunc-enhance srefactor sql-indent spotify spaceline smeargle slim-mode shell-pop scss-mode sayid sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe reveal-in-osx-finder restart-emacs realgud rbenv rake rainbow-delimiters racket-mode pug-mode popwin persp-mode pbcopy password-generator paradox osx-trash osx-dictionary org-bullets open-junk-file ob-elixir noflet nodejs-repl nlinum-relative neotree multi-term move-text minitest meghanada markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode link-hint less-css-mode launchctl json-mode js2-refactor js-doc intero info+ indent-guide impatient-mode idris-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-spotify helm-purpose helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets gradle-mode google-translate golden-ratio godoctor go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elm-mode elisp-slime-nav editorconfig dumb-jump disaster diff-hl dash-at-point dante csv-mode company-web company-tern company-statistics company-quickhelp company-lua company-go company-ghci company-ghc company-emacs-eclim company-cabal company-c-headers column-enforce-mode coffee-mode cmm-mode cmake-mode cmake-ide clojure-snippets clj-refactor clean-aindent-mode clang-format cider-eval-sexp-fu chruby bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
