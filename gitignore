@@ -1,1 +1,10 @@
+GPATH
+GRTAGS
+GTAGS
+
+cscope.out
+cscope.files
+
+.ruby-version
+
 .tern-port
