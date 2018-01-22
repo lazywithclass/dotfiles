@@ -95,9 +95,12 @@ function tmuxPaneNumber {
 PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
 \$ '
 
-function javaVersion { type java >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}java@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"')%{$reset_color%} }
-function nodeVersion { type node >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}node@$(node -v)%{$reset_color%} }
-function rubyVersion { type ruby >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}ruby@$(ruby -v | cut -d' ' -f2 )%{$reset_color%} }
+#function javaVersion { type java >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}java@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"')%{$reset_color%} }
+#function nodeVersion { type node >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}node@$(node -v)%{$reset_color%} }
+#function rubyVersion { type ruby >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}ruby@$(ruby -v | cut -d' ' -f2 )%{$reset_color%} }
+function javaVersion { type java >/dev/null 2>&1 && echo java@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"') }
+function nodeVersion { type node >/dev/null 2>&1 && echo node@$(node -v) }
+function rubyVersion { type ruby >/dev/null 2>&1 && echo ruby@$(ruby -v | cut -d' ' -f2 ) }
 RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(nodeVersion) $(rubyVersion) $(javaVersion)'
 
 # enable color support of ls and also add handy aliases
@@ -105,13 +108,13 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls -G'
     alias ll='ls -l'
     alias la='ls -la'
-    alias grep='grep --color=always'
     alias rgrep='grep -r --color=always'
     alias e='emacsclient -t'
     alias u='up'
     alias docker-clean='docker rmi -f $(docker images | grep "^<none>" | tr -s " " | cut -d" " -f3)'
     alias vmip='vmrun getGuestIPAddress "$(vmrun list | tail -1)"'
     alias ctags="`brew --prefix`/bin/ctags"
+    alias man="tldr"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
@@ -162,6 +165,25 @@ rv() {
     rgrep "$1" * | grep -vE $(echo "${@:2}" | tr ' ' '|')
 }
 
+hextostring() {
+  echo $1 | tr ',' ' ' | sed 's/0x//g' | xxd -r -p
+}
+
+stringtohex() {
+  echo $1 | tr ',' ' ' | sed 's/0x//g' | od -t x1
+}
+
+funx='\033[38;5;200m'
+symbol='\033[38;5;85m'
+parens='\033[1;36m'
+quote='\033[38;5;200m'
+nc='\033[0m'
+todo() {
+  echo -e "${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${nc}${parens})${nc}"
+  sort <~/workspace/project-status | sort -t '+' -k1,1 | column -s '|' -t
+  echo ""
+}
+
 if [ -x "$(command -v setxkbmap)" ]; then
   setxkbmap -option caps:ctrl_modifier
 fi
@@ -202,3 +224,6 @@ echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/
 echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 6))
 echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
 echo ""
+
+
+todo
