@@ -88,20 +88,10 @@ function foldersFromGit {
   echo $steps
 }
 
-function tmuxPaneNumber {
-  echo $(tmux display-message -p '#P')
-}
-
 PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
 \$ '
 
-#function javaVersion { type java >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}java@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"')%{$reset_color%} }
-#function nodeVersion { type node >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}node@$(node -v)%{$reset_color%} }
-#function rubyVersion { type ruby >/dev/null 2>&1 && echo %{$FG[$(printf "%03d\n" $(gshuf -i1-254 -n1))]%}ruby@$(ruby -v | cut -d' ' -f2 )%{$reset_color%} }
-function javaVersion { type java >/dev/null 2>&1 && echo java@$(java -version 2>&1 | head -1 | cut -d' ' -f3 | tr -d '"') }
-function nodeVersion { type node >/dev/null 2>&1 && echo node@$(node -v) }
-function rubyVersion { type ruby >/dev/null 2>&1 && echo ruby@$(ruby -v | cut -d' ' -f2 ) }
-RPS1='$(tmuxPaneNumber) $(date "+%H:%M:%S %d/%m/%Y") $(nodeVersion) $(rubyVersion) $(javaVersion)'
+RPS1='$(date "+%H:%M:%S %d/%m/%Y")'
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
@@ -115,6 +105,7 @@ if [ "$TERM" != "dumb" ]; then
     alias vmip='vmrun getGuestIPAddress "$(vmrun list | tail -1)"'
     alias ctags="`brew --prefix`/bin/ctags"
     alias man="tldr"
+    alias dot="xdot"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
@@ -123,6 +114,8 @@ if [ "$TERM" != "dumb" ]; then
     alias sudo='sudo '
     # https://superuser.com/a/1127215/346
     alias scp='noglob scp'
+
+    alias vless='vim -u /usr/share/vim/vim80/macros/less.vim'
 fi
 
 #goes up many dirs as the number passed as argument, if none goes up by 1 by default
@@ -190,22 +183,6 @@ fi
 
 bindkey '^R' history-incremental-search-backward
 
-tmux-select-pane-0() { tmux select-pane -t '0' }
-zle -N tmux-select-pane-0
-bindkey " 0" tmux-select-pane-0
-
-tmux-select-pane-1() { tmux select-pane -t '1' }
-zle -N tmux-select-pane-1
-bindkey " 1" tmux-select-pane-1
-
-tmux-select-pane-2() { tmux select-pane -t '2' }
-zle -N tmux-select-pane-2
-bindkey " 2" tmux-select-pane-2
-
-tmux-select-pane-3() { tmux select-pane -t '3' }
-zle -N tmux-select-pane-3
-bindkey " 3" tmux-select-pane-3
-
 eval $(thefuck --alias)
 
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
@@ -225,5 +202,10 @@ echo -e "                         __/ |                  __/ |" | fmt -c -w $(($
 echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
 echo ""
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/lazywithclass/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/lazywithclass/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/lazywithclass/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/lazywithclass/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 todo
+
