@@ -11,6 +11,4 @@
 (require 'flx)
 (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
 
-; Use Enter on a directory to navigate into the directory, not open it with dired.
-(define-key ivy-minibuffer-map (kbd "C-m") 'ivy-alt-done)
-(global-set-key (kbd "C-x C-f") 'counsel-git)
+(defvar counsel-git-cmd "git ls-files --others --full-name --" "Command for `counsel-git'.")
