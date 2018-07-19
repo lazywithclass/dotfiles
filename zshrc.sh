@@ -172,7 +172,6 @@ parens='\033[1;36m'
 quote='\033[38;5;200m'
 nc='\033[0m'
 todo() {
-  echo -e "${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${nc}${parens})${nc}"
   sort <~/workspace/project-status | sort -t '+' -k1,1 | column -s '|' -t
   echo ""
 }
@@ -182,6 +181,10 @@ if [ -x "$(command -v setxkbmap)" ]; then
 fi
 
 bindkey '^R' history-incremental-search-backward
+bindkey -rM emacs '^P'
+bindkey -M emacs '^K' up-line-or-history
+bindkey -rM emacs '^N'
+bindkey -M emacs '^J' down-line-or-history
 
 eval $(thefuck --alias)
 
@@ -207,5 +210,13 @@ if [ -f '/Users/lazywithclass/Downloads/google-cloud-sdk/path.zsh.inc' ]; then s
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/lazywithclass/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/lazywithclass/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
+messages=()
+messages+=("${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${nc}${parens})${nc}")
+messages+=("${parens}(${nc}${funx}remember${nc}
+  ${parens}(${nc}${funx}why${nc} ${quote}'${nc}${symbol}you${nc}${parens})${nc}
+  ${parens}(${nc}${funx}do${nc} ${quote}'${nc}${symbol}this${nc}${parens})${nc}${parens})${nc}")
+messages+=("🙂")
+rand=$[$RANDOM % ${#messages[@]}]
+echo ${messages[$rand+1]}
 todo
 
