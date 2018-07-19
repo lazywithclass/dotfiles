@@ -3,11 +3,14 @@
 
 (load "packages.el")
 
-(install-packages '(irony))
-(load "counsel-etags.el")
+(install-packages '(irony modern-cpp-font-lock))
 
+(modern-c++-font-lock-global-mode t)
 
-(require 'counsel-etags)
+;; TODO this tries to index anything it finds, find a way to scope
+;; it, the generated files contains EVERYTHING and is gigantic
+;; (load "counsel-etags.el")
+;; (require 'counsel-etags)
 ;; Ignore files above 800kb
 (setq counsel-etags-max-file-size 800)
 ;; Don't ask before rereading the TAGS files if they have changed

@@ -24,7 +24,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (markdown-mode use-package irony evil)))
+ '(package-selected-packages (quote (slime tide markdown-mode use-package irony evil)))
  '(ring-bell-function (quote ignore)))
 
 (custom-set-faces
