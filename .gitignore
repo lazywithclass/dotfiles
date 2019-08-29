@@ -7,3 +7,4 @@ emacs.d/elpa
 emacs.d/history
 emacs.d/recentf
 emacs.d/.emacs.desktop.lock
+.DS_Store
