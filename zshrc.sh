@@ -2,7 +2,7 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Note that zsh-syntax-highlighting should be the last plugin
-plugins=(copydir copyfile zsh-256color z zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(vagrant copydir copyfile zsh-256color z zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,6 +88,10 @@ function foldersFromGit {
   echo $steps
 }
 
+function antlr4 {
+  java -jar ~/bin/antlr-4.7.2-complete.jar
+}
+
 PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
 \$ '
 
@@ -106,6 +110,7 @@ if [ "$TERM" != "dumb" ]; then
     alias ctags="`brew --prefix`/bin/ctags"
     alias man="tldr"
     alias dot="xdot"
+    alias antlr4="java -jar ~/bin/antlr-4.7.2-complete.jar"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
@@ -166,6 +171,10 @@ stringtohex() {
   echo $1 | tr ',' ' ' | sed 's/0x//g' | od -t x1
 }
 
+open-google-chrome() {
+  open -a "Google Chrome" --args --disk-cache-size=1 --args --remote-debugging-port=9222
+}
+
 funx='\033[38;5;200m'
 symbol='\033[38;5;85m'
 parens='\033[1;36m'
@@ -188,21 +197,8 @@ bindkey -M emacs '^J' down-line-or-history
 
 eval $(thefuck --alias)
 
-[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
-
 echo ""
 fortune -a
-echo ""
-
-COLUMNS=$(tput cols)
-echo -e " _____                _         _____  _                          ____" | fmt -c -w $(($COLUMNS - 12))
-echo -e "|  __ \              | |       |  __ \| |                        / __ \\" | fmt -c -w $(($COLUMNS - 12))
-echo -e "| |__) |___  __ _  __| |_   _  | |__) | | __ _ _   _  ___ _ __  | |  | |_ __   ___" | fmt -c -w $(($COLUMNS -1))
-echo -e "|  _  // _ \/ _\` |/ _\` | | | | |  ___/| |/ _\` | | | |/ _ \ '__| | |  | | '_ \ / _ \\" | fmt -c -w $COLUMNS
-echo -e "| | \ \  __/ (_| | (_| | |_| | | |    | | (_| | |_| |  __/ |    | |__| | | | |  __/" | fmt -c -w $COLUMNS
-echo -e "|_|  \_\___|\__,_|\__,_|\__, | |_|    |_|\__,_|\__, |\___|_|     \____/|_| |_|\___|" | fmt -c -w $COLUMNS
-echo -e "                         __/ |                  __/ |" | fmt -c -w $(($COLUMNS - 6))
-echo -e "                        |___/                  |___/" | fmt -c -w $(($COLUMNS - 8))
 echo ""
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -220,3 +216,8 @@ rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
 todo
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
