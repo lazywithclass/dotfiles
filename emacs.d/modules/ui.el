@@ -1,26 +1,58 @@
-(load "packages.el")
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
 
-(install-packages '(color-theme-solarized))
+(use-package doom-themes
+  :ensure t)
 
-(load-theme 'solarized t)
+(use-package solarized-theme
+  :ensure t
+  :config (load-theme 'solarized-dark t))
 
-(setq inhibit-startup-echo-area-message "lazywithclass")
-(setq inhibit-startup-screen t)
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package flx
+  :ensure t
+  :config (require 'flx))
+
+(use-package ivy
+  :ensure t
+  :requires flx
+  :config (progn
+            (ivy-mode 1)
+            (setq ivy-count-format ""
+                  ivy-display-style nil
+                  ivy-minibuffer-faces nil
+                  ivy-use-virtual-buffers t
+                  ivy-re-builders-alist '((t . ivy--regex-fuzzy)))))
+
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar))
+
+(setq enable-recursive-minibuffers t
+      inhibit-startup-echo-area-message "lazywithclass"
+      inhibit-startup-screen t
+      tab-width 4
+      scroll-margin 5
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
 
 (setq-default indent-tabs-mode nil)
-(setq tab-width 4)
 
 (global-hl-line-mode 1)
-
 (line-number-mode 1)
 (column-number-mode 1)
 (global-linum-mode 1)
 
-(set-frame-font "Monaco-13")
+(set-frame-font "Monaco-14")
 (set-default 'truncate-lines t)
 
 ;; use the clipboard, pretty please, so that copy/paste "works"
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 ;; cua goodness without remapping C-v and the likes
 (cua-selection-mode t)
 
@@ -32,3 +64,7 @@
 (setq-default left-margin-width 4 right-margin-width 4)
 
 (blink-cursor-mode 0)
+
+;; prefer horizontal split
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window-Options.html
+(setq split-width-threshold 999)

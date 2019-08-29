@@ -1,3 +1,2 @@
-(load "packages.el")
-
-(install-packages '(slime))
+(use-package slime
+  :ensure t)

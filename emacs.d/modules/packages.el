@@ -1,10 +1,9 @@
 (require 'cl)
+
 (require 'package)
-
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-
-(add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(package-refresh-contents)
 
 (defun install-package (package)
   (unless (package-installed-p package)

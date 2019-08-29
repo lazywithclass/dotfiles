@@ -1,8 +1,10 @@
-(load "packages.el")
-
 (use-package tide
   :ensure t
-  :mode(("\\.ts\\'" . typescript-mode))
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode))
   :config
-  (tide-setup)
-  (flycheck-mode +1))
+  (setq-default typescript-indent-level 2)
+  (flycheck-mode t)
+  (setq flycheck-checker 'typescript-tslint)
+  (company-mode t))
+
