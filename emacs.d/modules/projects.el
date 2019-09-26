@@ -12,3 +12,12 @@
   :ensure t
   :init
   (setq bm-cycle-all-buffers t))
+
+(use-package neotree
+  :ensure t
+  :init
+  (setq neo-smart-open t))
+
+(defun open-file-at-point ()
+  (interactive)
+  (find-file (current-word)))
