@@ -92,7 +92,16 @@ function antlr4 {
   java -jar ~/bin/antlr-4.7.2-complete.jar
 }
 
-PS1='$(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
+function lastExitCode {
+  local exit="$?"
+  lastStatus="%{$fg[red]%}:(%{$reset_color%}"
+  if [[ $exit -eq 0 ]]; then
+    lastStatus="%{$fg[green]%}:)%{$reset_color%}"
+  fi
+  echo $lastStatus
+}
+
+PS1='$(lastExitCode) $(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
 \$ '
 
 RPS1='$(date "+%H:%M:%S %d/%m/%Y")'
@@ -221,3 +230,4 @@ todo
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
+
