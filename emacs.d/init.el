@@ -7,7 +7,7 @@
 (load "backup-config")
 (load "buffers")
 (load "commands")
-;; (load "debug")
+;; (load "debug") waiting for some love :]
 (load "editing")
 (load "evil-config")
 (load "git")
@@ -20,7 +20,6 @@
 (load "clojure")
 (load "javascript")
 (load "lisp")
-(load "python")
 (load "ruby")
 (load "typescript")
 
@@ -75,7 +74,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (dirtree neotree helm-swoop smart-mode-line bm dash-at-point helm-dash spray dumb-jump rainbow-delimiters lsp-treemacs helm-lsp company-lsp lsp-ui dap-javascript dap-mode helm-gtags projectile-ripgrep rg skewer-mode anaconda-mode rvm exec-path-from-shell dired-sidebar git-gutter doom-themes doom-modeline magit ripgrep helm-rg amx helm geiser json-mode js2-mode ggtags rake ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv enh-ruby-mode chruby bundler multiple-cursors projectile general markdown-mode window-numbering use-package tide solarized-theme slime ivy highlight-parentheses flx evil-terminal-cursor-changer evil-escape company-ycmd beacon avy)))
+    (cider clojure-mode-extra-font-locking clojure-mode evil flycheck company ycmd browse-kill-ring dirtree neotree helm-swoop smart-mode-line bm dash-at-point helm-dash spray dumb-jump rainbow-delimiters lsp-treemacs helm-lsp company-lsp lsp-ui dap-javascript dap-mode helm-gtags projectile-ripgrep rg skewer-mode anaconda-mode rvm exec-path-from-shell dired-sidebar git-gutter doom-themes doom-modeline magit ripgrep helm-rg amx helm geiser json-mode js2-mode ggtags rake ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv enh-ruby-mode chruby bundler multiple-cursors projectile general markdown-mode window-numbering use-package tide solarized-theme slime ivy highlight-parentheses flx evil-terminal-cursor-changer evil-escape company-ycmd beacon avy)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(ring-bell-function (quote ignore))

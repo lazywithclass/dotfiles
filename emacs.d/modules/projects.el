@@ -21,3 +21,5 @@
 (defun open-file-at-point ()
   (interactive)
   (find-file (current-word)))
+
+(desktop-save-mode 1)

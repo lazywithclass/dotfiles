@@ -13,6 +13,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq mac-command-modifier 'meta)
 
+
 (define-key evil-normal-state-map           [escape] 'keyboard-quit)
 (define-key evil-visual-state-map           [escape] 'keyboard-quit)
 (define-key minibuffer-local-map            [escape] 'minibuffer-keyboard-quit)
@@ -28,6 +29,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "M-s")       'save-buffer)
 
 (general-auto-unbind-keys)
+(general-evil-setup)
+
+(general-imap "="
+  (general-key-dispatch 'self-insert-command
+    :timeout 0.25
+    "=" 'evil-indent-line))
 
 (general-define-key :states '(normal)        :keymaps 'override "/"       'helm-swoop)
 (general-define-key :states '(normal insert) :keymaps 'override "C-a"     'projectile-find-file)
@@ -35,6 +42,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (general-define-key :states '(normal insert) :keymaps 'override "C-d"     'dash-at-point)
 (general-define-key :states '(normal insert) :keymaps 'override "C-j j"   'dumb-jump-go)
 (general-define-key :states '(normal insert) :keymaps 'override "C-j b"   'dumb-jump-back)
+(general-define-key :states '(normal insert) :keymaps 'override "C-j o"   'dumb-jump-go-other-window)
 (general-define-key :states '(normal insert) :keymaps 'override "C-k"     'kill-this-buffer)
 (general-define-key :states '(normal insert) :keymaps 'override "C-o"     'open-file-at-point)
 (general-define-key :states '(normal insert) :keymaps 'override "C-q"     'neotree-toggle)
