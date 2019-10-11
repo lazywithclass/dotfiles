@@ -120,6 +120,7 @@ if [ "$TERM" != "dumb" ]; then
     alias man="tldr"
     alias dot="xdot"
     alias antlr4="java -jar ~/bin/antlr-4.7.2-complete.jar"
+    alias cat="bat"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
