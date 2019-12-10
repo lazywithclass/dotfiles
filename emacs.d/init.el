@@ -11,6 +11,7 @@
 (load "evil-config")
 (load "git")
 (load "projects")
+
 (load "ui")
 
 (load "language-agnostic")
@@ -18,6 +19,7 @@
 (load "antlr")
 (load "clojure")
 (load "javascript")
+(load "haskell")
 (load "lisp")
 (load "ruby")
 (load "typescript")
@@ -73,7 +75,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (lsp-mode cider clojure-mode-extra-font-locking clojure-mode evil flycheck company ycmd browse-kill-ring dirtree neotree helm-swoop smart-mode-line bm dash-at-point helm-dash spray dumb-jump rainbow-delimiters lsp-treemacs helm-lsp company-lsp lsp-ui dap-javascript dap-mode helm-gtags projectile-ripgrep rg skewer-mode anaconda-mode rvm exec-path-from-shell dired-sidebar git-gutter doom-themes doom-modeline magit ripgrep helm-rg amx helm geiser json-mode js2-mode ggtags rake ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv enh-ruby-mode chruby bundler multiple-cursors projectile general markdown-mode window-numbering use-package tide solarized-theme slime ivy highlight-parentheses flx evil-terminal-cursor-changer evil-escape company-ycmd beacon avy)))
+    (multi-term buffer-move haskell-mode ws-butler eyebrowse perspective 0blayout find-file-in-project yasnippet lsp-mode cider clojure-mode-extra-font-locking clojure-mode evil flycheck company ycmd browse-kill-ring dirtree neotree helm-swoop smart-mode-line bm dash-at-point helm-dash spray dumb-jump rainbow-delimiters lsp-treemacs helm-lsp company-lsp lsp-ui dap-javascript dap-mode helm-gtags projectile-ripgrep rg skewer-mode anaconda-mode rvm exec-path-from-shell dired-sidebar git-gutter doom-themes doom-modeline magit ripgrep helm-rg amx helm geiser json-mode js2-mode ggtags rake ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv enh-ruby-mode chruby bundler multiple-cursors projectile general markdown-mode window-numbering use-package tide solarized-theme slime ivy highlight-parentheses flx evil-terminal-cursor-changer evil-escape company-ycmd beacon avy)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(ring-bell-function (quote ignore))
