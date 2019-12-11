@@ -45,10 +45,7 @@
 
 (setq-default indent-tabs-mode nil)
 
-(global-hl-line-mode 1)
-(line-number-mode 1)
 (column-number-mode 1)
-(global-linum-mode 1)
 
 (set-frame-font "Monaco-14")
 (set-default 'truncate-lines t)
