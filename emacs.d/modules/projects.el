@@ -18,6 +18,9 @@
   :init
   (setq neo-smart-open t))
 
+(use-package find-file-in-project
+  :ensure t)
+
 (defun open-file-at-point ()
   (interactive)
   (find-file (current-word)))
