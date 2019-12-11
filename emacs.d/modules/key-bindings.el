@@ -36,34 +36,42 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     :timeout 0.25
     "=" 'evil-indent-line))
 
-(general-define-key :states '(normal)        :keymaps 'override "/"       'helm-swoop)
-(general-define-key :states '(normal)        :keymaps 'override "q"       'evil-backward-WORD-end)
-(general-define-key :states '(normal)        :keymaps 'override "q"       'evil-backward-WORD-end)
-(general-define-key :states '(normal)        :keymaps 'override "e"       'evil-forward-WORD-begin)
-(general-define-key :states '(normal insert) :keymaps 'override "C-a"     'projectile-find-file)
-(general-define-key :states '(normal insert) :keymaps 'override "C-b"     'evil-switch-to-windows-last-buffer)
-(general-define-key :states '(normal insert) :keymaps 'override "C-d"     'dash-at-point)
-(general-define-key :states '(normal insert) :keymaps 'override "C-e"     'evil-end-of-line)
-(general-define-key :states '(normal insert) :keymaps 'override "C-j j"   'dumb-jump-go)
-(general-define-key :states '(normal insert) :keymaps 'override "C-j b"   'dumb-jump-back)
-(general-define-key :states '(normal insert) :keymaps 'override "C-j o"   'dumb-jump-go-other-window)
-(general-define-key :states '(normal insert) :keymaps 'override "C-k"     'kill-this-buffer)
-(general-define-key :states '(normal insert) :keymaps 'override "C-o"     'open-file-at-point)
-(general-define-key :states '(normal insert) :keymaps 'override "C-q"     'beginning-of-line-text)
-(general-define-key :states '(normal insert) :keymaps 'override "C-s"     'helm-swoop)
-(general-define-key :states '(normal insert) :keymaps 'override "C-w"     'evil-window-next)
-(general-define-key :states '(normal insert) :keymaps 'override "C-;"     'comment-line)
-(general-define-key :states '(normal insert) :keymaps 'override "C-c p p" 'projectile-switch-project)
-(general-define-key :states '(normal insert) :keymaps 'override "C-c p b" 'projectile-switch-to-buffer)
-(general-define-key :states '(normal insert) :keymaps 'override "C-c h ." 'highlight-symbol-at-point)
-(general-define-key :states '(normal insert) :keymaps 'override "C-c h r" 'unhighlight-regexp)
-(general-define-key :states '(normal insert) :keymaps 'override "C-c g"   'projectile-ripgrep)
-(general-define-key :states '(normal insert) :keymaps 'override "C-t"     'bm-toggle)   ; bookmark
-(general-define-key :states '(normal insert) :keymaps 'override "<tab>"   'bm-next)     ; bookmark
-(general-define-key :states '(normal insert) :keymaps 'override "C-<tab>" 'bm-previous) ; bookmark
+(general-define-key :states '(normal)               :keymaps 'override             "/"              'helm-swoop)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-a"            'find-file-in-project)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-b"            'evil-switch-to-windows-last-buffer)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-d"            'dash-at-point)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-e"            'evil-end-of-line)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-f"            'avy-goto-char)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-j j"          'dumb-jump-go)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-j b"          'dumb-jump-back)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-j o"          'dumb-jump-go-other-window)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-k"            'kill-this-buffer)
+(general-define-key :states '(normal visual)        :keymaps 'override             "C-m"            'mc/mark-all-like-this)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-o"            'open-file-at-point)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-q"            'beginning-of-line-text)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-s"            'helm-swoop)
+(general-define-key :states '(normal insert)        :keymaps '(override term-mode) "C-y"            'term-paste)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-w"            'evil-window-next)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-;"            'comment-line)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c g"          'magit)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c h ."        'highlight-symbol-at-point)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c h r"        'unhighlight-regexp)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c r"          'projectile-ripgrep)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p p"        'projectile-switch-project)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p b"        'projectile-switch-to-buffer)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c u"          'undo-tree)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c w <left>"   'buf-move-left)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c w <right>"  'buf-move-right)
+
+;; TODO if there are no bookmarks just cycle buffer history
+(general-define-key :states '(normal insert)        :keymaps 'override "C-t"     'bm-toggle)   ; bookmark
+(general-define-key :states '(normal insert)        :keymaps 'override "<tab>"   'bm-next)     ; bookmark
+(general-define-key :states '(normal insert)        :keymaps 'override "C-<tab>" 'bm-previous) ; bookmark
 
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "E") 'neotree-stretch-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
 (evil-define-key 'normal neotree-mode-map (kbd "m") 'neotree-rename-node)
 (evil-define-key 'normal neotree-mode-map (kbd "d") 'neotree-delete-node)
+
+
