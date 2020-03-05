@@ -232,3 +232,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
