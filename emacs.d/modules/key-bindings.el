@@ -1,6 +1,13 @@
 (use-package general
   :ensure t)
 
+(use-package which-key
+  :ensure t
+  :config
+  (require 'which-key)
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
+
 (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
 In Delete Selection mode, if the mark is active, just deactivate it;
@@ -36,9 +43,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     :timeout 0.25
     "=" 'evil-indent-line))
 
-(general-define-key :states '(normal)               :keymaps 'override             "/"              'helm-swoop)
-(general-define-key :states '(normal insert)        :keymaps 'override             "C-a"            'find-file-in-project)
-(general-define-key :states '(normal insert)        :keymaps 'override             "C-b"            'evil-switch-to-windows-last-buffer)
+;; remember C-p is how you cycle though the kill ring, don't override that
+(general-define-key :states '(normal)               :keymaps 'override             "/"              'evil-search-forward)
+(general-define-key :states '(normal)               :keymaps 'override             "n"              'evil-search-next)
+(general-define-key :states '(normal)               :keymaps 'override             "N"              'evil-search-previous)
+(general-define-key :states '(normal visual)        :keymaps 'override             "u"              'undo-only)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-a"            'fzf-git)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-b"            'projectile-project-buffers-other-buffer)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-d"            'dash-at-point)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-e"            'evil-end-of-line)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-f"            'avy-goto-char)
@@ -46,19 +57,26 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-j b"          'dumb-jump-back)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-j o"          'dumb-jump-go-other-window)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-k"            'kill-this-buffer)
-(general-define-key :states '(normal visual)        :keymaps 'override             "C-m"            'mc/mark-all-like-this)
+(general-define-key :states '(normal visual)        :keymaps 'override             "C-m"            'mc/mark-next-like-this)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-o"            'open-file-at-point)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-q"            'beginning-of-line-text)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-s"            'helm-swoop)
 (general-define-key :states '(normal insert)        :keymaps '(override term-mode) "C-y"            'term-paste)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-w"            'evil-window-next)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-;"            'comment-line)
-(general-define-key :states '(normal insert)        :keymaps 'override             "C-c g"          'magit)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c f r"        'recentf-open-files)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c g g"        'magit)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c g h"        'magit-log-buffer-file)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-c h ."        'highlight-symbol-at-point)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-c h r"        'unhighlight-regexp)
-(general-define-key :states '(normal insert)        :keymaps 'override             "C-c r"          'projectile-ripgrep)
-(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p p"        'projectile-switch-project)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c k b"        'browse-kill-ring)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p p"        'eyebrowse-last-window-config)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p \""       'eyebrowse-close-window-config)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p ,"        'eyebrowse-rename-window-config)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-c p b"        'projectile-switch-to-buffer)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p l"        'eyebrowse-switch-to-window-config)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c p c"        'eyebrowse-create-window-config)
+(general-define-key :states '(normal insert)        :keymaps 'override             "C-c r"          'rg)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-c u"          'undo-tree)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-c w <left>"   'buf-move-left)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-c w <right>"  'buf-move-right)

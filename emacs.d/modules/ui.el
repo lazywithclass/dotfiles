@@ -60,9 +60,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(setq-default left-margin-width 4 right-margin-width 4)
+(setq-default left-fringe-width 10)
 
-(setq-default frame-title-format ":)")
+(setq-default frame-title-format "")
 
 (blink-cursor-mode 0)
 
@@ -70,22 +70,25 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window-Options.html
 (setq split-width-threshold 999)
 
-;; header 
+;; (setq header-line-format
+;;       (concat (propertize " " 'display '((space :align-to 0))) ""))
 
-;; TODO add copy on click
+(defun make-header ()
+  (if (buffer-file-name)
+      (concat " " (replace-regexp-in-string "/Users/lazywithclass/[a-z]+/" "" (buffer-file-name)))
+    "%b"))
 
-(setq header-line-format
-      (concat (propertize " " 'display '((space :align-to 0))) ""))
-
-(defun sl/make-header ()
-  (concat " " (replace-regexp-in-string "/Users/lazywithclass/[a-z]+/" "" (buffer-file-name))))
-
-(defun sl/display-header ()
+(defun display-header ()
   (setq header-line-format
-        '("" ;; invocation-name
-          (:eval (if (buffer-file-name)
-                     (sl/make-header)
-                   "%b")))))
+        (propertize (make-header)
+                    'local-map (let ((map (make-sparse-keymap)))
+                                 (define-key map
+                                   (vector 'header-line 'mouse-1) 
+                                   'yank-header-line)
+                                 map))))
 
-(add-hook 'buffer-list-update-hook
-          'sl/display-header)
+(defun yank-header-line (event)
+  (interactive "e")
+  (kill-new (buffer-file-name)))
+
+(add-hook 'buffer-list-update-hook 'display-header)

@@ -2,9 +2,6 @@
   :ensure t
   :config (projectile-mode +1))
 
-(use-package ripgrep
-  :ensure t)
-
 (use-package dash-at-point
   :ensure t)
 
@@ -18,8 +15,15 @@
   :init
   (setq neo-smart-open t))
 
-(use-package find-file-in-project
+(use-package rg
   :ensure t)
+
+(use-package fzf
+  :ensure t)
+
+(use-package eyebrowse
+  :ensure t
+  :init (eyebrowse-mode t))
 
 (defun open-file-at-point ()
   (interactive)

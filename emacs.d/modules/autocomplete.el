@@ -1,6 +1,21 @@
 (load "packages.el")
 
-(install-packages '(ycmd company company-ycmd flycheck))
+(use-package ycmd
+  :ensure t)
+(use-package company
+  :ensure t)
+(use-package company-ycmd
+  :ensure t)
+(use-package flycheck
+  :ensure t)
+
+;; TODO commented until this becomes more stable, makes emacs lag as of now
+;; (use-package company-tabnine
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'company-backends #'company-tabnine)
+;;   (setq company-idle-delay 0
+;;         company-show-numbers t))
 
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 

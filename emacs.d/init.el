@@ -14,15 +14,16 @@
 
 (load "ui")
 
-(load "language-agnostic")
-
 (load "antlr")
 (load "clojure")
 (load "javascript")
 (load "haskell")
+(load "html")
 (load "lisp")
 (load "ruby")
 (load "typescript")
+
+(load "language-agnostic")
 
 ;; after all modes have been configured
 (load "key-bindings")
@@ -36,49 +37,42 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(compilation-message-face (quote default))
+ '(compilation-message-face 'default)
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
  '(custom-safe-themes
-   (quote
-    ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" default)))
+   '("2809bcb77ad21312897b541134981282dc455ccd7c14d74cc333b6e549b824f3" "dd854be6626a4243375fd290fec71ed4befe90f1186eb5b485a9266011e15b29" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" default))
  '(doom-modeline-mode t)
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-changes-colors '("#d33682" "#6c71c4"))
  '(highlight-symbol-colors
    (--map
     (solarized-color-blend it "#002b36" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+    '("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2")))
  '(highlight-symbol-foreground-color "#93a1a1")
  '(highlight-tail-colors
-   (quote
-    (("#073642" . 0)
+   '(("#073642" . 0)
      ("#546E00" . 20)
      ("#00736F" . 30)
      ("#00629D" . 50)
      ("#7B6000" . 60)
      ("#8B2C02" . 70)
      ("#93115C" . 85)
-     ("#073642" . 100))))
+     ("#073642" . 100)))
  '(hl-bg-colors
-   (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
+   '("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00"))
  '(hl-fg-colors
-   (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
- '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
+   '("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36"))
+ '(hl-paren-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900"))
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
-   (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+   '("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4"))
  '(package-selected-packages
-   (quote
-    (multi-term buffer-move haskell-mode ws-butler eyebrowse perspective 0blayout find-file-in-project yasnippet lsp-mode cider clojure-mode-extra-font-locking clojure-mode evil flycheck company ycmd browse-kill-ring dirtree neotree helm-swoop smart-mode-line bm dash-at-point helm-dash spray dumb-jump rainbow-delimiters lsp-treemacs helm-lsp company-lsp lsp-ui dap-javascript dap-mode helm-gtags projectile-ripgrep rg skewer-mode anaconda-mode rvm exec-path-from-shell dired-sidebar git-gutter doom-themes doom-modeline magit ripgrep helm-rg amx helm geiser json-mode js2-mode ggtags rake ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv enh-ruby-mode chruby bundler multiple-cursors projectile general markdown-mode window-numbering use-package tide solarized-theme slime ivy highlight-parentheses flx evil-terminal-cursor-changer evil-escape company-ycmd beacon avy)))
+   '(emmet-mode which-key eyebrowse polymode swiper-helm swiper web-mode fzf company-tabnine clipboard-collector indent-guide highlight-indent-guides multi-term buffer-move haskell-mode ws-butler 0blayout find-file-in-project yasnippet lsp-mode cider clojure-mode-extra-font-locking clojure-mode evil flycheck company ycmd browse-kill-ring dirtree neotree helm-swoop smart-mode-line bm dash-at-point helm-dash spray dumb-jump rainbow-delimiters lsp-treemacs helm-lsp company-lsp lsp-ui dap-javascript dap-mode helm-gtags projectile-ripgrep rg skewer-mode anaconda-mode rvm exec-path-from-shell dired-sidebar git-gutter doom-themes doom-modeline magit ripgrep helm-rg amx helm geiser json-mode js2-mode ggtags rake ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv enh-ruby-mode chruby bundler multiple-cursors projectile general markdown-mode window-numbering use-package tide solarized-theme slime ivy highlight-parentheses flx evil-terminal-cursor-changer evil-escape company-ycmd beacon avy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
- '(ring-bell-function (quote ignore))
+ '(ring-bell-function 'ignore)
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")

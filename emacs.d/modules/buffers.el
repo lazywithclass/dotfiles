@@ -2,17 +2,17 @@
   :ensure t
   :config (beacon-mode t))
 
+(defconst ignored-buffers '("^ " "*"))
+
 (use-package ido
   :ensure t
   :config
   (ido-mode 1)
   (setq ido-enable-flex-matching t
         ido-everywhere t
-        ido-ignore-buffers '("^ "
-                             "*Completions*"
-                             "*Shell Command Output*"
-                             "*Messages*"
-                             )))
+        ido-ignore-buffers ignored-buffers))
+
+(setq projectile-globally-ignored-buffers ignored-buffers)
 
 (use-package window-numbering
   :ensure t
