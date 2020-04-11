@@ -20,3 +20,5 @@ emacs.d/.dap-breakpoints
 emacs.d/eshell
 emacs.d/url
 emacs.d/transient
+emacs.d/places
+emacs.d/persp-confs
