@@ -45,6 +45,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; remember C-p is how you cycle though the kill ring, don't override that
 (general-define-key :states '(normal)               :keymaps 'override             "/"              'evil-search-forward)
+(general-define-key :states '(normal)               :keymaps 'override             "f"              'avy-goto-char)
 (general-define-key :states '(normal)               :keymaps 'override             "n"              'evil-search-next)
 (general-define-key :states '(normal)               :keymaps 'override             "N"              'evil-search-previous)
 (general-define-key :states '(normal visual)        :keymaps 'override             "u"              'undo-only)
@@ -52,7 +53,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-b"            'projectile-project-buffers-other-buffer)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-d"            'dash-at-point)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-e"            'evil-end-of-line)
-(general-define-key :states '(normal insert)        :keymaps 'override             "C-f"            'avy-goto-char)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-j j"          'dumb-jump-go)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-j b"          'dumb-jump-back)
 (general-define-key :states '(normal insert)        :keymaps 'override             "C-j o"          'dumb-jump-go-other-window)

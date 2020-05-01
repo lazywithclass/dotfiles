@@ -29,5 +29,11 @@
       recentf-max-menu-items 15)
 (recentf-mode)
 
+;; TODO should I also use this?
+;; https://stackoverflow.com/questions/823745/how-do-i-make-emacs-auto-indent-my-c-code
+(use-package aggressive-indent
+  :ensure t
+  :config (global-aggressive-indent-mode 1))
+
 (save-place-mode 1) 
 (show-paren-mode 1)
