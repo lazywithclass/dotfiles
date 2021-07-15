@@ -1,3 +1,5 @@
+[ -z "$PS1" ] && return
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -76,7 +78,7 @@ git_prompt_string() {
 }
 
 function customW {
-  pwd | awk -F\/ '{print $(NF-1),$(NF)}' | tr ' ' '/'
+  echo "$(basename "$(dirname "$PWD")")/$(basename "$PWD")"
 }
 
 function foldersFromGit {
@@ -108,7 +110,7 @@ RPS1='$(date "+%H:%M:%S %d/%m/%Y")'
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    alias ls='ls -G'
+    alias ls='ls -G --color=always'
     alias ll='ls -l'
     alias la='ls -la'
     alias rgrep='grep -r --color=always'
@@ -116,8 +118,7 @@ if [ "$TERM" != "dumb" ]; then
     alias u='up'
     alias docker-clean='docker rmi -f $(docker images | grep "^<none>" | tr -s " " | cut -d" " -f3)'
     alias vmip='vmrun getGuestIPAddress "$(vmrun list | tail -1)"'
-    alias ctags="`brew --prefix`/bin/ctags"
-    alias man="tldr"
+    alias man='docker run --rm -it -v ~/.tldr/:/root/.tldr/ nutellinoit/tldr'
     alias dot="xdot"
     alias antlr4="java -jar ~/bin/antlr-4.7.2-complete.jar"
     alias cat="bat"
@@ -181,8 +182,8 @@ stringtohex() {
   echo $1 | tr ',' ' ' | sed 's/0x//g' | od -t x1
 }
 
-open-google-chrome() {
-  open -a "Google Chrome" --args --disk-cache-size=1 --args --remote-debugging-port=9222
+windows() {
+  cd /mnt/c/Users/monte/Desktop
 }
 
 funx='\033[38;5;200m'
@@ -190,14 +191,6 @@ symbol='\033[38;5;85m'
 parens='\033[1;36m'
 quote='\033[38;5;200m'
 nc='\033[0m'
-todo() {
-  sort <~/workspace/project-status | sort -t '+' -k1,1 | column -s '|' -t
-  echo ""
-}
-
-if [ -x "$(command -v setxkbmap)" ]; then
-  setxkbmap -option caps:ctrl_modifier
-fi
 
 bindkey '^R' history-incremental-search-backward
 bindkey -rM emacs '^P'
@@ -205,16 +198,11 @@ bindkey -M emacs '^K' up-line-or-history
 bindkey -rM emacs '^N'
 bindkey -M emacs '^J' down-line-or-history
 
-eval $(thefuck --alias)
+eval $(thefuck --alias --enable-experimental-instant-mode)
 
 echo ""
 fortune -a
 echo ""
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/lazywithclass/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/lazywithclass/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/lazywithclass/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/lazywithclass/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 messages=()
 messages+=("${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${nc}${parens})${nc}")
@@ -224,12 +212,10 @@ messages+=("${parens}(${nc}${funx}remember${nc}
 messages+=("🙂")
 rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
-todo
-
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/bin"
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+#export LIBGL_ALWAYS_INDIRECT=1
 
-[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
