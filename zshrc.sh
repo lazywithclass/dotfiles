@@ -218,4 +218,8 @@ export PATH="$PATH:$HOME/bin"
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
 #export LIBGL_ALWAYS_INDIRECT=1
 
+if [[ -z "$TMUX" ]]; then
+  emacs --daemon
+fi
+
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
