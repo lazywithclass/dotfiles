@@ -4,7 +4,7 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Note that zsh-syntax-highlighting should be the last plugin
-plugins=(vagrant copydir copyfile zsh-256color z zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(vagrant copypath copyfile zsh-256color z zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -213,13 +213,13 @@ messages+=("🙂")
 rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/bin"
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
-#export LIBGL_ALWAYS_INDIRECT=1
+export PATH="$PATH:$HOME/.tmux/plugins/tpm"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:/usr/lib/jvm/java-16-openjdk-amd64/bin/"
 
-if [[ -z "$TMUX" ]]; then
-  emacs --daemon
-fi
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
 
 [ -s "/home/lazywithclass/.scm_breeze/scm_breeze.sh" ] && source "/home/lazywithclass/.scm_breeze/scm_breeze.sh"
+
