@@ -1,0 +1,24 @@
+{
+  "libs": [
+    "browser",
+    "jquery",
+    "underscore",
+    "ecma5",
+    "ecma6",
+    "ecma7"
+  ],
+  "loadEagerly": [
+  ],
+  "plugins": {
+    "es_modules": {},
+    "angular": {},
+    "node": {
+      "dontLoad": []
+    },
+    "requirejs": {
+      "baseURL": "./",
+      "paths": {}
+    }
+  },
+  "ecmaVersion": 6
+}

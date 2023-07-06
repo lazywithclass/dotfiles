@@ -1,0 +1,18 @@
+[user]
+  email = montecristoh@gmail.com
+  name = Alberto Zaccagni
+[color]
+  ui = auto
+[url "https://github.com/"]
+  insteadOf = git://github.com/
+[core]
+  excludesfile = ~/.gitignore
+[credential]
+  helper = osxkeychain
+[alias]
+  slog = log -35 --pretty=format:'%C(auto)%h - %an, %ar : %C(green)%s'
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
