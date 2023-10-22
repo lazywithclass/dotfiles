@@ -64,9 +64,10 @@
 (global-visual-line-mode t)
 (setq-default word-wrap t)
 
-;;(map! :map global-map "C-c C-c" #'comment-line)
 
-(setq twelf-root "~/workspace/twelf/")
+(setq twelf-root "/home/nixos/workspace/twelf/")
 (load (concat twelf-root "emacs/twelf-init.el"))
 
-;;(map! :leader "SPC" #'avy-goto-char)
+(map! :leader "SPC" #'avy-goto-char)
+;;(map! :map global-map "C-c C-c" #'comment-line)
+

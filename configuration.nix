@@ -25,6 +25,16 @@ in
     docker-desktop.enable = true;
   };
 
+  # is this needed for ngrok?
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 443 19000 ];
+    allowedUDPPortRanges = [
+      { from = 4000; to = 4007; }
+      { from = 8000; to = 8010; }
+    ];
+  };
+
   # Enable nix flakes
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
@@ -36,6 +46,8 @@ in
   # https://github.com/nix-community/nixos-vscode-server#installation
   services.vscode-server.enable = true;
 
+  # dont know why I had to add this line, it's already specified below  
+  # programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
@@ -46,12 +58,27 @@ in
 
   home-manager.users.nixos = { pkgs, ... }: {
 
+    home.username = "nixos";
+    home.homeDirectory = "/home/nixos";
+    home.stateVersion = "22.05";
+
+    home.sessionVariables = {
+      NIX_SHELL_PRESERVE_PROMPT=1;
+    };
+
+    # Let Home Manager install and manage itself.
+    programs.home-manager.enable = true;
+
     home.packages = [
       pkgs.curl
       pkgs.emacs
       pkgs.fd
+      pkgs.file
       pkgs.fortune
+      pkgs.gnumake 
       pkgs.htop
+      pkgs.killall
+      pkgs.lsof
       pkgs.ripgrep
       pkgs.tree
       pkgs.unzip
@@ -60,7 +87,7 @@ in
     ];
 
     # symlinks
-    home.file.".zshenv".source = /home/nixos/workspace/dotfiles/zshenv;
+    home.file.".zshrc".source = /home/nixos/workspace/dotfiles/zshenv;
     home.file.".tmux.conf".source = /home/nixos/workspace/dotfiles/tmux.conf;
     home.file.".config/doom/config.el".source = /home/nixos/workspace/dotfiles/doom.d/config.el;
     home.file.".config/doom/init.el".source = /home/nixos/workspace/dotfiles/doom.d/init.el;
@@ -102,7 +129,6 @@ in
     programs.zsh = {
       enable = true;
       shellAliases = {
-        ll = "ls -l";
         update = "sudo nixos-rebuild switch";
       };
       history = {

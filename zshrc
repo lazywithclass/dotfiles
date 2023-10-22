@@ -99,11 +99,6 @@ function lastExitCode {
   echo $lastStatus
 }
 
-PS1='$(lastExitCode) $(whoami) at $(hostname) in %{$fg[yellow]%}$(customW)%{$reset_color%} $(git_prompt_string)
-\$ '
-
-RPS1='$(date "+%H:%M:%S %d/%m/%Y")'
-
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
     alias ls='ls -G --color=always'
@@ -212,5 +207,10 @@ export PATH="$PATH:$HOME/.tmux/plugins/tpm"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.config/emacs/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:$HOME/workspace/twelf/bin"
 
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+
+RPS1=$(date "+%H:%M:%S %d/%m/%Y")
+PS1="$(lastExitCode) $(whoami) at $(hostname) in %{$fg[yellow]%}$(customW) $(pwd)%{$reset_color%} $(git_prompt_string) 
+\$ "
