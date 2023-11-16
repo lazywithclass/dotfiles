@@ -19,13 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "monospace" :size 18 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "monospace" :size 18 :weight 'semi-light)
-      doom-serif-font (font-spec :family "monospace" :size 18 :weight 'semi-light)
-      doom-big-font (font-spec :family "monospace" :size 18 :weight 'semi-light)
-      doom-unicode-font (font-spec :family "monospace" :size 18 :weight 'semi-light))
+(setq doom-font (font-spec :family "Monaco" :size 18 :weight 'semi-light))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -68,6 +62,7 @@
 (setq twelf-root "/home/nixos/workspace/twelf/")
 (load (concat twelf-root "emacs/twelf-init.el"))
 
-(map! :leader "SPC" #'avy-goto-char)
-;;(map! :map global-map "C-c C-c" #'comment-line)
+;; https://emacs.stackexchange.com/a/28746
+(setq auto-window-vscroll nil)
 
+(map! :leader :desc "Eval JS expression" :n "e" #'nodejs-repl-send-region)

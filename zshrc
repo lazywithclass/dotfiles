@@ -73,10 +73,6 @@ git_prompt_string() {
     [ -n "$git_where" ] && echo "on $(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
 }
 
-function customW {
-  echo "$(basename "$(dirname "$PWD")")/$(basename "$PWD")"
-}
-
 function foldersFromGit {
   steps=0
   while [[ ! $(ls -a .git &>/dev/null) && $CWD != '/' ]]; do 
@@ -105,14 +101,11 @@ if [ "$TERM" != "dumb" ]; then
     alias ll='ls -l'
     alias la='ls -la'
     alias rgrep='grep -r --color=always'
-    alias e='emacsclient -t'
     alias u='up'
-    alias docker-clean='docker rmi -f $(docker images | grep "^<none>" | tr -s " " | cut -d" " -f3)'
-    alias vmip='vmrun getGuestIPAddress "$(vmrun list | tail -1)"'
     alias man='docker run --rm -it -v ~/.tldr/:/root/.tldr/ nutellinoit/tldr'
-    alias dot="xdot"
-    alias antlr4="java -jar ~/bin/antlr-4.7.2-complete.jar"
     alias cat="bat"
+    alias emacs="~/.emacs.d/bin/doom env && emacs"
+    alias diomadonna="fuck"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
@@ -205,12 +198,15 @@ echo ${messages[$rand+1]}
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.tmux/plugins/tpm"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.config/emacs/bin"
+export PATH="$PATH:$HOME/.emacs/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/workspace/twelf/bin"
 
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
 
-RPS1=$(date "+%H:%M:%S %d/%m/%Y")
-PS1="$(lastExitCode) $(whoami) at $(hostname) in %{$fg[yellow]%}$(customW) $(pwd)%{$reset_color%} $(git_prompt_string) 
+PS1="$(lastExitCode) %{$fg[yellow]%} %~% %{$reset_color%} $(git_prompt_string) 
 \$ "
+RPS1=$(TZ="Europe/Rome" date "+%H:%M:%S %d/%m/%Y")
+
+eval $(thefuck --alias)
+eval "$(direnv hook zsh)"
