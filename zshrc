@@ -6,8 +6,11 @@ plugins=(z zsh-autosuggestions)
 
 setopt prompt_subst
 autoload -U colors && colors # Enable colors in prompt
+SAVEHIST=100000  # Save most-recent 1000 lines
+HISTFILE=~/.zsh_history
 setopt HIST_IGNORE_SPACE
 setopt histignoredups
+setopt -o incappendhistory
 
 # Modify the colors and symbols in these variables as desired.
 GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
@@ -106,6 +109,7 @@ if [ "$TERM" != "dumb" ]; then
     alias cat="bat"
     alias emacs="~/.emacs.d/bin/doom env && emacs"
     alias diomadonna="fuck"
+    alias vim="nvim"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
@@ -210,3 +214,4 @@ RPS1=$(TZ="Europe/Rome" date "+%H:%M:%S %d/%m/%Y")
 
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
+eval "$(fzf --zsh)"

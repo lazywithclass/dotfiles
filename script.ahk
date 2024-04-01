@@ -34,14 +34,31 @@ RoA(WinTitle, Target) {	; RoA means "RunOrActivate"
   MsgBox, The active window is "%Title%".
 Return
 
-!v::RoA("Movavi Video Suite", "C:\Users\monte\AppData\Roaming\Movavi Video Suite 22\Suite.exe")
-
+!a::RoA("Doom Emacs@nixos", "")
+!b::RoA("Thunderbird", "C:\Program Files\Mozilla Thunderbird\thunderbird.exe")
+!c::RoA("Obsidian", "")
+!d::
+   WinActivate, ahk_id %WinTag%
+return
+!e::RoA("Telegram", "C:\Users\monte\AppData\Roaming\Telegram Desktop\Telegram.exe")
+!f::RoA("Discord", "C:\Users\monte\AppData\Local\Discord\Update.exe --processStart Discord.exe")
+!m::
+  WinMinimize, A
+return
+!q::
+   Run, Explorer D:\
+return
+!r::RoA("Slack", "C:\Users\monte\AppData\Local\slack\slack.exe")
+!s::RoA("Alacritty", "C:\Users\monte\Desktop\bin\Alacritty-v0.10.0-portable.exe")
 !t::
   WinTag := WinActive("A")
 Return
-
-!m::
-  WinMinimize, A
+!v::RoA("lazywithclass - Anki", "C:\Users\monte\AppData\Local\Programs\Anki\anki.exe")
+!w::                       
+   WinActivate, WhatsApp
+return
+!z::
+   WinActivate, Zoom Meeting
 return
 
 ;// prevent from accidentally closing windows
@@ -54,23 +71,6 @@ $^w::
   Send ^w
 return
 
-!a::RoA("Emacs", "")
-
-!s::RoA("Alacritty", "C:\Users\monte\Desktop\bin\Alacritty-v0.10.0-portable.exe")
-
-!d::
-   WinActivate, ahk_id %WinTag%
-return
-
-!f::                       
-   WinGet, discordHwnd, ID, ahk_exe discord.exe
-   WinActivate, ahk_id %discordHwnd%
-return
-
-
-!q::
-   Run, Explorer D:\
-return
 !1::
   Run, %A_Desktop%
 return
@@ -81,21 +81,6 @@ return
   Run, %A_MyDocuments%\..\Downloads
 return
 
-!w::                       
-   WinActivate, WhatsApp
-return
-
-!c::                       
-   WinActivate, mpv
-return
-
-!e::                       
-   WinActivate, Telegram
-return
-
-!z::
-   WinActivate, Zoom Meeting
-return
 !+z::
     ; prev_clipboard := clipboard
     content = https://us02web.zoom.us/j/%ZOOM_ID%
@@ -112,10 +97,6 @@ return
     ClipWait  ; Wait for the clipboard to contain text.
     Send ^v
     clipboard := prev_clipboard
-return
-
-!r::                       
-   WinActivate, Slack
 return
 
 F1::

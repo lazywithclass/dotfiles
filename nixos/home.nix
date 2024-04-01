@@ -17,9 +17,15 @@ in
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
+  nixpkgs.config.allowUnfree = true;
+
+  imports = [];
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    (pkgs.callPackage ./fzf.nix { })
+
     pkgs.curl
     pkgs.emacs
     pkgs.emacs-all-the-icons-fonts
@@ -98,7 +104,7 @@ in
     '';
   };
 
-  programs.vim = {
+  programs.neovim = {
     enable = true;  
     extraConfig = ''
       syntax on
@@ -119,15 +125,6 @@ in
 
   programs.zsh = {
     enable = true;
-    shellAliases = {
-    };
-
-    # does not work
-    history = {
-      size = 10000;
-      path = "~/.zsh_history";
-    };
-
     enableAutosuggestions = true;
     oh-my-zsh = {
       enable = true;
