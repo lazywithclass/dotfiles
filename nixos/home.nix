@@ -39,11 +39,13 @@ in
     pkgs.lsof
     pkgs.nerdfonts
     pkgs.obsidian
+    pkgs.python3
     pkgs.ripgrep
     pkgs.thefuck
     pkgs.tree
     pkgs.unzip
     pkgs.wget
+    pkgs.zsh
     pkgs.z-lua
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -121,16 +123,6 @@ in
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = ["resurrect" "zsh-autosuggestions"];
-      theme = "robbyrussell";
-    };
   };
 
   programs.bat = {

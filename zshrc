@@ -1,8 +1,9 @@
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#606060"
+plugins=(zsh-autosuggestions git)
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
 # Note that zsh-syntax-highlighting should be the last plugin
-plugins=(z zsh-autosuggestions)
-
-# zsh-256color
-# zsh-syntax-highlighting
+source $ZSH/oh-my-zsh.sh
 
 setopt prompt_subst
 autoload -U colors && colors # Enable colors in prompt
@@ -83,10 +84,6 @@ function foldersFromGit {
     cd ..
   done
   echo $steps
-}
-
-function antlr4 {
-  java -jar ~/bin/antlr-4.7.2-complete.jar
 }
 
 function lastExitCode {
@@ -208,10 +205,14 @@ export PATH="$PATH:$HOME/workspace/twelf/bin"
 
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
 
-PS1="$(lastExitCode) %{$fg[yellow]%} %~% %{$reset_color%} $(git_prompt_string) 
+# about the importance of the \$
+# https://askubuntu.com/a/651875
+PS1="\$(lastExitCode) %{$fg[yellow]%} %~% %{$reset_color%} \$(git_prompt_string) 
 \$ "
 RPS1=$(TZ="Europe/Rome" date "+%H:%M:%S %d/%m/%Y")
 
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
+
+[[ ! -r /home/nixos/.opam/opam-init/init.zsh ]] || source /home/nixos/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
