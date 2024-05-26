@@ -42,6 +42,7 @@ Return
 return
 !e::RoA("Telegram", "C:\Users\monte\AppData\Roaming\Telegram Desktop\Telegram.exe")
 !f::RoA("Discord", "C:\Users\monte\AppData\Local\Discord\Update.exe --processStart Discord.exe")
+!g::RoA("Webex", "C:\Users\monte\AppData\Local\Programs\Cisco Spark\CiscoCollabHost.exe")
 !m::
   WinMinimize, A
 return

@@ -35,6 +35,7 @@ in
     pkgs.fortune
     pkgs.gnumake 
     pkgs.htop
+    pkgs.inotify-tools
     pkgs.killall
     pkgs.lsof
     pkgs.nerdfonts
