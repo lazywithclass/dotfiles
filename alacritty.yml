@@ -1,0 +1,15 @@
+shell:
+  program: wsl.exe
+
+font:
+  size: 13.0
+
+window:
+  title: Alacritty
+  dynamic_title: false
+
+custom_cursor_colors: true
+
+selection:
+  save_to_clipboard: true
+

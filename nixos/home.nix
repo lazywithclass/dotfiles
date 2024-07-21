@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 
-let 
-in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -19,7 +17,11 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  imports = [];
+  imports = [
+    "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
+  ];
+
+  services.vscode-server.enable = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -39,7 +41,7 @@ in
     pkgs.killall
     pkgs.lsof
     pkgs.nerdfonts
-    pkgs.obsidian
+    pkgs.ngrok
     pkgs.python3
     pkgs.ripgrep
     pkgs.thefuck
@@ -100,11 +102,24 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.tmux = {
+  # programs.nix-ld.enable = true;
+
+  programs.bat = {
     enable = true;
-    extraConfig = ''
-      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
-    '';
+    config = {
+    };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Alberto Zaccagni";
+    userEmail = "montecristoh@gmail.com";
   };
 
   programs.neovim = {
@@ -114,22 +129,12 @@ in
     '';
   };
 
-  programs.git = {
+  programs.tmux = {
     enable = true;
-    userName = "Alberto Zaccagni";
-    userEmail = "montecristoh@gmail.com";
+    extraConfig = ''
+      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+    '';
   };
 
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.bat = {
-    enable = true;
-    config = {
-    };
-  };
 }
 
