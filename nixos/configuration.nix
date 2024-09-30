@@ -19,7 +19,7 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/1 * * * *      nixos    rsync -r /home/nixos/workspace/learning/to-study/obsidian-vault/ /mnt/c/Users/monte/Desktop/obsidian-vault"
+      "*/1 * * * *      nixos    rsync -pr /mnt/c/Users/monte/Desktop/obsidian-vault/ /home/nixos/workspace/learning/to-study/obsidian-vault"
     ];
   };
 

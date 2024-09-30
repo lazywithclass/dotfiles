@@ -40,14 +40,19 @@
     pkgs.inotify-tools
     pkgs.killall
     pkgs.lsof
+    pkgs.neovim
     pkgs.nerdfonts
     pkgs.ngrok
+    # needed for copilot
+    pkgs.nodejs
     pkgs.python3
     pkgs.ripgrep
+    pkgs.rlwrap
     pkgs.thefuck
     pkgs.tree
     pkgs.unzip
     pkgs.wget
+    pkgs.zip
     pkgs.zsh
     pkgs.z-lua
 
@@ -71,6 +76,7 @@
   home.file.".config/doom/config.el".source = /home/nixos/workspace/dotfiles/doom.d/config.el;
   home.file.".config/doom/init.el".source = /home/nixos/workspace/dotfiles/doom.d/init.el;
   home.file.".config/doom/packages.el".source = /home/nixos/workspace/dotfiles/doom.d/packages.el;
+  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink /home/nixos/workspace/dotfiles/nvim;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -120,13 +126,6 @@
     enable = true;
     userName = "Alberto Zaccagni";
     userEmail = "montecristoh@gmail.com";
-  };
-
-  programs.neovim = {
-    enable = true;  
-    extraConfig = ''
-      syntax on
-    '';
   };
 
   programs.tmux = {

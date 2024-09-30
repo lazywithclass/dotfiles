@@ -64,5 +64,8 @@
 
 ;; https://emacs.stackexchange.com/a/28746
 (setq auto-window-vscroll nil)
+(setq doom-modeline-enable-word-count nil)
 
 (map! :leader :desc "Eval JS expression" :n "e" #'nodejs-repl-send-region)
+
+(setq display-line-numbers-type 'relative)
