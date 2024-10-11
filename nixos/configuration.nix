@@ -15,7 +15,9 @@
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
-  
+
+  virtualisation.docker.enable = true;
+
   services.cron = {
     enable = true;
     systemCronJobs = [
