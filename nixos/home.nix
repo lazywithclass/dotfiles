@@ -35,6 +35,7 @@
     pkgs.fd
     pkgs.file
     pkgs.fortune
+    pkgs.gitflow 
     pkgs.gnumake 
     pkgs.htop
     pkgs.inotify-tools
