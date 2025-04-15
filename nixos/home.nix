@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  home.username = "lazywithclass";
+  home.homeDirectory = "/home/lazywithclass";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -19,6 +19,8 @@
 
   imports = [
     "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
+    #./awscli2.nix
+    ./alizams.nix
   ];
 
   services.vscode-server.enable = true;
@@ -26,34 +28,66 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    (pkgs.callPackage ./fzf.nix { })
-
+    pkgs.anki
+    pkgs.awscli2
+    pkgs.bazecor
+    pkgs.brave
     pkgs.curl
+    pkgs.discord
+    pkgs.docker-compose
     pkgs.emacs
     pkgs.emacs-all-the-icons-fonts
     pkgs.exercism
+    pkgs.expect
     pkgs.fd
+    pkgs.ffmpeg
     pkgs.file
     pkgs.fortune
+    pkgs.fzf	
+    pkgs.gcc
+    pkgs.ghostty
+    pkgs.gimp
     pkgs.gitflow 
     pkgs.gnumake 
     pkgs.htop
+    pkgs.i3-resurrect
     pkgs.inotify-tools
+    # TODO java should not be global
+    pkgs.jdk21
     pkgs.killall
+    pkgs.libreoffice-qt
+    # TODO localstack should not be global
+    pkgs.localstack
     pkgs.lsof
+    pkgs.maim
+    pkgs.ncdu
+    pkgs.nemo
     pkgs.neovim
     pkgs.nerdfonts
     pkgs.ngrok
     # needed for copilot
     pkgs.nodejs
+    pkgs.obsidian
+    pkgs.openvpn
+    pkgs.pasystray
+    pkgs.pavucontrol
+    # TODO this should not be here! Make it work with direnv
     pkgs.python3
     pkgs.ripgrep
     pkgs.rlwrap
+    pkgs.rofi
+    pkgs.slack
+    pkgs.telegram-desktop
     pkgs.thefuck
+    pkgs.thunderbird
     pkgs.tree
     pkgs.unzip
+    pkgs.rxvt-unicode
+    pkgs.xclip
     pkgs.wget
+    pkgs.zenity
     pkgs.zip
+    pkgs.zoom-us
     pkgs.zsh
     pkgs.z-lua
 
@@ -72,25 +106,15 @@
   ];
 
   # these are outside home.file because they're bigger than a few lines
-  home.file.".zshrc".source = /home/nixos/workspace/dotfiles/zshrc;
-  home.file.".tmux.conf".source = /home/nixos/workspace/dotfiles/tmux.conf;
-  home.file.".config/doom/config.el".source = /home/nixos/workspace/dotfiles/doom.d/config.el;
-  home.file.".config/doom/init.el".source = /home/nixos/workspace/dotfiles/doom.d/init.el;
-  home.file.".config/doom/packages.el".source = /home/nixos/workspace/dotfiles/doom.d/packages.el;
-  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink /home/nixos/workspace/dotfiles/nvim;
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    ".config/fontconfig/fonts.conf".text = ''
-      <?xml version="1.0"?>
-      <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-      <fontconfig>
-        <dir>/mnt/c/Windows/Fonts</dir>
-        <dir>/mnt/c/Users/monte/AppData/Local/Microsoft/Windows/Fonts/</dir>
-      </fontconfig>
-    '';
-  };
+  home.file.".zshrc".source = /home/lazywithclass/workspace/dotfiles/zshrc;
+  home.file.".tmux.conf".source = /home/lazywithclass/workspace/dotfiles/tmux.conf;
+  home.file.".config/doom/config.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/config.el;
+  home.file.".config/doom/init.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/init.el;
+  home.file.".config/doom/packages.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/packages.el;
+  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink /home/lazywithclass/workspace/dotfiles/nvim;
+  home.file.".config/i3/config".source = /home/lazywithclass/workspace/dotfiles/i3-config;
+  home.file.".config/nixpkgs/config.nix".source = /home/lazywithclass/workspace/dotfiles/nixpkgs-config.nix;
+  home.file.".Xresources".source = /home/lazywithclass/workspace/dotfiles/Xresources;
 
   # You can also manage environment variables but you will have to manually
   # source

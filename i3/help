@@ -1,0 +1,9 @@
+Mod+Shift+r:       Reload i3 configuration
+
+Mod+r:		   Resize mode, then arrows
+
+Mod+h/j/k/l:       Focus left/down/up/right
+Mod+Shift+h/j/k/l: Move window left/down/up/right
+
+Mod+\              Split horizontal
+Mod+shift+\        Split vertical

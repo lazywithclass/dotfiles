@@ -192,18 +192,16 @@ messages+=("${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${n
 messages+=("${parens}(${nc}${funx}remember${nc}
   ${parens}(${nc}${funx}why${nc} ${quote}'${nc}${symbol}you${nc}${parens})${nc}
   ${parens}(${nc}${funx}do${nc} ${quote}'${nc}${symbol}this${nc}${parens})${nc}${parens})${nc}")
-messages+=("🙂")
 rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.tmux/plugins/tpm"
-export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.emacs/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/workspace/twelf/bin"
 
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+export DISPLAY=:0
 
 # about the importance of the \$
 # https://askubuntu.com/a/651875
