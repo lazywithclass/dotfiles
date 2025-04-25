@@ -13,14 +13,12 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.05"; # Please read the comment before changing.
+  home.stateVersion = "25.05"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
 
   imports = [
     "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
-    #./awscli2.nix
-    ./alizams.nix
   ];
 
   services.vscode-server.enable = true;
@@ -82,6 +80,7 @@
     pkgs.thunderbird
     pkgs.tree
     pkgs.unzip
+    pkgs.usbutils
     pkgs.rxvt-unicode
     pkgs.xclip
     pkgs.wget
@@ -112,8 +111,9 @@
   home.file.".config/doom/init.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/init.el;
   home.file.".config/doom/packages.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/packages.el;
   home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink /home/lazywithclass/workspace/dotfiles/nvim;
-  home.file.".config/i3/config".source = /home/lazywithclass/workspace/dotfiles/i3-config;
-  home.file.".config/nixpkgs/config.nix".source = /home/lazywithclass/workspace/dotfiles/nixpkgs-config.nix;
+  home.file.".config/i3/config".source = /home/lazywithclass/workspace/dotfiles/i3/config;
+  home.file.".config/i3/help".source = /home/lazywithclass/workspace/dotfiles/i3/help;
+  home.file.".config/nixpkgs/config.nix".source = /home/lazywithclass/workspace/dotfiles/nixos/nixpkgs-config.nix;
   home.file.".Xresources".source = /home/lazywithclass/workspace/dotfiles/Xresources;
 
   # You can also manage environment variables but you will have to manually

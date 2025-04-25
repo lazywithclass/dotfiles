@@ -1,5 +1,5 @@
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#606060"
-plugins=(zsh-autosuggestions git)
+plugins=(zsh-autosuggestions git z)
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 # Note that zsh-syntax-highlighting should be the last plugin
@@ -115,8 +115,8 @@ if [ "$TERM" != "dumb" ]; then
     alias sudo='sudo '
     # https://superuser.com/a/1127215/346
     alias scp='noglob scp'
-
     alias vless='vim -u /usr/share/vim/vim80/macros/less.vim'
+    alias docker_clean='docker rmi $(docker images -a --filter=dangling=true -q)'
 fi
 
 #goes up many dirs as the number passed as argument, if none goes up by 1 by default

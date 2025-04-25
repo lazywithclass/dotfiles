@@ -14,26 +14,9 @@
   nix.settings.trusted-users = [ "root" "lazywithclass" ];
 
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3a924dd5-3a7d-40cb-95c8-04fbc6cbdc7f";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7425-1636";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/9677285e-3342-41c3-868d-93a0f3504698";
-        size = 32 * 1024;
-      }
-    ];
 
   programs.steam.enable = true;
 
@@ -102,12 +85,11 @@
   services.displayManager = {
     defaultSession = "none+i3";
   };
-
+  
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
   };
-
 
   # https://nixos.wiki/wiki/Nvidia
   services.xserver.videoDrivers = ["nvidia"];
@@ -141,7 +123,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     prime = {
       sync.enable = true;
@@ -198,10 +180,11 @@
   programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  # also, groups
   users.users.lazywithclass = {
     isNormalUser = true;
     description = "Alberto Zaccagni";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" ];
     shell = pkgs.zsh;
   };
 
