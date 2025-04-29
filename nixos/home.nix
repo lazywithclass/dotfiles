@@ -18,10 +18,9 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
-    "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
+    # "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
   ];
-
-  services.vscode-server.enable = true;
+  # services.vscode-server.enable = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -69,6 +68,7 @@
     pkgs.openvpn
     pkgs.pasystray
     pkgs.pavucontrol
+    pkgs.pkg-config
     # TODO this should not be here! Make it work with direnv
     pkgs.python3
     pkgs.ripgrep
@@ -158,6 +158,20 @@
     extraConfig = ''
       run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
     '';
+  };
+
+  services.dunst = {
+    enable = true;
+    # Optional: Add your dunst configuration here
+    settings = {
+      global = {
+        monitor = 0;
+        follow = "mouse";
+      };
+      # urgency_low = { ... };
+      # urgency_normal = { ... };
+      # urgency_critical = { ... };
+    };
   };
 
 }
