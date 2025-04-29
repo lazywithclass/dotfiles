@@ -162,15 +162,23 @@
 
   services.dunst = {
     enable = true;
-    # Optional: Add your dunst configuration here
+    # for hints
+    # https://github.com/Yutsuten/linux-config/blob/f371d907e1d00c633b9d0da1579bef8802e3c0c3/desktop/dunstrc.conf
     settings = {
       global = {
         monitor = 0;
-        follow = "mouse";
+	notification-limit = 5;
+	font = "Monaco 15";
       };
-      # urgency_low = { ... };
-      # urgency_normal = { ... };
-      # urgency_critical = { ... };
+      urgency_low = {
+        timeout = 5;
+      };
+      urgency_normal = {
+	timeout = 5;
+      };
+      urgency_critical = {
+	timeout = 0;
+      };
     };
   };
 
