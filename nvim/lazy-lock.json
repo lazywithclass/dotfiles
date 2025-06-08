@@ -3,7 +3,7 @@
   "go.nvim": { "branch": "master", "commit": "6e5a74b866aa4a112ed85a1169befff2ef82c027" },
   "guihua.lua": { "branch": "master", "commit": "d783191eaa75215beae0c80319fcce5e6b3beeda" },
   "lazy-lsp.nvim": { "branch": "master", "commit": "91146e303717f55561c281d541e32f75de931a0d" },
-  "lazy.nvim": { "branch": "main", "commit": "d8f26efd456190241afd1b0f5235fe6fdba13d4a" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "nvim-lspconfig": { "branch": "master", "commit": "b4d65bce97795438ab6e1974b3672c17a4865e3c" },
   "nvim-treesitter": { "branch": "master", "commit": "6587a5886873cce8698a47477224c30578b33a24" },
   "plenary.nvim": { "branch": "master", "commit": "3707cdb1e43f5cea73afb6037e6494e7ce847a66" },

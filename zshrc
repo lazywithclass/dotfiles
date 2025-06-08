@@ -213,4 +213,3 @@ eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
 
-[[ ! -r /home/nixos/.opam/opam-init/init.zsh ]] || source /home/nixos/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

@@ -195,10 +195,13 @@ bar {
         status_command i3status
 }
 
+# ------------------
 # custom keybindings
+# ------------------
 
 bindsym $mod+Shift+g exec rofi -e "$(cat /home/lazywithclass/.config/i3/help)"
-# screenshot a selected area
+# TODO sistemarlo magari usando una mode
+bindsym $mod+Shift+m exec xrandr --output eDP-1-1 --primary --left-of HDMI-0
 bindsym $mod+Shift+s exec maim -s -u | xclip -selection clipboard -t image/png -i
 
 # https://i3wm.org/docs/userguide.html#no_focus
