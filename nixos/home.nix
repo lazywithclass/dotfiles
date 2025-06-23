@@ -42,7 +42,6 @@
     pkgs.fortune
     pkgs.fzf	
     pkgs.gcc
-    pkgs.ghostty
     pkgs.gimp
     pkgs.gitflow 
     pkgs.gnumake 
@@ -149,6 +148,14 @@
     enable = true;
     userName = "Alberto Zaccagni";
     userEmail = "montecristoh@gmail.com";
+  };
+
+  programs.ghostty = {
+    enable = true;
+    settings = {
+      window-padding-x = 10;
+      window-decoration = "none";
+    };
   };
 
   programs.tmux = {

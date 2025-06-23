@@ -104,7 +104,7 @@ if [ "$TERM" != "dumb" ]; then
     alias u='up'
     alias man='docker run --rm -it -v ~/.tldr/:/root/.tldr/ nutellinoit/tldr'
     alias cat="bat"
-    alias emacs="~/.emacs.d/bin/doom env && emacs"
+    alias emacs="~/.config/emacs/bin/doom env && emacs"
     alias diomadonna="fuck"
     alias vim="nvim"
 

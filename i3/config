@@ -57,7 +57,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+q kill
@@ -202,6 +202,7 @@ bar {
 bindsym $mod+Shift+g exec rofi -e "$(cat /home/lazywithclass/.config/i3/help)"
 # TODO sistemarlo magari usando una mode
 bindsym $mod+Shift+m exec xrandr --output eDP-1-1 --primary --left-of HDMI-0
+bindsym $mod+Shift+n exec systemctl hibernate
 bindsym $mod+Shift+s exec maim -s -u | xclip -selection clipboard -t image/png -i
 
 # https://i3wm.org/docs/userguide.html#no_focus

@@ -59,7 +59,7 @@
 (setq-default word-wrap t)
 
 
-(setq twelf-root "/home/nixos/workspace/twelf/")
+(setq twelf-root "/home/lazywithclass/workspace/twelf/")
 (load (concat twelf-root "emacs/twelf-init.el"))
 
 ;; https://emacs.stackexchange.com/a/28746
