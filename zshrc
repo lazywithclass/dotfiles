@@ -203,11 +203,15 @@ export PATH="$PATH:$HOME/workspace/twelf/bin"
 
 export DISPLAY=:0
 
+execution_time() {
+  TZ="Europe/Rome" date "+%H:%M:%S %d/%m/%Y"
+}
+
 # about the importance of the \$
 # https://askubuntu.com/a/651875
 PS1="\$(lastExitCode) %{$fg[yellow]%} %~% %{$reset_color%} \$(git_prompt_string) 
 \$ "
-RPS1=$(TZ="Europe/Rome" date "+%H:%M:%S %d/%m/%Y")
+RPS1=$(execution_time)
 
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"

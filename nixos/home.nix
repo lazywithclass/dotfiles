@@ -81,6 +81,7 @@
     pkgs.usbutils
     pkgs.rxvt-unicode
     pkgs.xclip
+    pkgs.xorg.xhost
     pkgs.wget
     pkgs.zenity
     pkgs.zip
