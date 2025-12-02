@@ -29,7 +29,8 @@
     pkgs.awscli2
     pkgs.bazecor
     pkgs.brave
-    pkgs.curl
+    pkgs.curlFull
+    pkgs.clojure-lsp # TODO should not be global
     pkgs.discord
     pkgs.docker-compose
     pkgs.emacs
@@ -44,14 +45,17 @@
     pkgs.gcc
     pkgs.gimp
     pkgs.gitflow 
+    pkgs.git-lfs
     pkgs.gnumake 
     pkgs.gopass
     pkgs.htop
     pkgs.i3-resurrect
     pkgs.inotify-tools
+    pkgs.inter # font
     pkgs.jdk21 # TODO java should not be global
     pkgs.jq
     pkgs.killall
+    pkgs.leiningen # TODO should not be global
     pkgs.libreoffice-qt
     pkgs.localstack # TODO localstack should not be global
     pkgs.lsof
@@ -62,13 +66,17 @@
     pkgs.neovim
     pkgs.nerdfonts
     pkgs.ngrok
-    pkgs.nodejs # needed for copilot
+    pkgs.nodejs_22 # needed for copilot
     pkgs.obsidian
+    pkgs.okular
     pkgs.openvpn
+    pkgs.pandoc
+    pkgs.p7zip
     pkgs.pasystray
     pkgs.pavucontrol
     pkgs.pkg-config
     pkgs.python3 # TODO this should not be here! Make it work with direnv
+    pkgs.rclone
     pkgs.ripgrep
     pkgs.rlwrap
     pkgs.rofi
@@ -82,18 +90,14 @@
     pkgs.rxvt-unicode
     pkgs.xclip
     pkgs.xorg.xhost
+    pkgs.xorg.xkill
+    pkgs.vscode
     pkgs.wget
     pkgs.zenity
     pkgs.zip
     pkgs.zoom-us
     pkgs.zsh
     pkgs.z-lua
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -102,6 +106,13 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
+  home.file.".npmrc".text = ''
+    prefix=/home/lazywithclass/.npm-global
+  '';
+  home.activation.installCopilotLanguageServer = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.nodejs_22}/bin/npm install -g @github/copilot-language-server
+  '';
 
   # these are outside home.file because they're bigger than a few lines
   home.file.".zshrc".source = /home/lazywithclass/workspace/dotfiles/zshrc;
@@ -113,6 +124,13 @@
   home.file.".config/i3/help".source = /home/lazywithclass/workspace/dotfiles/i3/help;
   home.file.".config/nixpkgs/config.nix".source = /home/lazywithclass/workspace/dotfiles/nixos/nixpkgs-config.nix;
   home.file.".Xresources".source = /home/lazywithclass/workspace/dotfiles/Xresources;
+
+  fonts.fontconfig.enable = true;
+
+  # Install Monaco.ttf into ~/.local/share/fonts
+  home.file.".local/share/fonts/Monaco.ttf".source =
+    config.lib.file.mkOutOfStoreSymlink
+      /home/lazywithclass/.config/home-manager/Monaco_Linux.ttf;
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -149,6 +167,7 @@
     enable = true;
     userName = "Alberto Zaccagni";
     userEmail = "montecristoh@gmail.com";
+    lfs.enable = true;
   };
 
   programs.ghostty = {

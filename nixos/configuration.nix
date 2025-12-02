@@ -13,6 +13,8 @@
   nix.settings.allowed-users = [ "root" "lazywithclass" ];
   nix.settings.trusted-users = [ "root" "lazywithclass" ];
 
+  nix.gc.automatic = true;
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
