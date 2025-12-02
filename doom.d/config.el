@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Monaco" :size 18 :weight 'semi-light))
+(setq doom-font (font-spec :family "Monaco" :size 14 :weight 'semi-light))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -35,6 +35,8 @@
 (setq display-line-numbers-type t)
 
 (setq evil-want-fine-undo t)
+(setq-default evil-escape-delay 0.2)
+(setq-default evil-escape-key-sequence "jk")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -58,7 +60,6 @@
 (global-visual-line-mode t)
 (setq-default word-wrap t)
 
-
 (setq twelf-root "/home/lazywithclass/workspace/twelf/")
 (load (concat twelf-root "emacs/twelf-init.el"))
 
@@ -69,3 +70,26 @@
 (map! :leader :desc "Eval JS expression" :n "e" #'nodejs-repl-send-region)
 
 (setq display-line-numbers-type 'relative)
+
+(setq lsp-ui-doc-show-with-cursor nil)
+
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)
+              ("C-n" . 'copilot-next-completion)
+              ("C-p" . 'copilot-previous-completion))
+  :config
+  (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+  (add-to-list 'copilot-indentation-alist '(org-mode 2))
+  (add-to-list 'copilot-indentation-alist '(text-mode 2))
+  (add-to-list 'copilot-indentation-alist '(clojure-mode 2))
+  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
+
+(after! treemacs
+  (treemacs-follow-mode 1))
+
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
