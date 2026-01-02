@@ -77,6 +77,10 @@ git_prompt_string() {
     [ -n "$git_where" ] && echo "on $(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
 }
 
+rclone_backup() {
+  rclone sync /home/lazywithclass/ google-drive:Backup --progress --filter-from ~/workspace/dotfiles/rclone-exclude --copy-links
+}
+
 function foldersFromGit {
   steps=0
   while [[ ! $(ls -a .git &>/dev/null) && $CWD != '/' ]]; do 
@@ -200,6 +204,7 @@ export PATH="$PATH:$HOME/.tmux/plugins/tpm"
 export PATH="$PATH:$HOME/.emacs/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/workspace/twelf/bin"
+export PATH="$PATH:$HOME/.npm-global/bin"
 
 export DISPLAY=:0
 
