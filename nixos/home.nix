@@ -1,5 +1,19 @@
 { config, pkgs, lib, ... }:
 
+let
+  pkgsUnstable = import (builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/archive/nixos-unstable.tar.gz";
+  }) {
+    # inherit my current config (importantly: allowUnfree = true)
+    config = config.nixpkgs.config; 
+  };
+
+  ankiCommit = "87848bf0cc4f87717fc813a4575f07330c3e743c";
+  ankiSrc = builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/archive/${ankiCommit}.tar.gz";
+  };
+  pkgsAnki = import ankiSrc { config = config.nixpkgs.config; };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -25,7 +39,15 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.anki
+    (pkgs.symlinkJoin {
+      name = "anki";
+      paths = [ pkgsAnki.anki ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/anki \
+          --set QTWEBENGINE_CHROMIUM_FLAGS "--use-gl=disabled"
+      '';
+    })
     pkgs.awscli2
     pkgs.bazecor
     pkgs.brave
