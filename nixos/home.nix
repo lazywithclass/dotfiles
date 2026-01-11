@@ -27,7 +27,7 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "25.11"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
 
@@ -85,12 +85,13 @@ in
     pkgs.mpv
     pkgs.ncdu
     pkgs.nemo
+    pkgs.nemo-fileroller
     pkgs.neovim
-    pkgs.nerdfonts
+    pkgs.nerd-fonts.symbols-only
     pkgs.ngrok
     pkgs.nodejs_22 # needed for copilot
+    pkgs.noto-fonts-cjk-sans
     pkgs.obsidian
-    pkgs.okular
     pkgs.openvpn
     pkgs.pandoc
     pkgs.p7zip
@@ -104,7 +105,6 @@ in
     pkgs.rofi
     pkgs.slack
     pkgs.telegram-desktop
-    pkgs.thefuck
     pkgs.thunderbird
     pkgs.tree
     pkgs.unzip
@@ -129,6 +129,29 @@ in
     # '')
   ];
 
+  xdg.dataFile."nemo/actions/compress.nemo_action".text = ''
+    [Nemo Action]
+    Active=true
+    Name=Compress...
+    Comment=compress %N
+    Exec=file-roller -d %F
+    Icon-Name=gnome-mime-application-x-compress
+    Selection=Any
+    Extensions=any;
+  '';
+
+  xdg.dataFile."nemo/actions/extracthere.nemo_action".text = ''
+    [Nemo Action]
+    Active=true
+    Name=Extract here
+    Comment=Extract here
+    Exec=file-roller -h %F
+    Icon-Name=gnome-mime-application-x-compress
+    #Stock-Id=gtk-cdrom
+    Selection=Any
+    Extensions=zip;7z;ar;cbz;cpio;exe;iso;jar;tar;tar;7z;tar.Z;tar.bz2;tar.gz;tar.lz;tar.lzma;tar.xz;
+  '';
+
   home.file.".npmrc".text = ''
     prefix=/home/lazywithclass/.npm-global
   '';
@@ -145,14 +168,45 @@ in
   home.file.".config/i3/config".source = /home/lazywithclass/workspace/dotfiles/i3/config;
   home.file.".config/i3/help".source = /home/lazywithclass/workspace/dotfiles/i3/help;
   home.file.".config/nixpkgs/config.nix".source = /home/lazywithclass/workspace/dotfiles/nixos/nixpkgs-config.nix;
-  home.file.".Xresources".source = /home/lazywithclass/workspace/dotfiles/Xresources;
 
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "Monaco" "Symbols Nerd Font Mono" ];
+      sansSerif = [ "DejaVu Sans" ];
+      serif = [ "DejaVu Serif" ];
+    };
+  };
 
   # Install Monaco.ttf into ~/.local/share/fonts
   home.file.".local/share/fonts/Monaco.ttf".source =
     config.lib.file.mkOutOfStoreSymlink
       /home/lazywithclass/.config/home-manager/Monaco_Linux.ttf;
+
+  # for Brave
+  gtk = {
+    enable = true;
+    font = {
+      name = "Monaco";
+      size = 10;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+      # ADD THESE LINES TO FIX PIXELATION
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
+    };
+  };
+
+  xresources.properties = {
+    "Xft.dpi" = 96;
+    "Xft.antialias" = 1;
+    "Xft.hinting" = 1;
+    "Xft.hintstyle" = "hintslight";
+    "Xft.rgba" = "rgb";
+  };
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -187,8 +241,10 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Alberto Zaccagni";
-    userEmail = "montecristoh@gmail.com";
+    settings.user = {
+      name = "Alberto Zaccagni";
+      email = "montecristoh@gmail.com";
+    };
     lfs.enable = true;
   };
 

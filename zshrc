@@ -218,7 +218,6 @@ PS1="\$(lastExitCode) %{$fg[yellow]%} %~% %{$reset_color%} \$(git_prompt_string)
 \$ "
 RPS1=$(execution_time)
 
-eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
 
