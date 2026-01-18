@@ -13,7 +13,11 @@
   nix.settings.allowed-users = [ "root" "lazywithclass" ];
   nix.settings.trusted-users = [ "root" "lazywithclass" ];
 
-  nix.gc.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 10d";
+  };
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -24,6 +28,22 @@
   };
 
   programs.dconf.enable = true;
+
+  services.geoclue2.enable = true;
+  location.provider = "manual";
+  location.latitude = 45.4722;
+  location.longitude = 9.1922;
+  services.redshift = {
+    enable = true;
+    brightness = {
+      day = "1";
+      night = "1";
+    };
+    temperature = {
+      day = 5500;
+      night = 3700;
+    };
+  };
 
   services.pcscd.enable = true;
   programs.gnupg.agent = {
@@ -67,8 +87,6 @@
     LC_TIME = "it_IT.UTF-8";
   }; 
 
-  fonts.packages = with pkgs; [ nerdfonts ];
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -96,7 +114,7 @@
   services.displayManager = {
     defaultSession = "none+i3";
   };
-  
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
@@ -195,7 +213,7 @@
   users.users.lazywithclass = {
     isNormalUser = true;
     description = "Alberto Zaccagni";
-    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" "video"];
     shell = pkgs.zsh;
   };
 

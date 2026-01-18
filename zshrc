@@ -111,6 +111,7 @@ if [ "$TERM" != "dumb" ]; then
     alias emacs="~/.config/emacs/bin/doom env && emacs"
     alias diomadonna="fuck"
     alias vim="nvim"
+    alias find="fd"
 
     # Enable simplealiases to be sudo'ed. ("sudone"?)
     # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
@@ -152,7 +153,7 @@ xs(){
 }
 
 f(){
-    find . -name $1
+    fd . -name $1
 }
 
 r(){

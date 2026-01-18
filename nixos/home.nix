@@ -13,6 +13,7 @@ let
     url = "https://github.com/nixos/nixpkgs/archive/${ankiCommit}.tar.gz";
   };
   pkgsAnki = import ankiSrc { config = config.nixpkgs.config; };
+
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -34,7 +35,6 @@ in
   imports = [
     # "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
   ];
-  # services.vscode-server.enable = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -70,6 +70,7 @@ in
     pkgs.git-lfs
     pkgs.gnumake 
     pkgs.gopass
+    pkgs.haskellPackages.greenclip
     pkgs.htop
     pkgs.i3-resurrect
     pkgs.inotify-tools
@@ -102,7 +103,6 @@ in
     pkgs.rclone
     pkgs.ripgrep
     pkgs.rlwrap
-    pkgs.rofi
     pkgs.slack
     pkgs.telegram-desktop
     pkgs.thunderbird
@@ -111,6 +111,7 @@ in
     pkgs.usbutils
     pkgs.rxvt-unicode
     pkgs.xclip
+    pkgs.xfce.exo 
     pkgs.xorg.xhost
     pkgs.xorg.xkill
     pkgs.vscode
@@ -127,6 +128,7 @@ in
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
   ];
 
   xdg.dataFile."nemo/actions/compress.nemo_action".text = ''
@@ -173,7 +175,7 @@ in
     enable = true;
     defaultFonts = {
       monospace = [ "Monaco" "Symbols Nerd Font Mono" ];
-      sansSerif = [ "DejaVu Sans" ];
+      sansSerif = [ "Inter" "DejaVu Sans" ];
       serif = [ "DejaVu Serif" ];
     };
   };
@@ -187,7 +189,7 @@ in
   gtk = {
     enable = true;
     font = {
-      name = "Monaco";
+      name = "Inter";
       size = 10;
     };
     gtk3.extraConfig = {
@@ -253,6 +255,14 @@ in
     settings = {
       window-padding-x = 10;
       window-decoration = "none";
+    };
+  };
+
+  programs.rofi = {
+    enable = true;
+    plugins = [ pkgs.rofi-file-browser ];
+    extraConfig = {
+      show-icons = true;
     };
   };
 

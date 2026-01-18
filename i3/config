@@ -36,6 +36,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# Start the clipboard app daemon
+exec --no-startup-id greenclip daemon
+
 # sound applet
 exec pasystray
 exec blueman-applet
@@ -62,8 +65,8 @@ bindsym $mod+Return exec ghostty
 # kill focused window
 bindsym $mod+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show combi -combi-modes "run" 
+# bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -199,7 +202,9 @@ bar {
 # custom keybindings
 # ------------------
 
+bindsym $mod+o exec rofi -modi file-browser-extended -show file-browser-extended -file-browser-cmd "exo-open" -file-browser-dir "~/workspace" -file-browser-depth 5 -file-browser-open-multi-key "kb-accept-alt" -file-browser-open-custom-key "kb-custom-11" -file-browser-hide-hidden-symbol "" -file-browser-path-sep "/" -file-browser-up-text "up" -file-browser-up-icon "go-previous" -file-browser-oc-search-path
 bindsym $mod+Shift+g exec rofi -e "$(cat /home/lazywithclass/.config/i3/help)"
+bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard
 # TODO sistemarlo magari usando una mode
 bindsym $mod+Shift+m exec xrandr --output eDP-1-1 --primary --left-of HDMI-0
 bindsym $mod+Shift+n exec systemctl hibernate
