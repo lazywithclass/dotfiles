@@ -8,6 +8,7 @@ let
     config = config.nixpkgs.config; 
   };
 
+  # Anki
   ankiCommit = "87848bf0cc4f87717fc813a4575f07330c3e743c";
   ankiSrc = builtins.fetchTarball {
     url = "https://github.com/nixos/nixpkgs/archive/${ankiCommit}.tar.gz";
@@ -48,6 +49,7 @@ in
           --set QTWEBENGINE_CHROMIUM_FLAGS "--use-gl=disabled"
       '';
     })
+
     pkgs.awscli2
     pkgs.bazecor
     pkgs.brave
@@ -73,6 +75,7 @@ in
     pkgs.haskellPackages.greenclip
     pkgs.htop
     pkgs.i3-resurrect
+    pkgs.icu
     pkgs.inotify-tools
     pkgs.inter # font
     pkgs.jdk21 # TODO java should not be global
@@ -119,7 +122,6 @@ in
     pkgs.zenity
     pkgs.zip
     pkgs.zoom-us
-    pkgs.zsh
     pkgs.z-lua
 
     # # You can also create simple shell scripts directly inside your
@@ -161,8 +163,36 @@ in
     ${pkgs.nodejs_22}/bin/npm install -g @github/copilot-language-server
   '';
 
+  # Beads
+  home.activation.installBeads = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="${pkgs.go}/bin:${pkgs.gcc}/bin:$PATH"
+    export CGO_ENABLED=1
+    export CC="${pkgs.gcc}/bin/gcc"
+    export CXX="${pkgs.gcc}/bin/g++"
+    export CGO_CFLAGS="-I${pkgs.icu.dev}/include"
+    export CGO_CXXFLAGS="-I${pkgs.icu.dev}/include"
+    export CGO_LDFLAGS="-L${pkgs.icu}/lib -licuuc -licui18n -licudata"
+    export GOPATH="$HOME/go"
+    export GOBIN="$HOME/go/bin"
+    ${pkgs.go}/bin/go install github.com/steveyegge/beads/cmd/bd@latest
+  '';
+  # Perles, beads UI
+  home.activation.installPerles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="${pkgs.go}/bin:${pkgs.gcc}/bin:$PATH"
+    export CGO_ENABLED=1
+    export CC="${pkgs.gcc}/bin/gcc"
+    export CXX="${pkgs.gcc}/bin/g++"
+    export CGO_CFLAGS="-I${pkgs.icu.dev}/include"
+    export CGO_CXXFLAGS="-I${pkgs.icu.dev}/include"
+    export CGO_LDFLAGS="-L${pkgs.icu}/lib -licuuc -licui18n -licudata"
+    export GOPATH="$HOME/go"
+    export GOBIN="$HOME/go/bin"
+    ${pkgs.go}/bin/go install github.com/zjrosen/perles@latest
+  '';
+
   # these are outside home.file because they're bigger than a few lines
-  home.file.".zshrc".source = /home/lazywithclass/workspace/dotfiles/zshrc;
+  # !!! zshrc is defined below
+  # home.file.".zshrc".source = /home/lazywithclass/workspace/dotfiles/zshrc;
   home.file.".config/doom/config.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/config.el;
   home.file.".config/doom/init.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/init.el;
   home.file.".config/doom/packages.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/packages.el;
@@ -328,6 +358,14 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+    '';
+  };
+
+  programs.zsh = {
+    enable = true;
+    initExtra = ''
+      export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.icu pkgs.pipewire.jack]}"
+      source /home/lazywithclass/workspace/dotfiles/zshrc
     '';
   };
 
