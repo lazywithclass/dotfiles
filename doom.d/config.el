@@ -92,4 +92,7 @@
 (after! treemacs
   (treemacs-follow-mode 1))
 
+(setq projectile-enable-caching nil)
+(setq projectile-indexing-method 'alien)
+
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
