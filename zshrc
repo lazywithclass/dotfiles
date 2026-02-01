@@ -201,6 +201,7 @@ rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
 
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/.tmux/plugins/tpm"
 export PATH="$PATH:$HOME/.emacs/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
