@@ -96,3 +96,18 @@
 (setq projectile-indexing-method 'alien)
 
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+
+(after! lsp-java
+  ;; (setq lsp-java-java-path "/usr/lib/jvm/java-17-openjdk/bin/java")
+
+  ;; Enable signature help (shows method parameters)
+  (setq lsp-signature-auto-activate t)
+
+  ;; Download sources for library documentation
+  (setq lsp-java-content-provider-preferred "fernflower"))
+
+;; Show documentation in a popup
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-delay 0.5))

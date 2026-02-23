@@ -15,6 +15,12 @@ let
   };
   pkgsAnki = import ankiSrc { config = config.nixpkgs.config; };
 
+  claudeCodeCommit = "6308c3b21396534d8aaeac46179c14c439a89b8a";
+  claudeCodeSrc = builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/archive/${claudeCodeCommit}.tar.gz";
+  };
+  pkgsClaudeCode = import claudeCodeSrc { config = config.nixpkgs.config; };
+
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -49,12 +55,16 @@ in
           --set QTWEBENGINE_CHROMIUM_FLAGS "--use-gl=disabled"
       '';
     })
+    pkgsClaudeCode.claude-code
+    pkgsUnstable.lmstudio
+    pkgsUnstable.zed-editor
 
     pkgs.awscli2
     pkgs.bazecor
     pkgs.brave
     pkgs.curlFull
     pkgs.clojure-lsp # TODO should not be global
+    pkgs.dbeaver-bin
     pkgs.discord
     pkgs.docker-compose
     pkgs.emacs
@@ -106,7 +116,6 @@ in
     pkgs.rclone
     pkgs.ripgrep
     pkgs.rlwrap
-    pkgs.slack
     pkgs.telegram-desktop
     pkgs.thunderbird
     pkgs.tree
@@ -161,33 +170,6 @@ in
   '';
   home.activation.installCopilotLanguageServer = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.nodejs_22}/bin/npm install -g @github/copilot-language-server
-  '';
-
-  # Beads
-  home.activation.installBeads = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export PATH="${pkgs.go}/bin:${pkgs.gcc}/bin:$PATH"
-    export CGO_ENABLED=1
-    export CC="${pkgs.gcc}/bin/gcc"
-    export CXX="${pkgs.gcc}/bin/g++"
-    export CGO_CFLAGS="-I${pkgs.icu.dev}/include"
-    export CGO_CXXFLAGS="-I${pkgs.icu.dev}/include"
-    export CGO_LDFLAGS="-L${pkgs.icu}/lib -licuuc -licui18n -licudata"
-    export GOPATH="$HOME/go"
-    export GOBIN="$HOME/go/bin"
-    ${pkgs.go}/bin/go install github.com/steveyegge/beads/cmd/bd@latest
-  '';
-  # Perles, beads UI
-  home.activation.installPerles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export PATH="${pkgs.go}/bin:${pkgs.gcc}/bin:$PATH"
-    export CGO_ENABLED=1
-    export CC="${pkgs.gcc}/bin/gcc"
-    export CXX="${pkgs.gcc}/bin/g++"
-    export CGO_CFLAGS="-I${pkgs.icu.dev}/include"
-    export CGO_CXXFLAGS="-I${pkgs.icu.dev}/include"
-    export CGO_LDFLAGS="-L${pkgs.icu}/lib -licuuc -licui18n -licudata"
-    export GOPATH="$HOME/go"
-    export GOBIN="$HOME/go/bin"
-    ${pkgs.go}/bin/go install github.com/zjrosen/perles@latest
   '';
 
   # these are outside home.file because they're bigger than a few lines
@@ -257,8 +239,6 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # programs.nix-ld.enable = true;
-
   programs.bat = {
     enable = true;
     config = {
@@ -280,11 +260,78 @@ in
     lfs.enable = true;
   };
 
-  programs.ghostty = {
+  programs.kitty = {
     enable = true;
+    package = pkgsUnstable.kitty;
+    themeFile = "Adapta_Nokto_Maia";
     settings = {
-      window-padding-x = 10;
-      window-decoration = "none";
+      enable_audio_bell = false;
+      hide_window_decorations = true;
+    };
+  };
+
+  programs.opencode = {
+    enable = true;
+    package = pkgsUnstable.opencode;
+    
+    settings = {
+      permission = {
+        # Global default - require approval for everything
+        "*" = "ask";
+        
+        # File reading - allow most, deny .env files
+        read = {
+          "*" = "allow";
+          "*.env" = "deny";
+          "*.env.*" = "deny";
+          "*.env.example" = "allow";
+        };
+        
+        # File editing - ask for approval
+        edit = {
+          "*" = "ask";
+          # Allow editing specific paths without prompt
+          "src/**" = "allow";
+          # Block editing certain files entirely
+          "*.lock" = "deny";
+        };
+        
+        # Shell commands - granular control
+        bash = {
+          "*" = "ask";
+          "git status *" = "allow";
+          "git diff *" = "allow";
+          "git log *" = "allow";
+          "git branch *" = "allow";
+          "grep *" = "allow";
+          "rg *" = "allow";
+          "ls *" = "allow";
+          "cat *" = "allow";
+          "head *" = "allow";
+          "tail *" = "allow";
+          # Dangerous commands - always deny or ask
+          "rm -rf *" = "deny";
+          "git push *" = "ask";
+          "git commit *" = "ask";
+          "sudo *" = "deny";
+        };
+        
+        # External directories (outside project root)
+        external_directory = {
+          "*" = "deny";
+          "~/workspace/*" = "ask";
+        };
+        
+        # Other tools
+        webfetch = "allow";
+        websearch = "allow";
+        glob = "allow";
+        grep = "allow";
+        list = "allow";
+        lsp = "allow";
+        task = "ask";  # subagent launching
+	todowrite = "allow";
+      };
     };
   };
 
@@ -363,7 +410,7 @@ run '~/.tmux/plugins/tpm/tpm'
 
   programs.zsh = {
     enable = true;
-    initExtra = ''
+    initContent = ''
       export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.icu pkgs.pipewire.jack]}"
       source /home/lazywithclass/workspace/dotfiles/zshrc
     '';

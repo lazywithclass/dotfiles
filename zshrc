@@ -113,11 +113,6 @@ if [ "$TERM" != "dumb" ]; then
     alias vim="nvim"
     alias find="fd"
 
-    # Enable simplealiases to be sudo'ed. ("sudone"?)
-    # http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
-    # last character of the alias value is a space or tab character, then the next
-    # command word following the alias is also checked for alias expansion."
-    alias sudo='sudo '
     # https://superuser.com/a/1127215/346
     alias scp='noglob scp'
     alias vless='vim -u /usr/share/vim/vim80/macros/less.vim'
