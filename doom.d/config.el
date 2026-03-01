@@ -106,8 +106,5 @@
   ;; Download sources for library documentation
   (setq lsp-java-content-provider-preferred "fernflower"))
 
-;; Show documentation in a popup
-(after! lsp-ui
-  (setq lsp-ui-doc-enable t
-        lsp-ui-doc-show-with-cursor t
-        lsp-ui-doc-delay 0.5))
+(add-hook! 'prog-mode-hook #'rainbow-mode)
+(add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)

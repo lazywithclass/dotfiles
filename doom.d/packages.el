@@ -10,3 +10,6 @@
 
 (package! copilot-chat
   :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
+
+(package! rainbow-delimiters
+  :recipe (:host github :repo "Fanael/rainbow-delimiters" :files ("*.el")))
