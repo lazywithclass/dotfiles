@@ -55,7 +55,8 @@ in
           --set QTWEBENGINE_CHROMIUM_FLAGS "--use-gl=disabled"
       '';
     })
-    pkgsClaudeCode.claude-code
+    pkgsUnstable.claude-code
+    pkgsUnstable.crush
     pkgsUnstable.lmstudio
     pkgsUnstable.zed-editor
 
@@ -63,7 +64,8 @@ in
     pkgs.bazecor
     pkgs.brave
     pkgs.curlFull
-    pkgs.clojure-lsp # TODO should not be global
+    pkgs.cljfmt # TODO should not be global?
+    pkgs.clojure-lsp # TODO should not be global?
     pkgs.dbeaver-bin
     pkgs.discord
     pkgs.docker-compose
@@ -263,7 +265,8 @@ in
   programs.kitty = {
     enable = true;
     package = pkgsUnstable.kitty;
-    themeFile = "Adapta_Nokto_Maia";
+    # themeFile = "Adapta_Nokto_Maia";
+    themeFile = "Doom_One";
     settings = {
       enable_audio_bell = false;
       hide_window_decorations = true;
