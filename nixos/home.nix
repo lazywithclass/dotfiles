@@ -102,7 +102,6 @@ in
     pkgs.ncdu
     pkgs.nemo
     pkgs.nemo-fileroller
-    pkgs.neovim
     pkgs.nerd-fonts.symbols-only
     pkgs.ngrok
     pkgs.nodejs_22 # needed for copilot
@@ -128,6 +127,7 @@ in
     pkgs.xfce.exo 
     pkgs.xorg.xhost
     pkgs.xorg.xkill
+    pkgs.voxinput
     pkgs.vscode
     pkgs.wget
     pkgs.zenity
@@ -271,6 +271,11 @@ in
       enable_audio_bell = false;
       hide_window_decorations = true;
     };
+  };
+
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
   };
 
   programs.opencode = {
