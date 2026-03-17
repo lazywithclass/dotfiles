@@ -19,6 +19,11 @@
     options = "--delete-older-than 10d";
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+  };
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -221,7 +226,6 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    pkgs.jetbrains-toolbox
     pkgs.pinentry-curses
   ];
 
