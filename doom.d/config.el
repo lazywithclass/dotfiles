@@ -76,6 +76,9 @@
 
 (setq lsp-ui-doc-show-with-cursor nil)
 
+(after! lsp-mode
+  (setq lsp-diagnostics-provider :flycheck))
+
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
