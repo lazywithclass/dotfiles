@@ -13,6 +13,8 @@
   nix.settings.allowed-users = [ "root" "lazywithclass" ];
   nix.settings.trusted-users = [ "root" "lazywithclass" ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   nix.gc = {
     automatic = true;
     dates = "daily";
@@ -174,6 +176,12 @@
     rootless = {
       enable = true;
       setSocketVariable = true;
+    };
+    daemon.settings = {
+      builder.gc = {
+        enabled = true;
+        defaultKeepStorage = "10GB";
+      };
     };
   };
 

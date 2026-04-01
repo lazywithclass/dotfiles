@@ -1,25 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, claude-desktop, pkgsAnki, ... }:
 
 let
-  pkgsUnstable = import (builtins.fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/archive/nixos-unstable.tar.gz";
-  }) {
-    # inherit my current config (importantly: allowUnfree = true)
-    config = config.nixpkgs.config; 
-  };
-
-  # Anki
-  ankiCommit = "87848bf0cc4f87717fc813a4575f07330c3e743c";
-  ankiSrc = builtins.fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/archive/${ankiCommit}.tar.gz";
-  };
-  pkgsAnki = import ankiSrc { config = config.nixpkgs.config; };
-
-  claudeCodeCommit = "6308c3b21396534d8aaeac46179c14c439a89b8a";
-  claudeCodeSrc = builtins.fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/archive/${claudeCodeCommit}.tar.gz";
-  };
-  pkgsClaudeCode = import claudeCodeSrc { config = config.nixpkgs.config; };
 
 in
 {
@@ -39,8 +20,22 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays = [
+    claude-desktop.overlays.default
+    (final: prev: {
+      python3 = prev.python3.override {
+        packageOverrides = pyFinal: pyPrev: {
+          plux = pyPrev.plux.overridePythonAttrs (old: {
+            doCheck = false;
+          });
+        };
+      };
+    })
+  ];
+
   imports = [
     # "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
+    ./claude-remote-control.nix # provides claude code
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -55,10 +50,11 @@ in
           --set QTWEBENGINE_CHROMIUM_FLAGS "--use-gl=disabled"
       '';
     })
-    pkgsUnstable.claude-code
-    pkgsUnstable.crush
-    pkgsUnstable.lmstudio
-    pkgsUnstable.zed-editor
+    pkgs.claude-desktop
+    pkgs.codex
+    pkgs.crush
+    pkgs.lmstudio
+    pkgs.zed-editor
 
     pkgs.awscli2
     pkgs.bazecor
@@ -95,7 +91,6 @@ in
     pkgs.killall
     pkgs.leiningen # TODO should not be global
     pkgs.libreoffice-qt
-    pkgs.localstack # TODO localstack should not be global
     pkgs.lsof
     pkgs.maim
     pkgs.mpv
@@ -124,9 +119,9 @@ in
     pkgs.usbutils
     pkgs.rxvt-unicode
     pkgs.xclip
-    pkgs.xfce.exo 
-    pkgs.xorg.xhost
-    pkgs.xorg.xkill
+    pkgs.xfce4-exo 
+    pkgs.xhost
+    pkgs.xkill
     pkgs.voxinput
     pkgs.vscode
     pkgs.wget
@@ -143,6 +138,14 @@ in
     # '')
 
   ];
+
+  xdg.configFile."clojure/deps.edn".text = ''
+    {:aliases 
+      {:deps-new 
+        {:replace-deps {io.github.seancorfield/deps-new
+		         {:git/tag "v0.11.1" :git/sha "FIXME"}}
+                       :ns-default org.corfield.new}}}
+  '';
 
   xdg.dataFile."nemo/actions/compress.nemo_action".text = ''
     [Nemo Action]
@@ -177,13 +180,13 @@ in
   # these are outside home.file because they're bigger than a few lines
   # !!! zshrc is defined below
   # home.file.".zshrc".source = /home/lazywithclass/workspace/dotfiles/zshrc;
-  home.file.".config/doom/config.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/config.el;
-  home.file.".config/doom/init.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/init.el;
-  home.file.".config/doom/packages.el".source = /home/lazywithclass/workspace/dotfiles/doom.d/packages.el;
-  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink /home/lazywithclass/workspace/dotfiles/nvim;
-  home.file.".config/i3/config".source = /home/lazywithclass/workspace/dotfiles/i3/config;
-  home.file.".config/i3/help".source = /home/lazywithclass/workspace/dotfiles/i3/help;
-  home.file.".config/nixpkgs/config.nix".source = /home/lazywithclass/workspace/dotfiles/nixos/nixpkgs-config.nix;
+  home.file.".config/doom/config.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/config.el";
+  home.file.".config/doom/init.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/init.el";
+  home.file.".config/doom/packages.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/packages.el";
+  home.file.".config/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/config";
+  home.file.".config/i3/help".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/help";
+  home.file.".config/nixpkgs/config.nix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nixos/nixpkgs-config.nix";
+  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nvim";
 
   fonts.fontconfig = {
     enable = true;
@@ -194,13 +197,13 @@ in
     };
   };
 
-  # Install Monaco.ttf into ~/.local/share/fonts
   home.file.".local/share/fonts/Monaco.ttf".source =
     config.lib.file.mkOutOfStoreSymlink
-      /home/lazywithclass/.config/home-manager/Monaco_Linux.ttf;
+      "${config.home.homeDirectory}/.config/home-manager/Monaco_Linux.ttf";
 
   # for Brave
   gtk = {
+    gtk4.theme = null; # silence stateVersion < 26.05 warning
     enable = true;
     font = {
       name = "Inter";
@@ -264,7 +267,7 @@ in
 
   programs.kitty = {
     enable = true;
-    package = pkgsUnstable.kitty;
+    package = pkgs.kitty;
     # themeFile = "Adapta_Nokto_Maia";
     themeFile = "Doom_One";
     settings = {
@@ -280,7 +283,7 @@ in
 
   programs.opencode = {
     enable = true;
-    package = pkgsUnstable.opencode;
+    package = pkgs.opencode;
     
     settings = {
       permission = {
