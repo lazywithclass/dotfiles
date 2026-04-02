@@ -114,3 +114,7 @@
 
 (add-hook! 'prog-mode-hook #'rainbow-mode)
 (add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
+
+(setq clojure-indent-style 'always-align)
+(after! clojure-mode
+  (setq clojure-align-forms-automatically t))
