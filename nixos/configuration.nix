@@ -30,6 +30,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelParams = [
+    "acpi_backlight=video"
+    "nvidia_drm.modeset=1"
+    "i915.enable_dpcd_backlight=1"
+    "i915.enable_psr=0"
+    "nvidia.NVreg_EnableBacklightHandler=0"
+    "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=0"
+  ];
+  boot.kernelModules = [ "i2c-dev" ];
+
   programs.steam = {
     enable = true;
   };
@@ -37,20 +47,10 @@
   programs.dconf.enable = true;
 
   services.geoclue2.enable = true;
+  # TODO this should be automatic
   location.provider = "manual";
   location.latitude = 45.4722;
   location.longitude = 9.1922;
-  services.redshift = {
-    enable = true;
-    brightness = {
-      day = "1";
-      night = "1";
-    };
-    temperature = {
-      day = 5500;
-      night = 3700;
-    };
-  };
 
   services.pcscd.enable = true;
   programs.gnupg.agent = {
@@ -60,6 +60,7 @@
 
   powerManagement.enable = true;
 
+  # TODO dagobah
   networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
@@ -117,7 +118,25 @@
       variant = "";
     };
 
-  };
+    videoDrivers = [ "nvidia" ];
+
+    extraConfig = ''
+  Section "InputClass"
+    Identifier "touchpad"
+    MatchIsTouchpad "on"
+    Driver "libinput"
+    Option "AccelSpeed" "-0.1"
+    Option "ScrollPixelDistance" "50"
+  EndSection
+
+  Section "InputClass"
+    Identifier "ignore-ascf-mouse"
+    MatchProduct "ASCF1400:00 2808:0242 Mouse"
+    Option "Ignore" "true"
+  EndSection
+'';
+    };
+
   services.displayManager = {
     defaultSession = "none+i3";
   };
@@ -127,8 +146,19 @@
     enable = true;
   };
 
-  # https://nixos.wiki/wiki/Nvidia
-  services.xserver.videoDrivers = ["nvidia"];
+  services.acpid = {
+    enable = true;
+    handlers = {
+      brightness-up = {
+        event = "video/brightnessup*";
+        action = "${pkgs.brightnessctl}/bin/brightnessctl -d intel_backlight set +10%";
+      };
+      brightness-down = {
+        event = "video/brightnessdown*";
+        action = "${pkgs.brightnessctl}/bin/brightnessctl -d intel_backlight set 10%-";
+      };
+    };
+  };
 
   hardware.nvidia = {
 
@@ -139,11 +169,11 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    # powerManagement.enable = false;
+    powerManagement.enable = false;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    # powerManagement.finegrained = false;
+    powerManagement.finegrained = false;
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
@@ -162,12 +192,28 @@
     package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     prime = {
-      sync.enable = true;
+      # sync.enable = true;
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
 
       # Make sure to use the correct Bus ID values for your system!
       intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:01:0:0";
+      nvidiaBusId = "PCI:1:0:0";
     };
+  };
+
+  services.picom = {
+    enable = true;
+    vSync = true;
+  };
+
+  services.supergfxd.enable = true;
+
+  services.asusd = {
+    enable = true;
+    enableUserService = true;
   };
 
   virtualisation.docker = {
@@ -217,7 +263,13 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      horizontalScrolling = false;
+      tapping = false;
+    };
+  };
 
   programs.zsh.enable = true;
 
@@ -226,7 +278,7 @@
   users.users.lazywithclass = {
     isNormalUser = true;
     description = "Alberto Zaccagni";
-    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" "video"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" "video" "input" "i2c"];
     shell = pkgs.zsh;
   };
 
@@ -235,7 +287,16 @@
 
   environment.systemPackages = with pkgs; [
     pkgs.pinentry-curses
+    pkgs.asusctl
+    pkgs.brightnessctl
+    pkgs.supergfxctl
   ];
+
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [ASCF1400 Touchpad]
+    MatchName=ASCF1400:00 2808:0242 Touchpad
+    ModelBouncingKeys=1
+  '';
 
   # List services that you want to enable:
 
@@ -257,6 +318,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
-
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

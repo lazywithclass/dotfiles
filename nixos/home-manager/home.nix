@@ -77,7 +77,6 @@ in
     pkgs.gcc
     pkgs.gimp
     pkgs.gitflow 
-    pkgs.git-lfs
     pkgs.gnumake 
     pkgs.gopass
     pkgs.haskellPackages.greenclip
@@ -258,9 +257,11 @@ in
 
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "Alberto Zaccagni";
-      email = "montecristoh@gmail.com";
+    settings = {
+      user = {
+       name = "Alberto Zaccagni";
+       email = "montecristoh@gmail.com";
+      };
     };
     lfs.enable = true;
   };
@@ -352,6 +353,19 @@ in
     extraConfig = {
       show-icons = true;
     };
+  };
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519_github";
+        addKeysToAgent = "yes";
+      };
+    };
+    enableDefaultConfig = false;
   };
 
   programs.tmux = {
