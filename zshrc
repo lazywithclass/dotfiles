@@ -1,9 +1,5 @@
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#606060"
-plugins=(zsh-autosuggestions git z)
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-# Note that zsh-syntax-highlighting should be the last plugin
-source $ZSH/oh-my-zsh.sh
+# oh-my-zsh is configured and sourced by Home Manager (programs.zsh.oh-my-zsh)
+# zsh-autosuggestions plugin is loaded via programs.zsh.plugins in home.nix
 
 setopt prompt_subst
 autoload -U colors && colors # Enable colors in prompt
@@ -188,10 +184,15 @@ fortune -a
 echo ""
 
 messages=()
+messages+=("${parens}(${nc}${funx}passed?${nc} ${quote}'${nc}${symbol}computer-architecture-2${nc}${parens})${nc}")
+messages+=("${parens}(${nc}${funx}passed?${nc} ${quote}'${nc}${symbol}databases${nc}${parens})${nc}")
 messages+=("${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${nc}${parens})${nc}")
 messages+=("${parens}(${nc}${funx}remember${nc}
   ${parens}(${nc}${funx}why${nc} ${quote}'${nc}${symbol}you${nc}${parens})${nc}
   ${parens}(${nc}${funx}do${nc} ${quote}'${nc}${symbol}this${nc}${parens})${nc}${parens})${nc}")
+messages+=("${parens}(${nc}${funx}λ${nc} ${symbol}f${nc}
+  ${parens}(${nc}${funx}λ${nc} ${symbol}x${nc} ${parens}(${nc}${funx}f${nc} ${parens}(${nc}${funx}x${nc} ${symbol}x${nc}${parens})${nc}${parens})${nc}${parens})${nc}
+  ${parens}(${nc}${funx}λ${nc} ${symbol}x${nc} ${parens}(${nc}${funx}f${nc} ${parens}(${nc}${funx}x${nc} ${symbol}x${nc}${parens})${nc}${parens})${nc}${parens})${nc}${parens})${nc}")
 rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
 
@@ -209,11 +210,34 @@ execution_time() {
   TZ="Europe/Rome" date "+%H:%M:%S %d/%m/%Y"
 }
 
+_cmd_start_time=0
+preexec() {
+  _cmd_start_time=$SECONDS
+}
+precmd() {
+  if [[ $_cmd_start_time -gt 0 ]]; then
+    local elapsed=$(( SECONDS - _cmd_start_time ))
+    local h=$(( elapsed / 3600 ))
+    local m=$(( (elapsed % 3600) / 60 ))
+    local s=$(( elapsed % 60 ))
+    if [[ $h -gt 0 ]]; then
+      _cmd_duration="${h}h${m}m${s}s"
+    elif [[ $m -gt 0 ]]; then
+      _cmd_duration="${m}m${s}s"
+    else
+      _cmd_duration="${s}s"
+    fi
+  else
+    _cmd_duration=""
+  fi
+  _cmd_start_time=0
+}
+
 # about the importance of the \$
 # https://askubuntu.com/a/651875
 PS1="\$(lastExitCode) %{$fg[yellow]%} %~% %{$reset_color%} \$(git_prompt_string) 
 \$ "
-RPS1=$(execution_time)
+RPS1='${_cmd_duration:+${_cmd_duration} }$(execution_time)'
 
 eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"

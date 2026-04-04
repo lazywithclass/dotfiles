@@ -435,6 +435,21 @@ run '~/.tmux/plugins/tpm/tpm'
 
   programs.zsh = {
     enable = true;
+    oh-my-zsh = {
+      enable = true;
+      theme = "robbyrussell";
+      plugins = [ "git" "z" ];
+      extraConfig = ''
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#606060"
+      '';
+    };
+    plugins = [
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.zsh-autosuggestions;
+        file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
+      }
+    ];
     initContent = ''
       export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.icu pkgs.pipewire.jack]}"
       source /home/lazywithclass/workspace/dotfiles/zshrc
