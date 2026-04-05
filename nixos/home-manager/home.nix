@@ -176,6 +176,14 @@ in
     ${pkgs.nodejs_22}/bin/npm install -g @github/copilot-language-server
   '';
 
+  home.activation.installDoom = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    DOOM="${config.home.homeDirectory}/.config/emacs"
+    if [ ! -d "$DOOM" ]; then
+      ${pkgs.git}/bin/git clone --depth=1 https://github.com/doomemacs/doomemacs "$DOOM"
+      PATH="${pkgs.git}/bin:${pkgs.emacs}/bin:$PATH" "$DOOM/bin/doom" install --no-config
+    fi
+  '';
+
   # these are outside home.file because they're bigger than a few lines
   # !!! zshrc is defined below
   # home.file.".zshrc".source = /home/lazywithclass/workspace/dotfiles/zshrc;
@@ -239,6 +247,7 @@ in
   home.sessionVariables = {
     EDITOR = "vim";
   };
+  home.sessionPath = [ "${config.home.homeDirectory}/.config/emacs/bin" ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
