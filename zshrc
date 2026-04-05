@@ -190,9 +190,9 @@ messages+=("${parens}(${nc}${funx}it-will-be${nc} ${quote}'${nc}${symbol}okay${n
 messages+=("${parens}(${nc}${funx}remember${nc}
   ${parens}(${nc}${funx}why${nc} ${quote}'${nc}${symbol}you${nc}${parens})${nc}
   ${parens}(${nc}${funx}do${nc} ${quote}'${nc}${symbol}this${nc}${parens})${nc}${parens})${nc}")
-messages+=("${parens}(${nc}${funx}λ${nc} ${symbol}f${nc}
-  ${parens}(${nc}${funx}λ${nc} ${symbol}x${nc} ${parens}(${nc}${funx}f${nc} ${parens}(${nc}${funx}x${nc} ${symbol}x${nc}${parens})${nc}${parens})${nc}${parens})${nc}
-  ${parens}(${nc}${funx}λ${nc} ${symbol}x${nc} ${parens}(${nc}${funx}f${nc} ${parens}(${nc}${funx}x${nc} ${symbol}x${nc}${parens})${nc}${parens})${nc}${parens})${nc}${parens})${nc}")
+messages+=("${symbol}Y${nc} ${funx}=${nc} ${funx}λ${nc}${symbol}f${nc}.
+  ${parens}(${nc}${funx}λ${nc}${symbol}x${nc}. ${funx}f${nc} ${parens}(${nc}${symbol}x${nc} ${symbol}x${nc}${parens})${nc}${parens})${nc}
+  ${parens}(${nc}${funx}λ${nc}${symbol}x${nc}. ${funx}f${nc} ${parens}(${nc}${symbol}x${nc} ${symbol}x${nc}${parens})${nc}${parens})${nc}")
 rand=$[$RANDOM % ${#messages[@]}]
 echo ${messages[$rand+1]}
 
