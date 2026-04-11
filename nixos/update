@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo nix flake update --flake /etc/nixos
+sudo nixos-rebuild switch --flake /etc/nixos#dagobah

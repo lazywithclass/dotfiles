@@ -120,6 +120,13 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+workspace $ws1 output eDP-1-1
+workspace $ws2 output eDP-1-1
+workspace $ws3 output eDP-1-1
+workspace $ws4 output eDP-1-1
+workspace $ws5 output eDP-1-1
+workspace $ws6 output HDMI-0
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:スタディ"
@@ -156,6 +163,20 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+
+assign [class="obsidian"] $ws1
+assign [class="kitty"] $ws2
+assign [class="Telegram"] $ws3
+assign [class="discord"] $ws3
+assign [class="Brave"] $ws4
+
+exec --no-startup-id obsidian
+# open kitty and start tmux in it in $ws2 but just the first time
+exec --no-startup-id kitty -e tmux && sleep 1 && i3-msg '[class="kitty"] move to workspace $ws2'
+exec --no-startup-id telegram-desktop
+exec --no-startup-id discord
+exec --no-startup-id brave
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -198,15 +219,17 @@ bar {
         status_command i3status
 }
 
+# https://i3wm.org/docs/userguide.html#no_focus
+no_focus [all]
+
 # ------------------
 # custom keybindings
 # ------------------
-
 bindsym $mod+o exec rofi -modi file-browser-extended -show file-browser-extended -file-browser-cmd "exo-open" -file-browser-dir "~/workspace" -file-browser-depth 5 -file-browser-open-multi-key "kb-accept-alt" -file-browser-open-custom-key "kb-custom-11" -file-browser-hide-hidden-symbol "" -file-browser-path-sep "/" -file-browser-up-text "up" -file-browser-up-icon "go-previous" -file-browser-oc-search-path
 bindsym $mod+Shift+g exec rofi -e "$(cat /home/lazywithclass/.config/i3/help)"
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard
 # TODO sistemarlo magari usando una mode
-bindsym $mod+Shift+m exec xrandr --output eDP-1-1 --primary --left-of HDMI-0
+bindsym $mod+Shift+m exec --no-startup-id "xrandr --output eDP-1-1 --primary --left-of HDMI-0 && i3-msg restart"
 bindsym $mod+Shift+n exec systemctl hibernate
 bindsym $mod+Shift+s exec maim -s -u | xclip -selection clipboard -t image/png -i
 
@@ -214,5 +237,3 @@ bindsym $mod+Shift+s exec maim -s -u | xclip -selection clipboard -t image/png -
 bindsym $mod+grave workspace back_and_forth
 bindsym $mod+Tab [con_mark=_last] focus
 
-# https://i3wm.org/docs/userguide.html#no_focus
-no_focus [all]

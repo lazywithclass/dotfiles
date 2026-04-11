@@ -234,6 +234,10 @@ in
     "Xft.rgba" = "rgb";
   };
 
+  xsession.windowManager.i3.config.startup = [
+    { command = "xset s off -dpms"; notification = false; }
+  ];
+
   # You can also manage environment variables but you will have to manually
   # source
   #

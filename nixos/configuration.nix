@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixpkgs-unstable, ... }:
 
 {
   imports =
@@ -38,7 +38,21 @@
     "nvidia.NVreg_EnableBacklightHandler=0"
     "nvidia.NVreg_RegistryDwords=EnableBrightnessControl=0"
   ];
-  boot.kernelModules = [ "i2c-dev" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
+  boot.kernelModules = [ "i2c-dev" "acpi_call" ];
+
+  systemd.services.disable-panel-cabc = {
+    description = "Disable ASUS panel content-adaptive brightness (CABC)";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      echo '\_SB.ATKD.WMNB 0x0 0x53564544 {0x2A, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}' > /proc/acpi/call
+    '';
+  };
 
   programs.steam = {
     enable = true;
@@ -60,8 +74,7 @@
 
   powerManagement.enable = true;
 
-  # TODO dagobah
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "dagobah";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -101,6 +114,7 @@
 
     desktopManager = {
       xterm.enable = false;
+      # plasma6.enable = true;
     };
 
     windowManager.i3 = {
@@ -144,6 +158,7 @@
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
+    enable32Bit = true; # for Proton
   };
 
   services.acpid = {
@@ -182,7 +197,7 @@
     # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
     # Only available from driver 515.43.04+
     # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
@@ -192,11 +207,12 @@
     package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     prime = {
-      # sync.enable = true;
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
+      sync.enable = true;
+      # offload = {
+      #   enable = true;
+      #   enableOffloadCmd = true;
+      # };
+      offload.enable = false;
 
       # Make sure to use the correct Bus ID values for your system!
       intelBusId = "PCI:0:2:0";
@@ -204,10 +220,10 @@
     };
   };
 
-  services.picom = {
-    enable = true;
-    vSync = true;
-  };
+  # services.picom = {
+  #   enable = true;
+  #   vSync = true;
+  # };
 
   services.supergfxd.enable = true;
 
@@ -219,10 +235,10 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
+    # rootless = {
+    #   enable = true;
+    #   setSocketVariable = true;
+    # };
     daemon.settings = {
       builder.gc = {
         enabled = true;
@@ -234,12 +250,14 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.i2c.enable = true;
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -286,8 +304,10 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    pkgs.pinentry-curses
     pkgs.asusctl
+    pkgs.ddcutil
+    pkgs.nvtopPackages.nvidia  # GPU monitoring, useful to verify GPU is actually used
+    pkgs.pinentry-curses
     pkgs.brightnessctl
     pkgs.supergfxctl
   ];
