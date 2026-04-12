@@ -296,7 +296,7 @@
   users.users.lazywithclass = {
     isNormalUser = true;
     description = "Alberto Zaccagni";
-    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" "video" "input" "i2c"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "tty" "dialout" "video" "input" "i2c" ];
     shell = pkgs.zsh;
   };
 
@@ -317,8 +317,6 @@
     MatchName=ASCF1400:00 2808:0242 Touchpad
     ModelBouncingKeys=1
   '';
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {

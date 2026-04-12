@@ -1,7 +1,6 @@
 { config, pkgs, lib, claude-desktop, pkgsAnki, ... }:
 
 let
-
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -124,18 +123,11 @@ in
     pkgs.voxinput
     pkgs.vscode
     pkgs.wget
+    pkgs.wgnord
     pkgs.zenity
     pkgs.zip
     pkgs.zoom-us
     pkgs.z-lua
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-
   ];
 
   xdg.configFile."clojure/deps.edn".text = ''
@@ -192,6 +184,7 @@ in
   home.file.".config/doom/packages.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/packages.el";
   home.file.".config/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/config";
   home.file.".config/i3/help".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/help";
+  home.file.".config/i3blocks/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3blocks/config";
   home.file.".config/nixpkgs/config.nix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nixos/nixpkgs-config.nix";
   home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nvim";
 
@@ -466,6 +459,14 @@ run '~/.tmux/plugins/tpm/tpm'
     initContent = ''
       export LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.icu pkgs.pipewire.jack]}"
       source /home/lazywithclass/workspace/dotfiles/zshrc
+
+      nordvpn() {
+        sudo ${pkgs.wgnord}/bin/wgnord "$@"
+        case "$1" in
+          connect|up)   echo "''${2:-unknown}" > ~/.nordvpn_region ;;
+          disconnect|down) echo "disconnected" > ~/.nordvpn_region ;;
+        esac
+        }
     '';
   };
 

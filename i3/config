@@ -169,14 +169,15 @@ assign [class="kitty"] $ws2
 assign [class="Telegram"] $ws3
 assign [class="discord"] $ws3
 assign [class="Brave"] $ws4
+assign [class="thunderbird"] $ws5
 
 exec --no-startup-id obsidian
 # open kitty and start tmux in it in $ws2 but just the first time
 exec --no-startup-id kitty -e tmux && sleep 1 && i3-msg '[class="kitty"] move to workspace $ws2'
-exec --no-startup-id telegram-desktop
+exec --no-startup-id Telegram
 exec --no-startup-id discord
 exec --no-startup-id brave
-
+exec --no-startup-id thunderbird
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -216,7 +217,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
 	strip_workspace_numbers true
-        status_command i3status
+        status_command i3blocks -c ~/.config/i3blocks/config
 }
 
 # https://i3wm.org/docs/userguide.html#no_focus

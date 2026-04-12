@@ -1,0 +1,39 @@
+[nordvpn]
+command=region=$(cat ~/.nordvpn_region 2>/dev/null); if [[ "$region" == "disconnected" || -z "$region" ]]; then echo '<span color="#666666">NordVPN</span>'; else echo '<span color="#00CC00">NordVPN '"$region"'</span>'; fi
+interval=5
+markup=pango
+shell=/bin/bash
+
+[openvpn]
+command=ip link show tun0 2>/dev/null | grep -q "UP" && echo '<span color="#00CC00">OVPN '"$(ip -4 addr show tun0 | awk '/inet/{print $2}')"'</span>' || echo '<span color="#666666">OVPN</span>'
+interval=5
+markup=pango
+shell=/bin/bash
+
+[wireless]
+command=iface=$(ls /sys/class/net | grep -E '^wl' | head -1); info=$(nmcli -t -f active,ssid,signal dev wifi 2>/dev/null | awk -F: '/^yes/{printf "%s (%s%%)", $2, $3}'); ip=$(ip -4 addr show $iface 2>/dev/null | awk '/inet/{print $2}'); if [[ -z "$info" ]]; then echo '<span color="#666666">Wifi</span>'; else echo '<span color="#00CC00">'"$info $ip"'</span>'; fi
+interval=5
+shell=/bin/bash
+markup=pango
+
+[battery]
+command=echo "$(cat /sys/class/power_supply/BAT0/status) $(cat /sys/class/power_supply/BAT0/capacity)%"
+interval=30
+
+[cpu]
+command=echo "$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$3+$4+$5)} END{printf "CPU %.0f%%", usage}')"
+interval=5
+
+[disk]
+command=usage=$(df / | awk 'NR==2{print $5}' | tr -d '%'); label=$(df -h / | awk 'NR==2{printf "%s/%s", $3, $2, $5}'); if [[ $usage -gt 80 ]]; then echo '<span color="#666666">'"$label"'</span>'; else echo "$label"; fi
+interval=30
+markup=pango
+shell=/bin/bash
+
+[memory]
+command=echo "$(free -m | awk '/Mem:/{printf "RAM %.1fG/%.1fG", $3/1024, $2/1024}')"
+interval=30
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
