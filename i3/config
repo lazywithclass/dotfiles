@@ -45,12 +45,17 @@ exec blueman-applet
 
 exec_always --no-startup-id dunst
 
-# Use pactl to adjust volume in PulseAudio.
+# Use pactl to adjust volume in PulseAudio
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -173,7 +178,7 @@ assign [class="thunderbird"] $ws5
 
 exec --no-startup-id obsidian
 # open kitty and start tmux in it in $ws2 but just the first time
-exec --no-startup-id kitty -e tmux && sleep 1 && i3-msg '[class="kitty"] move to workspace $ws2'
+exec --no-startup-id kitty -e bash -c 'tmux new-session -d -s main && tmux run-shell "$(tmux show-option -gqv @resurrect-restore-script-path)"; tmux attach -t main'
 exec --no-startup-id Telegram
 exec --no-startup-id discord
 exec --no-startup-id brave
