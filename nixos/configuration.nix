@@ -220,11 +220,6 @@
     };
   };
 
-  # services.picom = {
-  #   enable = true;
-  #   vSync = true;
-  # };
-
   services.supergfxd.enable = true;
 
   services.asusd = {
@@ -235,10 +230,10 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
-    # rootless = {
-    #   enable = true;
-    #   setSocketVariable = true;
-    # };
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
     daemon.settings = {
       builder.gc = {
         enabled = true;

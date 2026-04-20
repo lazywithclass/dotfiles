@@ -30,6 +30,20 @@ in
         };
       };
     })
+    (final: prev: {
+      rtk = prev.rustPlatform.buildRustPackage {
+        pname = "rtk";
+        version = "0.35.0";
+        src = prev.fetchFromGitHub {
+          owner = "rtk-ai";
+          repo = "rtk";
+          rev = "v0.35.0";
+	  hash = "sha256-7DAL4dsnq2ZWmkyoI+BeN21ouK0VyLvSxOCt5hPWCl4=";
+	};
+	cargoHash = "sha256-r/PCA15MsmERCq3z8nObxdbX3KijsrInxsgJ6aqRVc4=";
+        doCheck = false;
+      };
+    })
   ];
 
   imports = [
@@ -53,6 +67,7 @@ in
     pkgs.codex
     pkgs.crush
     pkgs.lmstudio
+    pkgs.rtk
     pkgs.zed-editor
 
     pkgs.awscli2
@@ -106,6 +121,7 @@ in
     pkgs.pasystray
     pkgs.pavucontrol
     pkgs.pkg-config
+    pkgs.playerctl
     pkgs.python3 # TODO this should not be here! Make it work with direnv
     pkgs.rclone
     pkgs.ripgrep
@@ -161,11 +177,42 @@ in
     Extensions=zip;7z;ar;cbz;cpio;exe;iso;jar;tar;tar;7z;tar.Z;tar.bz2;tar.gz;tar.lz;tar.lzma;tar.xz;
   '';
 
+  home.file.".claude/settings.json".text = builtins.toJSON {
+    model = "opus";
+    permissions = {
+      allow = [
+        "Read"
+        "Glob"
+        "Grep"
+        "WebFetch"
+        "WebSearch"
+      ];
+    };
+    hooks = {
+      PreToolUse = [
+        {
+          matcher = "Bash";
+          hooks = [
+            {
+              type = "command";
+              command = "/home/lazywithclass/.claude/hooks/rtk-rewrite.sh";
+            }
+          ];
+        }
+      ];
+    };
+    effortLevel = "high";
+  };
+
   home.file.".npmrc".text = ''
     prefix=/home/lazywithclass/.npm-global
   '';
   home.activation.installCopilotLanguageServer = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.nodejs_22}/bin/npm install -g @github/copilot-language-server
+  '';
+
+  home.file.".config/brave-flags.conf".text = ''
+    --enable-features=GlobalMediaControls,MediaSessionService
   '';
 
   home.activation.installDoom = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -364,6 +411,10 @@ in
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      "*" = {
+        serverAliveInterval = 60;
+        serverAliveCountMax = 3;
+      };
       "github.com" = {
         hostname = "github.com";
         user = "git";
