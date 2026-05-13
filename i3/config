@@ -231,7 +231,7 @@ no_focus [all]
 # ------------------
 # custom keybindings
 # ------------------
-bindsym $mod+o exec rofi -modi file-browser-extended -show file-browser-extended -file-browser-cmd "exo-open" -file-browser-dir "~/workspace" -file-browser-depth 5 -file-browser-open-multi-key "kb-accept-alt" -file-browser-open-custom-key "kb-custom-11" -file-browser-hide-hidden-symbol "" -file-browser-path-sep "/" -file-browser-up-text "up" -file-browser-up-icon "go-previous" -file-browser-oc-search-path
+bindsym $mod+o exec rofi -modi file-browser-extended -show file-browser-extended -file-browser-cmd "exo-open" -file-browser-dir "~/workspace" -file-browser-depth 10 -file-browser-open-multi-key "kb-accept-alt" -file-browser-open-custom-key "kb-custom-11" -file-browser-hide-hidden-symbol "" -file-browser-path-sep "/" -file-browser-up-text "up" -file-browser-up-icon "go-previous" -file-browser-oc-search-path
 bindsym $mod+Shift+g exec rofi -e "$(cat /home/lazywithclass/.config/i3/help)"
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard
 # TODO sistemarlo magari usando una mode
