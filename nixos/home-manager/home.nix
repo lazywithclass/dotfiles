@@ -23,8 +23,8 @@ in
     claude-desktop.overlays.default
     (final: prev: {
       python3 = prev.python3.override {
-        packageOverrides = pyFinal: pyPrev: {
-          plux = pyPrev.plux.overridePythonAttrs (old: {
+        packageOverrides = pyfinal: pyprev: {
+          plux = pyprev.plux.overridePythonAttrs (old: {
             doCheck = false;
           });
         };
@@ -38,9 +38,9 @@ in
           owner = "rtk-ai";
           repo = "rtk";
           rev = "v0.35.0";
-	  hash = "sha256-7DAL4dsnq2ZWmkyoI+BeN21ouK0VyLvSxOCt5hPWCl4=";
-	};
-	cargoHash = "sha256-r/PCA15MsmERCq3z8nObxdbX3KijsrInxsgJ6aqRVc4=";
+          hash = "sha256-7DAL4dsnq2ZWmkyoI+BeN21ouK0VyLvSxOCt5hPWCl4=";
+        };
+        cargoHash = "sha256-r/PCA15MsmERCq3z8nObxdbX3KijsrInxsgJ6aqRVc4=";
         doCheck = false;
       };
     })
@@ -108,6 +108,7 @@ in
     pkgs.maim
     pkgs.mpv
     pkgs.ncdu
+    pkgs.neovim
     pkgs.nemo
     pkgs.nemo-fileroller
     pkgs.nerd-fonts.symbols-only
@@ -123,9 +124,12 @@ in
     pkgs.pkg-config
     pkgs.playerctl
     pkgs.python3 # TODO this should not be here! Make it work with direnv
+    pkgs.qbittorrent
     pkgs.rclone
     pkgs.ripgrep
     pkgs.rlwrap
+    pkgs.semgrep
+    pkgs.sox
     pkgs.telegram-desktop
     pkgs.thunderbird
     pkgs.tree
@@ -135,6 +139,7 @@ in
     pkgs.xclip
     pkgs.xfce4-exo 
     pkgs.xhost
+    pkgs.xkill
     pkgs.xkill
     pkgs.voxinput
     pkgs.vscode
@@ -330,11 +335,6 @@ in
     };
   };
 
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-  };
-
   programs.opencode = {
     enable = true;
     package = pkgs.opencode;
@@ -427,8 +427,9 @@ in
 
   programs.tmux = {
     enable = true;
+    keyMode = "vi";
     extraConfig = ''
-      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
 
 set-option -g prefix C-a
 set-option -g default-shell ~/.nix-profile/bin/zsh
@@ -447,36 +448,10 @@ set -g status-right '#(date +%%H:%%M) '
 # from https://github.com/NHDaly/tmux-better-mouse-mode
 set -g @scroll-speed-num-lines-per-scroll "1" 
 
-# disable "release mouse drag to copy and exit copy-mode", ref: https://github.com/tmux/tmux/issues/140
-unbind-key -T copy-mode-vi MouseDragEnd1Pane
-
-# since MouseDragEnd1Pane neither exit copy-mode nor clear selection now,
-# let single click do selection clearing for us.
-bind-key -T copy-mode-vi MouseDown1Pane select-pane\; send-keys -X clear-selection
-
-# this line changes the default binding of MouseDrag1Pane, the only difference
-# is that we use `copy-mode -eM` instead of `copy-mode -M`, so that WheelDownPane
-# can trigger copy-mode to exit when copy-mode is entered by MouseDrag1Pane
-bind -n MouseDrag1Pane if -Ft= '#{mouse_any_flag}' 'if -Ft= \"#{pane_in_mode}\" \"copy-mode -eM\" \"send-keys -M\"' 'copy-mode -eM'
-
-set -g @yank_action 'copy-pipe'
-
 ########## UI ##########
-set -g default-terminal "screen-256color" # colors!
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
 set -g @themepack 'basic'
-
-########## BINDINGS ##########
-bind j resize-pane -D 10
-bind k resize-pane -U 10
-bind h resize-pane -L 10
-bind l resize-pane -R 10
-bind-key C-a last-window
-bind-key R source-file ~/.tmux.conf; display-message "~/.tmux.conf is reloaded"
-bind '"' split-window -c "#{pane_current_path}"
-bind % split-window -h -c "#{pane_current_path}"
-bind c new-window -c "#{pane_current_path}"
-bind > swap-pane -D       # swap current pane with the next one
-bind < swap-pane -U       # swap current pane with the previous one
 
 ########## PLUGINS ##########
 set -g @plugin 'tmux-plugins/tpm'
@@ -485,8 +460,28 @@ set -g @plugin 'jimeh/tmux-themepack'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'tmux-plugins/tmux-yank'
 
+set -g @resurrect-capture-pane-contents 'on'
+
+set -g @yank_action 'copy-pipe-no-clear'
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+
+########## BINDINGS ##########
+bind j resize-pane -D 10
+bind k resize-pane -U 10
+bind h resize-pane -L 10
+bind l resize-pane -R 10
+bind-key C-a last-window
+bind-key R source-file ~/.config/tmux/tmux.conf; display-message "~/.tmux.conf is reloaded"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+bind > swap-pane -D       # swap current pane with the next one
+bind < swap-pane -U       # swap current pane with the previous one
+bind -n MouseDrag1Pane if -Ft= '#{mouse_any_flag}' 'if -Ft= "#{pane_in_mode}" "copy-mode -M" "send-keys -M"' 'copy-mode -M'
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear "xclip -selection clipboard -i"
+bind-key -T copy-mode-vi MouseDown1Pane select-pane \; send-keys -X clear-selection
     '';
   };
 
