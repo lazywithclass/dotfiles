@@ -41,6 +41,8 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
   boot.kernelModules = [ "i2c-dev" "acpi_call" ];
 
+  boot.enableContainers = true;
+
   systemd.services.disable-panel-cabc = {
     description = "Disable ASUS panel content-adaptive brightness (CABC)";
     wantedBy = [ "multi-user.target" ];
@@ -73,6 +75,8 @@
   };
 
   powerManagement.enable = true;
+
+  programs.nix-ld.enable = true;
 
   networking.hostName = "dagobah";
 
@@ -230,11 +234,12 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
+    # rootless = {
+    #   enable = true;
+    #   setSocketVariable = true;
+    # };
     daemon.settings = {
+      dns = [ "8.8.8.8" "4.4.4.4" ];
       builder.gc = {
         enabled = true;
         defaultKeepStorage = "10GB";
@@ -279,7 +284,7 @@
   services.libinput = {
     enable = true;
     touchpad = {
-      horizontalScrolling = false;
+      horizontalScrolling = true;
       tapping = false;
     };
   };
