@@ -58,6 +58,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(after! projectile
+  (setq projectile-enable-caching nil))
+
 (setq c-basic-offset 2)
 
 (global-visual-line-mode t)
@@ -116,5 +119,10 @@
 (add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (setq clojure-indent-style 'always-align)
+
 (after! clojure-mode
   (setq clojure-align-forms-automatically t))
+
+(defun lazy/clj-reload ()
+  (interactive)
+  (cider-interactive-eval "(clj-reload.core/reload)"))

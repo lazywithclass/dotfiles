@@ -235,6 +235,7 @@ in
   home.file.".config/doom/init.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/init.el";
   home.file.".config/doom/packages.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/packages.el";
   home.file.".config/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/config";
+  home.file.".config/i3/startup-layouts.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/startup-layouts.sh";
   home.file.".config/i3/help".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/help";
   home.file.".config/i3blocks/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3blocks/config";
   home.file.".config/nixpkgs/config.nix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nixos/nixpkgs-config.nix";
@@ -538,5 +539,12 @@ bind-key -T copy-mode-vi MouseDown1Pane select-pane \; send-keys -X clear-select
     };
   };
 
+  services.unclutter = {
+    enable = true;
+    package = pkgs.unclutter-xfixes;
+    timeout = 1;   # seconds idle before hiding
+    threshold = 5; # pixels of movement to "wake" it
+    extraOptions = [ "ignore-scrolling" ];
+  };
 }
 

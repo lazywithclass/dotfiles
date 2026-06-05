@@ -30,6 +30,10 @@ interval=30
 markup=pango
 shell=/bin/bash
 
+[vram]
+command=echo "$(nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk -F', ' '{printf "VRAM %.1fG/%.1fG", $1/1024, $2/1024}')"
+interval=30
+
 [memory]
 command=echo "$(free -m | awk '/Mem:/{printf "RAM %.1fG/%.1fG", $3/1024, $2/1024}')"
 interval=30
