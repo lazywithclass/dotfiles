@@ -4,6 +4,11 @@
 
 { config, pkgs, lib, nixpkgs-unstable, ... }:
 
+let 
+  disableCabc = ''
+    echo '\_SB.ATKD.WMNB 0x0 0x53564544 {0x2A, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}' > /proc/acpi/call
+  '';
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -30,6 +35,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.resumeDevice = "/dev/disk/by-uuid/3d2ffafe-93fe-4f23-a997-f65465b585d3";
+  # lid -> hibernate (forward-compatible freeform form)
+  services.logind.settings.Login = {
+    HandleLidSwitch = "hibernate";
+    HandleLidSwitchExternalPower = "hibernate";   # without this, AC falls back to default (suspend)
+  };
+
   boot.kernelParams = [
     "acpi_backlight=video"
     "nvidia_drm.modeset=1"
@@ -51,10 +63,9 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    script = ''
-      echo '\_SB.ATKD.WMNB 0x0 0x53564544 {0x2A, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}' > /proc/acpi/call
-    '';
+    script = disableCabc; # cold boot
   };
+  powerManagement.resumeCommands = disableCabc;   # after suspend/hibernate resume
 
   programs.steam = {
     enable = true;
@@ -77,6 +88,10 @@
   powerManagement.enable = true;
 
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    xorg.libXxf86vm xorg.libXtst xorg.libXi xorg.libXrender
+    glib gtk3 libGL gdk-pixbuf pango cairo atk
+  ];
 
   networking.hostName = "dagobah";
 
@@ -188,7 +203,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -226,13 +241,15 @@
 
   services.supergfxd.enable = true;
 
-  services.asusd = {
-    enable = true;
-    enableUserService = true;
-  };
+  # TODO when enabled the laptop keybord starts going mad
+  # services.asusd = {
+  #   enable = true;
+  #   enableUserService = true;
+  # };
 
   virtualisation.docker = {
     enable = true;
+    package = pkgs.docker_29;
     enableOnBoot = true;
     # rootless = {
     #   enable = true;
@@ -281,18 +298,16 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput = {
-    enable = true;
-    touchpad = {
-      horizontalScrolling = true;
-      tapping = false;
-    };
-  };
-
+  # TODO is this needed?
+  # services.libinput = {
+  #   enable = true;
+  #   touchpad = {
+  #     horizontalScrolling = true;
+  #     tapping = false;
+  #   };
+  # };
+  #
   programs.zsh.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # also, groups
   users.users.lazywithclass = {
     isNormalUser = true;
     description = "Alberto Zaccagni";
@@ -310,13 +325,15 @@
     pkgs.pinentry-curses
     pkgs.brightnessctl
     pkgs.supergfxctl
+    pkgs.neovim
   ];
 
-  environment.etc."libinput/local-overrides.quirks".text = ''
-    [ASCF1400 Touchpad]
-    MatchName=ASCF1400:00 2808:0242 Touchpad
-    ModelBouncingKeys=1
-  '';
+  # TODO check if this is required
+  # environment.etc."libinput/local-overrides.quirks".text = ''
+  #   [ASCF1400 Touchpad]
+  #   MatchName=ASCF1400:00 2808:0242 Touchpad
+  #   ModelBouncingKeys=1
+  # '';
 
   # Enable the OpenSSH daemon.
   services.openssh = {
