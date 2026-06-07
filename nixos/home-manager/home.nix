@@ -141,7 +141,6 @@ in
     pkgs.xhost
     pkgs.xkill
     pkgs.xkill
-    pkgs.voxinput
     pkgs.vscode
     pkgs.wget
     pkgs.wgnord
@@ -151,12 +150,22 @@ in
     pkgs.z-lua
   ];
 
-  xdg.configFile."clojure/deps.edn".text = ''
-    {:aliases 
-      {:deps-new 
+  # xdg.enable = true;
+
+  home.file.".clojure/deps.edn".text = ''
+    {:aliases
+      {:deps-new
         {:replace-deps {io.github.seancorfield/deps-new
-		         {:git/tag "v0.11.1" :git/sha "FIXME"}}
-                       :ns-default org.corfield.new}}}
+                        {:git/tag "v0.11.1" :git/sha "FIXME"}}
+         :ns-default org.corfield.new}
+
+       :storm
+        {:classpath-overrides {org.clojure/clojure nil}
+         :extra-deps {com.github.flow-storm/clojure       {:mvn/version "1.12.5"}
+                      com.github.flow-storm/flow-storm-dbg {:mvn/version "4.5.9"}}
+         :jvm-opts ["-Dflowstorm.startRecording=false"
+                    "-Dclojure.storm.instrumentEnable=true"
+                    "-Dclojure.storm.instrumentAutoPrefixes=true"]}}}
   '';
 
   xdg.dataFile."nemo/actions/compress.nemo_action".text = ''
