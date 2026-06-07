@@ -126,3 +126,7 @@
 (defun lazy/clj-reload ()
   (interactive)
   (cider-interactive-eval "(clj-reload.core/reload)"))
+
+(setenv "CLJ_CONFIG" "/home/lazywithclass/.clojure")
+(setenv "LD_LIBRARY_PATH" "/run/current-system/sw/share/nix-ld/lib")
+
