@@ -104,7 +104,7 @@
 (setq projectile-enable-caching nil)
 (setq projectile-indexing-method 'alien)
 
-(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+;; (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
 (after! lsp-java
   ;; (setq lsp-java-java-path "/usr/lib/jvm/java-17-openjdk/bin/java")
@@ -129,4 +129,14 @@
 
 (setenv "CLJ_CONFIG" "/home/lazywithclass/.clojure")
 (setenv "LD_LIBRARY_PATH" "/run/current-system/sw/share/nix-ld/lib")
+
+(after! cider
+  (setq cider-use-xref nil)
+  (add-hook! 'cider-mode-hook
+    (defun lazy/cider-prefer-lsp-completion ()
+      (remove-hook 'completion-at-point-functions
+                   #'cider-complete-at-point t))))
+
+;; ignore projectile-git-command "unsafeness" in .dir-locals.el
+(put 'projectile-git-command 'safe-local-variable #'stringp)
 
