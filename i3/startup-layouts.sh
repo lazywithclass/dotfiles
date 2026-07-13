@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
-L="$HOME/.config/i3/layouts"
+set -u
 
-# 1. placeholders first
-i3-msg "workspace \"1:スタディ\";   append_layout $L/ws1.json"
-i3-msg "workspace \"2:コード\";     append_layout $L/ws2.json"
-i3-msg "workspace \"3:ソーシャル\"; append_layout $L/ws3.json"
-i3-msg "workspace \"4:ブラウザ\";   append_layout $L/ws4.json"
-i3-msg "workspace \"5\";            append_layout $L/ws5.json"
-
-# 2. then launch — they map into the waiting placeholders regardless of focus
 obsidian &
 kitty -e bash -c 'tmux new-session -d -s main && tmux run-shell "$(tmux show-option -gqv @resurrect-restore-script-path)"; tmux attach -t main' &
 Telegram &
@@ -16,5 +8,22 @@ discord &
 brave &
 thunderbird &
 
-# 3. land on ws1
+place() {
+  local class=$1 ws=$2
+  for _ in $(seq 1 100); do
+    if i3-msg -t get_tree | grep -qE "\"class\":\"$class"; then
+      i3-msg "[class=\"$class\"] move to workspace \"$ws\"" >/dev/null
+      return
+    fi
+    sleep 0.2
+  done
+}
+
+place obsidian    "1:スタディ"
+place kitty       "2:コード"
+place Telegram    "3:ソーシャル"
+place discord     "3:ソーシャル"
+place Brave       "4:ブラウザ"
+place thunderbird "5:メール"
+
 i3-msg 'workspace "1:スタディ"'

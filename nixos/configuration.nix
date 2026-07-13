@@ -42,6 +42,8 @@ in
     HandleLidSwitchExternalPower = "hibernate";   # without this, AC falls back to default (suspend)
   };
 
+  services.udisks2.enable = true;
+
   boot.kernelParams = [
     "acpi_backlight=video"
     "nvidia_drm.modeset=1"
@@ -66,6 +68,8 @@ in
     script = disableCabc; # cold boot
   };
   powerManagement.resumeCommands = disableCabc;   # after suspend/hibernate resume
+
+  systemd.user.services.nm-applet.serviceConfig.Restart = "on-failure";
 
   programs.steam = {
     enable = true;
@@ -321,11 +325,12 @@ in
   environment.systemPackages = with pkgs; [
     pkgs.asusctl
     pkgs.ddcutil
+    pkgs.neovim
     pkgs.nvtopPackages.nvidia  # GPU monitoring, useful to verify GPU is actually used
+    pkgs.openfortivpn
     pkgs.pinentry-curses
     pkgs.brightnessctl
     pkgs.supergfxctl
-    pkgs.neovim
   ];
 
   # TODO check if this is required

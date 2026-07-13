@@ -203,7 +203,11 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+# bindsym $mod+r mode "resize"
+# bindsym $mod+r exec i3-input -F 'title_format "%s"' -P 'New title: '
+# bindsym $mod+r exec i3-msg title_format \\"$(rofi -dmenu -p 'New title')\\"
+ #bindsym $mod+t exec i3-msg title_format \\"$(rofi -dmenu -l 1 -p 'New title')\\"
+bindsym $mod+r exec --no-startup-id ~/.config/i3/retitle.sh
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

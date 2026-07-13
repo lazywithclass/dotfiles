@@ -13,3 +13,6 @@
 
 (package! rainbow-delimiters
   :recipe (:host github :repo "Fanael/rainbow-delimiters" :files ("*.el")))
+
+(package! difftastic
+  :recipe (:host github :repo "pkryger/difftastic.el" :files ("*.el")))

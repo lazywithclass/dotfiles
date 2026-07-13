@@ -77,6 +77,7 @@ in
     pkgs.cljfmt # TODO should not be global?
     pkgs.clojure-lsp # TODO should not be global?
     pkgs.dbeaver-bin
+    pkgs.difftastic
     pkgs.discord
     pkgs.docker-compose
     pkgs.emacs
@@ -117,6 +118,8 @@ in
     pkgs.noto-fonts-cjk-sans
     pkgs.obsidian
     pkgs.openvpn
+    # pkgs.openfortivpn
+    # pkgs.openfortivpn-webview
     pkgs.pandoc
     pkgs.p7zip
     pkgs.pasystray
@@ -245,6 +248,7 @@ in
   home.file.".config/doom/packages.el".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/doom.d/packages.el";
   home.file.".config/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/config";
   home.file.".config/i3/startup-layouts.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/startup-layouts.sh";
+  home.file.".config/i3/retitle.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/retitle.sh";
   home.file.".config/i3/help".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3/help";
   home.file.".config/i3blocks/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/i3blocks/config";
   home.file.".config/nixpkgs/config.nix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nixos/nixpkgs-config.nix";
@@ -304,7 +308,7 @@ in
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "nvim";
   };
   home.sessionPath = [ "${config.home.homeDirectory}/.config/emacs/bin" ];
 
@@ -554,6 +558,13 @@ bind-key -T copy-mode-vi MouseDown1Pane select-pane \; send-keys -X clear-select
     timeout = 1;   # seconds idle before hiding
     threshold = 5; # pixels of movement to "wake" it
     extraOptions = [ "ignore-scrolling" ];
+  };
+
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    notify = true;
+    tray = "auto";  # or "never" if you don't want the i3bar tray icon
   };
 }
 

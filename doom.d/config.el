@@ -77,7 +77,9 @@
 
 (setq display-line-numbers-type 'relative)
 
-(setq lsp-ui-doc-show-with-cursor nil)
+(setq lsp-ui-doc-enable nil)
+; (setq lsp-ui-doc-show-with-cursor nil)
+; (setq lsp-ui-doc-show-with-mouse nil)
 
 (after! lsp-mode
   (setq lsp-diagnostics-provider :flycheck))
@@ -123,6 +125,9 @@
 (after! clojure-mode
   (setq clojure-align-forms-automatically t))
 
+(after! lsp-mode
+  (setq lsp-eldoc-enable-hover nil))
+
 (defun lazy/clj-reload ()
   (interactive)
   (cider-interactive-eval "(clj-reload.core/reload)"))
@@ -132,6 +137,13 @@
 
 (after! cider
   (setq cider-use-xref nil)
+
+  ;; reload namespaces when testing
+  (defun +my/cider-refresh (&rest _) (cider-ns-refresh))
+  (advice-add 'cider-test-run-test     :before #'+my/cider-refresh)
+  (advice-add 'cider-test-run-ns-tests :before #'+my/cider-refresh)
+
+  ;; no docs in modeline on mouse over 
   (add-hook! 'cider-mode-hook
     (defun lazy/cider-prefer-lsp-completion ()
       (remove-hook 'completion-at-point-functions
@@ -140,3 +152,23 @@
 ;; ignore projectile-git-command "unsafeness" in .dir-locals.el
 (put 'projectile-git-command 'safe-local-variable #'stringp)
 
+;; use difftastic as the default magit diff/show backend
+(after! magit
+  (require 'difftastic)
+  (advice-add 'magit-diff-dwim   :override #'difftastic-magit-diff)
+  (advice-add 'magit-show-commit :override #'difftastic-magit-show)
+
+  ;; always pop the difftastic buffer below, full width, large height
+  (setq difftastic-display-buffer-function
+        (lambda (buffer-or-name _requested-width)
+          (pop-to-buffer buffer-or-name
+                         '((display-buffer-at-bottom)
+                           (window-height . 0.8)))))
+
+  (defun lazy/difftastic-magit-file-diff ()
+    "Show difftastic diff for the file at point in magit-status."
+    (interactive)
+    (let ((file (magit-file-at-point t)))
+      (difftastic-magit-diff (car (magit-diff-arguments)) (list file))))
+
+  (keymap-set magit-file-section-map "D" #'lazy/difftastic-magit-file-diff))
