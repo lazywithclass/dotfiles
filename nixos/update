@@ -2,3 +2,5 @@
 
 sudo nix flake update --flake /etc/nixos
 sudo nixos-rebuild switch --flake /etc/nixos#dagobah
+cp /etc/nixos/configuration.nix  ~/workspace/dotfiles/nixos/
+cp /etc/nixos/update  ~/workspace/dotfiles/nixos/

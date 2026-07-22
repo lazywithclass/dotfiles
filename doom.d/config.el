@@ -37,6 +37,7 @@
 (setq evil-want-fine-undo t)
 (after! undo-fu
   (setq undo-fu-allow-undo-in-region t))
+(map! :v "u" #'undo) ;; avoid evil-downcase
 
 (setq-default evil-escape-delay 0.2)
 (setq-default evil-escape-key-sequence "jk")

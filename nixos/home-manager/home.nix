@@ -71,6 +71,7 @@ in
     pkgs.zed-editor
 
     pkgs.awscli2
+    pkgs.aws-sam-cli
     pkgs.bazecor
     pkgs.brave
     pkgs.curlFull
