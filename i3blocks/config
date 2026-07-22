@@ -4,8 +4,8 @@ interval=5
 markup=pango
 shell=/bin/bash
 
-[openvpn]
-command=ip link show tun0 2>/dev/null | grep -q "UP" && echo '<span color="#00CC00">OVPN '"$(ip -4 addr show tun0 | awk '/inet/{print $2}')"'</span>' || echo '<span color="#666666">OVPN</span>'
+[openfortivpn]
+command=ip link show ppp0 2>/dev/null | grep -q "UP" && echo '<span color="#00CC00">FortiVPN '"$(ip -4 addr show ppp0 | awk '/inet/{print $2}')"'</span>' || echo '<span color="#666666">FortiVPN</span>'
 interval=5
 markup=pango
 shell=/bin/bash
